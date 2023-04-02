@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th= "http://www.thymeleof.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Details</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" th:href="@{../css/base.css}">
+    <link rel="stylesheet" th:href="@{../css/main.css}">
+    <link rel="stylesheet" th:href="@{../css/product_details.css}">
+    <link rel="stylesheet" th:href="@{../css/gird.css}">
+    <link rel="stylesheet" th:href="@{../css/responsive.css}">
+</head>
+<body>
+    <div class="main">
+        <div th:include="navi.html"></div>
+        <div class="container">
+            <div class="container__details-sp">
+                <div class="grid wide">
+                    <div class="container-details">
+                        <div class="row c-gutter">
+                                <!-- left -->
+                            <div class="col l-4 m-4 c-12">
+                                <div class="flex flex-column">
+                                    <div class="U4yQzj">
+                                        <div class="UuFd15">
+                                        </div>
+                                        <div class="container__left-img">
+                                            <div class="VWiifV qO2bZw" th:style="'background-image: url(' + ${book.imageB} + '); background-size: contain; background-repeat: no-repeat;'"></div>
+                                        </div>
+                                    </div>
+                                        <!--  -->
+                                        <!-- hình ảnh -->
+                                    <div>
+                
+                                    </div>
+                                </div>
+                            </div>
+                                <!-- right -->
+                            <div class="col l-8 m-8 c-12">
+                                    <div class="flex-auto flex-column container__right-wrap">
+                                        <!-- xếp hạng -->
+                                        <div class="container__right-name">
+                                            <span th:text="${book.nameB}">...</span>
+                                        </div>
+                                        <div class="container__home">
+                                            <div class="flex X5u-5c">
+                                                <div class="home-right-rating">
+                                                    <div class="home-right-rating-gpa">4.8</div>
+                                                    <div class="home-right__rating-star">
+                                                        <i class="home-right__rating--gold fa-solid fa-star"></i>
+                                                        <i class="home-right__rating--gold fa-solid fa-star"></i>
+                                                        <i class="home-right__rating--gold fa-solid fa-star"></i>
+                                                        <i class="home-right__rating--gold fa-solid fa-star"></i>
+                                                        <i class="home-right__rating--gold fa-solid fa-star"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="home-right-quantity">
+                                                <div class="home-right-number">1.4k</div>
+                                                <div>Đánh giá</div>
+                                            </div>
+                                            <div class="home-right-quantity">
+                                                <div class="home-right-number">1.4k</div>
+                                                <div>Đã bán</div>
+                                            </div>
+                                        </div>
+                                        <!-- end rating -->
+                                        <div class="container__origin">Ngày phát hành: <span th:text="${book.releaseDate}">...</span></div>
+                                        <div class="container__origin">Tác giả: <span th:text="${book.author}">...</span></div> 
+                                        <div class="container__origin">Số trang: <span th:text="${book.pages}">...</span></div>
+                                        <!-- price 
+                                        <div class="container__price">
+                                            <div class="container__price-old">
+                                                <span id= "price-old" th:text="${book.price}">...</span> đ
+                                            </div>
+                                            <div class="container__price-new">
+                                                <span id= "price-new" th:text="${book.priceNew}">...</span> đ
+                                            </div>
+                                            <div class="container__price-discount">
+                                                Giảm: <span th:text="${book.discount}">...</span>%
+                                            </div>
+                                        </div>
+                                        end price -->
+                                      
+                                        <!-- số lương và đặt hàng -->
+                                        <div class="container__right-purchase" style="display: block;">
+                                            <div class="container__right-purchase-list">
+                                                <div class="flex flex-column">
+                                                    <div class="flex container__right-purchase-item-center">
+                                                        <div class="container__right-purchase-item-text">Số lượng</div>
+                                                        <div style="display: flex; flex-direction: row; align-items: center;">
+                                                            <div style="margin-right: 15px;">
+                                                                <div class="container__right-purchase-input" style="display: flex; flex-direction: row;">
+                                                                    <button class="container__right-purchase-input-btn" id="container__left">
+                                                                        <i class="fa-solid fa-minus"></i>
+                                                                    </button>
+                                                                    <input type="text" class="container__right-purchase-input-text" value="1" role="spinbutton" aria-valuenow="1">
+                                                                    <button class="container__right-purchase-input-btn" id="container__right">
+                                                                        <i class="fa-solid fa-plus"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- dtn -->
+                                            <div style="margin-top: 40px;">
+                                                <div class="container__right-purchase-wrap">
+                                                    <div class="container__right-purchase-btn" style="display: flex; flex-direction: row;">
+                                                     <!-- đã có tài khoản -->
+                                                    	
+                                                        
+	                                                        <button id="btn-add--login" class="btn btn-tinted btn--l container__right-purchase-btn__cart iFo-rx" type="button"aria-disabled="false">
+	                                                            <span>Thêm vào giỏ hàng</span>
+	                                                        </button>
+	                                                        <button id="btn-buynow--login" class="btn btn-solid-primary btn--l container__right-purchase-btn__buy iFo-rx" type="button" aria-disabled="false">Mua ngay</button>
+                                                        
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                            <script>
+				                				// xét xem người đăng nhập khi nhấn mua hàng mà chưa có tài khoản
+				                                const btnAT = document.querySelector('#btn-add--login');
+				                                const btnBT = document.querySelector('#btn-buynow--login');
+				                                if(btnAT != undefined) {
+					                                btnAT.addEventListener('click', function() {
+					                                  localStorage.setItem('buttonClicked', 'login');
+					                                });	
+					                                
+					                     
+				                                }
+				                                
+				                                if(btnBT != undefined) {
+					                                btnBT.addEventListener('click', function() {
+					                                  localStorage.setItem('buttonClicked', 'login');
+					                                });
+									            }
+                        					</script>
+                                        </div>
+                                        <!-- end số lượng và đặt hàng -->
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script type="text/javascript" th:src="@{../javascript/base.js}"></script>
+                <script th:src="@{../javascript/main.js}"></script>
+                <!-- xử lý chọn 1 -->
+                
+                <script th:src="@{../javascript/validate.js}"></script>
+                <script>
+                	
+                    Validator2({
+                        id: ".container__header-btn-1",
+                        action: "container__header-btn--selecter"   
+                    });
+                    Validator2({
+                        id: ".container__header-btn-2",
+                        action: "container__header-btn--selecter"   
+                    });
+                    
+                </script>
+
+                <!-- end -->
+                <!-- chi tiết sản phẩm -->
+                <div class="container-wrap"></div>
+                <div class="grid wide">
+                    <div class="container-details-conten">
+                        <div class="row c-gutter">
+                            <div style="width: 95%;">
+                                <div class="container-details-frame">Mô tả sản phẩm</div>
+                                <div class="container-details-list">
+                                    <div class="container-details-item">
+                                        <div th:text="${book.title}">...</div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+               <!-- sản phẩm -->
+            <!-- đồ thú cưng -->
+            <div class="container__details-product">
+                <div class="container__details-product-text">Các sản phẩm khác của shop</div>
+                        
+                   <div class="grid wide">
+	                    <div class="row sm-gutter">
+	                        <div class="col l-12 m-12">
+	                            <div class="home-product">
+	                                <div class="row sm-gutter home-product-add">
+	                                	<div th:each= "p: ${listProduct}" class="col l-2-4 m-4 c-6 home-product-list">
+		                                	<a class="home-product-item" th:href="@{/book/{id}(id = ${p.idB})}">
+		                                       	<div class="home-product-item__img"  th:style="'background-image: url(' + ${p.imageB} + ');'"></div>
+		                                        	<h5 class="home-product-item__name" th:text="${p.nameB}">...</h5>
+		                                        <div class="home-product-item__origin">
+		                                        	<span class="home-product-item__origin-title" th:text="${p.author}">...</span>
+		                                      	</div>
+		                                	</a>
+		                            	</div>
+	                                    
+	                                </div>
+	                            </div>
+	                            <div class="pagination__add">
+	                                <!-- <a class="pagination__add-list" href="">Tải thêm</a> -->
+	                                <button class="pagination__add-list" onclick="loadMore()">Tải thêm</button>
+	                            </div>
+	                            <script>
+	                                var displayedProducts = 18;
+	                                var productList = document.querySelector(".home-product-add");
+	                                var products = productList.querySelectorAll(".home-product-list");
+	                                if (displayedProducts >= products.length) {
+	                                    document.querySelector(".pagination__add").style.display = "none";
+	                                }
+	                                else {
+	                                	document.querySelector(".pagination__add").style.display = "block";
+	                                }
+	                                
+	                                //console.log(productList)
+	                                function loadMore() {
+	                                // Tăng số lượng sản phẩm đã hiển thị lên 3
+	                                    displayedProducts += 18;
+	                                    
+	                                    // Lấy danh sách các sản phẩm
+	                                    
+	                                   
+	                                    // Hiển thị các sản phẩm mới
+	                                    for (var i = 0; i < products.length; i++) {
+	                                        if (i < displayedProducts) {
+	                                            products[i].style.display = "block";
+	                                        }
+	                                    }
+	                                    
+	                                    // Ẩn nút "Tải thêm" nếu đã hết sản phẩm
+	                                    if (displayedProducts >= products.length) {
+	                                        document.querySelector(".pagination__add").style.display = "none";
+	                                    }
+	                                }
+	
+	                            </script>
+	                        </div>                      
+	                    </div>
+	                </div>
+                <!-- end đồ thú cưng -->
+                </div>
+                <script type="text/javascript" th:src="@{../javascript/main.js}"></script>
+                <div th:include="footer.html"></div>
+            </div>
+            <!-- end -->
+            
+        </div>
+        
+    </div>
+</body>
+</html>

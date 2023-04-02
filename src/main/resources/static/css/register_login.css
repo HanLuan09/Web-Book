@@ -1,0 +1,393 @@
+/* authen modal  đăng ký*/
+.modal {
+    background: linear-gradient(90deg,#ff933f,#f93782 69%,#f93782);
+    cursor: none;
+}
+.auth-form {
+    width: 550px;
+    background-color: var(--while-color);
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: default;
+}
+.auth-form__container {
+    padding: 0 32px;
+}
+.auth-form__header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+.auth-form__heading {
+    font-size: 2.6rem;
+    font-weight: 400px;
+    color: var(--text-color);
+}
+
+.auth-form__input {
+    width: 100%;
+    height: 40px;
+    margin-top: 16px;
+    padding: 0 13px;
+    font-size: 1.4rem;
+    border: 1px solid var(--border-color);
+    border-radius: 2px;
+    outline: none;
+}
+.auth-form__input:focus {
+    border-color: #777;
+}
+.auth-form__aside {
+    margin-top: 18px;
+}
+.auth-form__text {
+    font-size: 1.3rem;
+    line-height: 1.8rem;
+    text-align: center;
+    padding: 0 30px;
+}
+.auth-form__text-link {
+    text-decoration: none;
+    color: #EF5122;
+}
+
+.auth-form__controls {
+    margin-top: 50px;
+    display: flex;
+    justify-content: flex-end;
+}
+.auth-form__controls--register {
+    margin-top: -3px;
+}
+.auth-form__form--register {
+    margin-top: -15px;
+}
+.auth-form__controls-back {
+    margin-right: 8px;
+}
+.auth-form__group + .auth-form__group {
+    margin-top: 5px;
+} 
+.auth-form__group--name {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* button */
+
+
+.auth-form__social-text {
+    display: flex;
+    justify-content: center;
+}
+
+.auth-form__social-text__text {
+    font-size: 1.45rem;
+    text-align: center;
+    color: #999;
+    padding: 10px 0;
+}
+
+.auth-form__social-text__text-link {
+    text-decoration: none;
+    color: #EF5122;
+}
+
+/* Đang nhập */
+.auth-form__help {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.auth-form__help-link {
+    text-decoration: none;
+    font-size: 1.4rem;
+    color: #999;
+}
+
+.auth-form__help-separate {
+    height: 20px;
+    display: block;
+    margin: 0 10px 4px;
+    border-left: 1px solid var(--border-color);
+
+}
+
+.auth-form__help--forgot {
+    color: #EF5122;
+}
+
+.form-message {
+    font-size: 1.1rem;
+    margin-left: 2px;
+    color: #EF5122;
+}
+
+/*  */
+/* Địa chỉ giao hàng */
+.auth-form__aside-address {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 12px;
+    margin-right: 10px;
+    height: 40px;
+    min-width: 90px;
+    border: 1px solid rgba(0,0,0,.09);
+    box-sizing: border-box;
+    box-shadow: 0 1px 1px rgb(0 0 0 / 3%);
+    border-radius: 2px;
+    color: #757575;
+    font-size: 1.3rem;
+    font-weight: 300;
+}
+.auth-form__aside-home{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.auth-form__aside-address:hover {
+    cursor: pointer;
+}
+.auth-form__aside-address--click {
+    color: #ee4d2d;
+    border-color: #ee4d2d;
+}
+.auth-form__aside-method {
+    padding-top: 20px;
+    font-size: 1.6rem;
+}
+/* test login  faceboook và google*/
+
+.mod-tabs {
+    background-color: #eff0f5;
+}
+.mod-tabs-header {
+    height: 48px;
+    background: #fff;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-shadow: 0 1px 2px 0 rgb(0 0 0 / 15%);
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 15%);
+    margin-bottom: 8px;
+}
+.mod-tabs-header li {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    text-align: center;
+    line-height: 48px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #9e9e9e;
+    border-bottom: 5px solid #fff;
+}
+/* .mod-tabs .mod-tabs-header li.mod-tabs-item--register, */
+.mod-tabs .mod-tabs-header li.active {
+    border-bottom: 5px solid #fe4960;
+    color: #fe4960;
+}
+.mod-tabs-header li.active {
+    border-bottom: 5px solid #f57224;
+    color: #f57224;
+}
+
+/*  */
+.login-main {
+    /* height: 210px; */
+    background: #fff;
+}
+.login-form {
+    background-color: #fff;
+    padding: 16px 20px;
+}
+.mod-input {
+    position: relative;
+    min-height: 66px;
+}
+.mod-input label {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    font-size: 14px;
+    color: #999;
+    transition: all 0.2s ease-in-out;
+    z-index: 1;
+}
+label {
+    cursor: default;
+}
+.mod-input input {
+    top: 14px;
+    border: 0;
+    height: 30px;
+    line-height: 30px;
+    font-size: 16px;
+    outline: none;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding-right: 35px;
+    -webkit-transition: all .5s ease;
+    transition: all .5s ease;
+}
+.mod-input b, .mod-input input {
+    position: absolute;
+    left: 0;
+    width: 100%;
+}
+/* js */
+.mod-input-label-up {
+    transform: translateY(-18px);
+    font-size: 12px;
+    color: #666666;
+}
+/*  */
+img, input {
+    vertical-align: middle;
+}
+.mod-input {
+    position: relative;
+}
+.mod-input span {
+    font-size: 1.2rem;
+    position: absolute;
+    top: -5px;
+    line-height: 16px;
+    color: #f44336;
+    visibility: visible;
+    display: block;
+}
+.mod-input b, .mod-input input {
+    position: absolute;
+    left: 0;
+    width: 100%;
+}
+.mod-input b {
+    z-index: 3;
+    top: 44px;
+    height: 1px;
+    background: #c8c8c8;
+}
+b {
+    font-weight: bold;
+}
+.login-forgot {
+    text-align: right;
+    margin: 20px 0 10px;
+}
+.login-forgot a {
+    color: #049cb9;
+}
+/*  */
+.login-btn {
+    padding: 0 8px;
+    background-color: #fff;
+}
+.mod-button {
+    display: block;
+    width: 100%;
+    height: 48px;
+    line-height: 48px;
+    text-align: center;
+    color: #fff;
+    font-size: 18px;
+    background-color: #f57224;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+}
+.login-btn .mod-button {
+    background-image: linear-gradient(90deg,#f7923e,#f53782);
+}
+/*  */
+.login-foot {
+    padding-top: 30px;
+    background-color: #fff;
+}
+.login-foot-inner {
+    padding: 17px 8px;
+}
+.login-foot-inner-line {
+    font-size: 10px;
+    color: #757575;
+    margin: 10px auto;
+    text-align: center;
+    position: relative;
+}
+.login-foot-inner-line span {
+    position: relative;
+    z-index: 1;
+    background: #eff0f5;
+    padding: 0 10px;
+    background-color: #fff;
+}
+.login-foot-inner-line:after {
+    content: " ";
+    left: 0;
+    top: 7px;
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background-color: #dbdbdb;
+}
+.mod-third-party-login {
+    margin-top: 18px;
+}
+.mod-third-party-login {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.mod-third-party-login-fb {
+    margin-right: 4px;
+    background: #4267b2;
+}
+.mod-third-party-login-btn {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    border-radius: 4px;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+}
+.mod-third-party-login-fbimg {
+    width: 29px;
+    height: 29px;
+    margin-right: 4px;
+    margin-left: 6px;
+}
+.mod-third-party-login-text {
+    font-size: 15px;
+    color: #fff;
+}
+.mod-third-party-login-google {
+    margin-left: 4px;
+    background: #4285f4;
+}
+
+.mod-tabs-content {
+    display: none;
+}
+.mod-tabs-content--block {
+    display: block;
+}

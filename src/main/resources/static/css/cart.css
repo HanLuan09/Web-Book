@@ -1,0 +1,105 @@
+
+.container {
+    position: absolute;
+    top: calc(var(--height-header) + 40px);
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.container__wrap {
+    border: 1px solid rgba(0,0,0,.125);
+    padding: 30px 0;
+}
+.container__wrap + .container__wrap {
+    margin-top: 20px;
+}
+.container-list + .container-list {
+    margin-top: 20px;
+}
+.container_cart {
+    width: 100%;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 7%), 0 4px 6px -2px rgb(0 0 0 / 5%);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .5rem;
+}
+.container_cart-wrap {
+    width: 100%;
+    padding: 10px;
+}
+.container_cart-img {
+    width: 85%;
+    height: 125px;
+}
+.container_cart-list {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container_cart-text {
+    display: flex;
+    flex-direction: column;
+}
+.container_cart-text-name {
+    font-size: 1.9rem;
+    font-weight: 300;
+    color: var(--text-color);
+    line-height: 1.8rem;
+    height: 3.6rem;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    display: block;
+}
+.container_cart-text-item {
+    font-size: 1.4rem;
+    color: var(--text-color);
+}
+.container_cart-item-input {
+    width: 70px;   
+    text-align: center;
+}
+.container_cart-item-btn {
+    background-color: #fff;
+    cursor: pointer;
+    width: 30px;
+}
+.container_cart-item-input,
+.container_cart-item-btn {
+    height: 30px;
+    outline: none;
+    border: 0;
+    border: 1px solid rgba(0,0,0,.09);
+    color: rgba(0,0,0,.8);
+}
+.container_cart-list-pay {
+    color: rgb(249, 49, 84);
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+.container_cart-list-delete {
+    color: rgb(249, 49, 84);
+    font-size: 1.5rem;
+}
+.container__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.container__header-total {
+    display: inline-block;
+    font-size: 1.6rem;
+    margin: 0 30px;
+}
+.container__header-btn {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 30px;
+}

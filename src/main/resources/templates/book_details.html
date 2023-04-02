@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th= "http://www.thymeleof.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Details</title>
+    <link rel="stylesheet" th:href="@{../css/base.css}">
+    <link rel="stylesheet" th:href="@{../css/gird.css}">
+    <link rel="stylesheet" th:href="@{../css/book_details.css}">
+    <style>
+        b{
+        	font-size: 24px;
+        	font-weight: 700;
+        }
+        .header_text {
+        	padding-left: 30px;
+		    text-decoration: none;
+		    color: #fff;
+		    cursor: pointer;
+		}
+        .footer_button {
+        	float: right;
+        	margin: 0 40px;
+        	margin-bottom: 20px;
+        }
+        
+    </style>
+</head>
+<body>
+	<form id="form" th:object="${book}" th:action="@{/admin/save/{id}(id = ${book.idB})}" th:method="${idBook}<=0 ? POST : PUT">
+	<input type="hidden" name="idB" id ="idBook" th:value = "${book.idB}">
+    <div class="main">
+       <div class="container">
+            <div class="grid wide " style="padding: 0 50px;">
+                <div class="row header">
+                    <h2><a class="header_text" href=""><b>Web Book</b></a></h2>
+                </div>
+                
+                <div class="row container-wrap">
+                    <div class="col l-6 content">
+                        <div class="flex container-list">
+                            <div class="auth-form__group">
+                                <label class="container-label" for="">Tiêu đề</label>
+                                <input id ="nameB" name="nameB" class="container-text" type="text" placeholder="Nhập tiêu đề" th:value = "${book.nameB}">
+                                <span class="form-message"></span>
+                            </div>
+                            <div class="auth-form__group">
+                                <label class="container-label" for="">Tác giả</label>
+                                <input id="author" name="author" class="container-text" type="text" placeholder="Nhập tên tác giả" th:value="${book.author}">
+                                <span class="form-message"></span>
+                            </div>
+                            
+                        </div>
+                        <div class="auth-form__group">
+                            <label class="container-label" for="" style="margin-left: 20px;">Mô tả về sách</label>
+                            <div class="container-description">
+                                <textarea id="title" name="title" class="fixed-size" placeholder="Nhập mô tả" th:value = "${book.title}" th:text = "${book.title}">...</textarea>
+                            </div>
+                            <span class="form-message"></span>
+                            
+                        </div>
+                        <div class="flex container-list">
+                            <div class="auth-form__group">
+                                <label class="container-label" for="">Ngày phát hành</label>
+                                <input class="container-text" name="date" type="date" th:value = "${book.releaseDate}">
+                                <span class="form-message"></span>
+                            </div>
+                            <div class="auth-form__group">
+                                <label class="container-label" for="">Số trang</label>
+                                <input class="container-text" name="pages" type="number" th:value = "${book.pages}">
+                                <span class="form-message"></span>
+                            </div>  
+                        </div>
+                        <div class="flex container-list">
+                            <div>
+                                <label class="container-label" for="">Thể loại</label>
+                                <select class="container-text" name="cateId" id="">
+ 									<option th:each="c: ${listCate}" th:value="${c.cid}" th:text="${c.cname}">...</option>    
+                                </select>
+                            </div>
+                       
+                        </div>
+                    </div>
+                    <div class="col l-6" >
+                        <div class="container-list">
+                            <div class="auth-form__group" style="display: flex; justify-content: center;">
+                                <label for="file-input" class="custom-file-upload">
+                                    Chọn ảnh
+                                  </label>
+                                  <input name="image" type="file" id="file-input" accept=".jpg,.jpeg,.png" style="display:none;" th:value="${book.imageB}">
+                                  <span class="form-message"></span>
+                                
+                            </div>
+                            <div class="container-img">
+                                <img id="preview-image" th:src="${book.imageB}" alt="" style=" width: 100%; height: 100%; background-size: contain; background-repeat: no-repeat;">
+                            </div>
+                        </div>
+                        <script>
+                            const fileInput = document.getElementById("file-input");
+                            const previewImage = document.getElementById("preview-image");
+                      
+                            fileInput.addEventListener("change", () => {
+                              const file = fileInput.files[0];
+                              const reader = new FileReader();
+                      
+                              reader.addEventListener("load", () => {
+                                previewImage.src = reader.result;
+                                // previewImage.style.backgroundImage= reader.result;
+                                previewImage.style.display = "block";
+                              });
+                      
+                              reader.readAsDataURL(file);
+                            });
+                          </script>
+                    </div>
+                </div>
+            </div>
+       </div>
+       <footer class="footer">
+            <div class="footer_button">
+            	<button class="btn btn--primary1" id="btn_add" type="submit">Add</button>
+            	<button class="btn btn--primary" id="btn_save" type="submit">Save</button>
+            	<button class="btn btn--primary2" id="btn_edit">Edit</button>
+            </div>
+            <script type="text/javascript">
+            	const idCheck = document.getElementById("idBook");
+            	const add = document.getElementById("btn_add");
+            	const save = document.getElementById("btn_save");
+            	const edit = document.getElementById("btn_edit");
+            	if(idCheck.value<=0){
+            		add.style.display ="block";
+            		save.style.display ="none";
+            		edit.style.display ="none";
+            	}
+            	else{
+            		add.style.display ="none";
+            		save.style.display ="none";
+            		edit.style.display ="block";
+            		var inputs = document.querySelectorAll('input, textarea,.custom-file-upload, select');
+						
+            		// Lặp qua danh sách các phần tử input và textarea và thêm/xoá thuộc tính readonly và disabled
+            		//document.querySelector('.custom-file-upload').style.cu
+            		inputs.forEach(function(input) {
+            		  
+            		    input.setAttribute('readonly', 'readonly');
+            		    input.setAttribute('disabled', 'disabled');
+            		  
+            		});
+
+            		edit.addEventListener('click', function(e){
+            			e.preventDefault();
+            			save.style.display='block';
+            			edit.style.display ="none";
+            			inputs.forEach(function(input) {
+                  		  if (input.hasAttribute('readonly') || input.hasAttribute('disabled')) {
+                  		    input.removeAttribute('readonly');
+                  		    input.removeAttribute('disabled');
+                  		  } else {
+                  		    input.setAttribute('readonly', 'readonly');
+                  		    input.setAttribute('disabled', 'disabled');
+                  		  }
+                  		});
+            		});
+            	}
+            </script>
+        </footer>
+    </div>
+	</form>
+	<script type="text/javascript" th:src="@{../javascript/validate.js}"></script>
+	<script>
+        // mong muốn 
+        //pc
+        // regster
+        Validator({
+            form: "#form",
+            formGroupSelector: ".auth-form__group",
+            errorSelector: ".form-message",
+            rules: [
+                Validator.isRequired('#title'),
+                Validator.isRequired('#nameB'),
+                Validator.isRequired('#author'),
+                
+                //Validator.isRequired('#file-input'),
+                //Validator.minLength('#password', 6),
+                
+            ]
+            
+        });
+        
+    </script>
+</body>
+</html>

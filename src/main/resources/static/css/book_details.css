@@ -1,0 +1,100 @@
+.flex {
+    display: flex;
+    justify-content: space-between;
+}
+input, select{
+    border: 1px solid #333;
+    border-radius: 2px;
+    outline: none;
+    padding: 0 8px;
+}
+select {
+    cursor: pointer;
+}
+label {
+    display: block;
+}
+body {
+    color: #566787;
+    background: #f5f5f5;
+    font-family: 'Varela Round', sans-serif;
+    font-size: 13px;
+}
+.header {
+    
+    padding-bottom: 15px;
+    background: linear-gradient(90deg,#ff933f,#f93782 69%,#f93782);
+    color: #fff;
+    padding: 30px 0;
+    margin-top: 40px;
+    border-radius: 2px 2px 0 0;
+}
+.container-wrap {
+    border: 1px solid #f5f5f5;
+    background-color: #fff;
+}
+.content {
+    border: 1px solid #f5f5f5;
+}
+.container-list {
+    margin: 30px 20px;
+}
+.container-label {
+    margin-bottom: 5px;
+    font-size: 1.4rem;
+    font-weight: 400;
+}
+.container-text {
+    height: 30px;
+    width: 24rem;
+}
+.container-description {
+    margin: 5px 20px;
+    justify-content: center;
+    height: 250px;
+    border: 1px solid #000;
+    display: flex;
+}
+.container-description-text {
+    width: 100%;
+}
+.container-img{
+    margin: 5px 20px;
+    justify-content: center;
+    /* min-height: 400px; */
+    max-height: 500px;
+    max-width: 500px;
+    border: 1px solid #f5f5f5;
+    display: flex;
+}
+.footer {
+            border-top: 4px solid #EE4D20;
+            padding: 30px 0;
+        }
+.fixed-size {
+            padding: 4px 8px;
+            width: 100%;
+            height: 100%;
+            resize: none; /* Không cho phép phóng to hay thu nhỏ */
+            outline: none;
+            border: 1px solid #f5f5f5;
+            border-radius: 2px;
+
+}
+        .custom-file-upload {
+            display: inline-block;
+            padding: 6px 12px;
+            cursor: pointer;
+            background-color: #ccc;
+            color: #fff;
+          }
+          
+          .custom-file-upload:hover {
+            background-color: #aaa;
+          }
+          
+          #file-input {
+            opacity: 0;
+            position: absolute;
+            left: -9999px;
+          }

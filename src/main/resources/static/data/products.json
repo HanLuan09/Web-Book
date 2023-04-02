@@ -1,0 +1,79 @@
+{
+    "pet" :[
+        {
+            "id": "1",
+            "name": "Chó CORGI",
+            "img": "https://dogily.vn/wp-content/uploads/2022/04/corgi-vang-trang-duc-4-400x400.png",
+            "price": "10.000.000",
+            "detail": {
+                "information": "Có 2 giống Corgi xứ Wales là Cardigan & Pembroke, tên gọi giống theo địa danh chúng xuất hiện. Sự khác biệt nổi bật là cấu trúc xương, chiều dài cơ thể. Corgi Cardigan có kích thước lớn hơn so với Pembroke. Cardigan có màu sắc đa dạng hơn, nhưng màu trắng không được chiếm ưu thế.",
+                "weight": "Pembroke đực từ 11-15 kg, cái nặng: 10-15 kg. Cardigan đực từ 14-18 kg, cái từ 12-16 kg.",
+                "hight": "Pembroke cao từ 25-31 cm. Cardigan từ 27-32 cm.",
+                "size": "nhỏ",
+                "source": "xứ Wales (vương quốc Anh)",
+                "birth": "2-5 con",
+                "longevity": "12-15 năm"
+           }
+        },
+        {
+            "id": "2",
+            "name": "Chó BICHON",
+            "img": "https://dogily.vn/wp-content/uploads/2022/06/cho-bichon-trang-cai-7-400x400.png",
+            "price": "15.000.000",
+            "detail": {
+                "information": "Giống chó Bichon Frise với bộ lông trắng tuyết được cắt tỉa cầu kỳ, sang chảnh. Cùng với ngoại hình nhỏ xinh và trí thông minh tuyệt đỉnh đang là giống chó cảnh thời thượng rất được giới trẻ yêu thích. Bichons là những người bạn đồng hành dễ thích nghi và hòa thuận với những con chó và trẻ em khác. Tính cách Bichon luôn vui vẻ tự tin, giàu tình cảm, mạnh dạn và hoạt bát. Luôn thu hút những nụ cười và những cái ôm ở bất cứ nơi đâu họ đến.",
+                "weight": "5,4-8kg",
+                "hight": "23-30cm",
+                "size": "trung bình",
+                "source": "Pháp",
+                "birth": "3-5 con",
+                "longevity": "13 -15 năm"
+            }
+        },
+        {
+            "id": "3",
+            "name": "Chó SHIBA INU",
+            "img": "https://dogily.vn/wp-content/uploads/2021/09/dan-3-cho-shiba-inu-mai-vang-trang-2-thang-tuoi-1-400x400.jpg",
+            "price": "9.400.000",
+            "detail": {
+                "information": "Chó Shiba ban đầu được lai tạo để săn chim, thú nhỏ & lơn rừng. Shiba Inu là một trong 6 giống chó bản địa của Nhật Bản gồm: Akita Inu (lớn), Shikoku, Kai, Hokkaido, Kishu (vừa) & Shiba Inu (size nhỏ). Chó Shiba có ngoại hình giống như một con cáo hoặc thú nhồi bông với đôi tai vểnh, mắt híp & đuôi xoăn. Shiba được xem như giống chó nhỏ nhất & cổ xưa nhất trong 6 giống chó Spitz nguồn gốc Nhật Bản trên.",
+                "weight": "chó đực từ 9-14 kg, cái nặng: 8-13 kg",
+                "hight": "đực từ 35-41 cm. Cái từ 33-38 cm.",
+                "size": "nhỏ",
+                "source": "Nhật Bản",
+                "birth": "2-3 con",
+                "longevity": "10-15 năm"
+            }
+        },
+        {
+            "id": "4",
+            "name": "Chó SHIBA INU",
+            "img": "https://dogily.vn/wp-content/uploads/2021/09/dan-3-cho-shiba-inu-mai-vang-trang-2-thang-tuoi-1-400x400.jpg",
+            "price": "9.400.000",
+            "detail": {
+                "information": "Chó Shiba ban đầu được lai tạo để săn chim, thú nhỏ & lơn rừng. Shiba Inu là một trong 6 giống chó bản địa của Nhật Bản gồm: Akita Inu (lớn), Shikoku, Kai, Hokkaido, Kishu (vừa) & Shiba Inu (size nhỏ). Chó Shiba có ngoại hình giống như một con cáo hoặc thú nhồi bông với đôi tai vểnh, mắt híp & đuôi xoăn. Shiba được xem như giống chó nhỏ nhất & cổ xưa nhất trong 6 giống chó Spitz nguồn gốc Nhật Bản trên.",
+                "weight": "chó đực từ 9-14 kg, cái nặng: 8-13 kg",
+                "hight": "đực từ 35-41 cm. Cái từ 33-38 cm.",
+                "size": "nhỏ",
+                "source": "Nhật Bản",
+                "birth": "2-3 con",
+                "longevity": "10-15 năm"
+            }
+        },
+        {
+            "id": "5",
+            "name": "Chó SHIBA INU",
+            "img": "https://dogily.vn/wp-content/uploads/2021/09/dan-3-cho-shiba-inu-mai-vang-trang-2-thang-tuoi-1-400x400.jpg",
+            "price": "9.400.000",
+            "detail": {
+                "information": "Chó Shiba ban đầu được lai tạo để săn chim, thú nhỏ & lơn rừng. Shiba Inu là một trong 6 giống chó bản địa của Nhật Bản gồm: Akita Inu (lớn), Shikoku, Kai, Hokkaido, Kishu (vừa) & Shiba Inu (size nhỏ). Chó Shiba có ngoại hình giống như một con cáo hoặc thú nhồi bông với đôi tai vểnh, mắt híp & đuôi xoăn. Shiba được xem như giống chó nhỏ nhất & cổ xưa nhất trong 6 giống chó Spitz nguồn gốc Nhật Bản trên.",
+                "weight": "chó đực từ 9-14 kg, cái nặng: 8-13 kg",
+                "hight": "đực từ 35-41 cm. Cái từ 33-38 cm.",
+                "size": "nhỏ",
+                "source": "Nhật Bản",
+                "birth": "2-3 con",
+                "longevity": "10-15 năm"
+            }
+        }
+    ]
+}
