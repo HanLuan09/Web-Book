@@ -1,18 +1,14 @@
 package vn.edu.ptit.znine.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.text.ParseException;
+
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.*;
 import java.util.List;
-
-import org.apache.naming.java.javaURLContextFactory;
-
+import org.springframework.stereotype.Repository;
 import vn.edu.ptit.znine.context.DbContext;
 import vn.edu.ptit.znine.model.Product;
 
+@Repository
 public class ProductDao {
 	Connection conn = null;
 	PreparedStatement ps = null;
@@ -128,8 +124,9 @@ public class ProductDao {
 	}
 //	 thêm 1 sản phẩm
 	public void addProduct(Product p) {
+		
   		String query = "INSERT INTO DBO.Book([NameB], [ImageB], [title], [author], [releaseDate], [pages], [CateID]) \r\n"
-  				+ "VALUES(?, ?, ?, ?, ?, ?, ?,)";
+  				+ "VALUES(?, ?, ?, ?, ?, ?, ?)";
 	      try {
 	          conn = new DbContext().getConnection();//mo ket noi voi sql
 	          ps = conn.prepareStatement(query);
@@ -137,7 +134,7 @@ public class ProductDao {
 	          ps.setString(2, p.getImageB());
 	          ps.setString(3, p.getTitle());
 	          ps.setString(4, p.getAuthor());
-	          ps.setDate(5, (java.sql.Date)p.getReleaseDate());
+	          ps.setDate(5, p.getReleaseDate());
 	          ps.setInt(6, p.getPages());
 	          ps.setInt(7, p.getCateId());
 	          ps.executeUpdate();
@@ -147,10 +144,11 @@ public class ProductDao {
 	          rs.close();
 	      } catch (Exception e) {
 	      }
+	      
   	}
 //	 Cập nhật
-	public int updateProduct(Product p) {
-		int result = 0;
+	public void updateProduct(Product p) {
+		
   		String query = " UPDATE DBO.Book SET [NameB] =? , [ImageB] = ?, [title] = ?, [author] = ?, [releaseDate]= ?, [pages] = ?, [CateID] = ?\r\n"
   				+ "where idB= ?";
 	      try {
@@ -164,15 +162,36 @@ public class ProductDao {
 	          ps.setInt(6, p.getPages());
 	          ps.setInt(7, p.getCateId());
 	          ps.setInt(8, p.getIdB());
-	          result= ps.executeUpdate();
+	          ps.executeUpdate();
 	          
 	          conn.close();
 	          ps.close();
 	          rs.close();
 	      } catch (Exception e) {
 	      }
-	      return result;
   	}
+	public Product checkProductName(String name) {
+    	String query = "select * from Book where nameB = ?";
+        try {
+            conn = new DbContext().getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query);
+            ps.setString(1, name);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                 return new Product(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getDate(6),
+                        rs.getInt(7),
+                        rs.getInt(8));
+                        
+            }
+        } catch (Exception e) {
+        }
+        return null;
+    }
 	public static void main(String[] args) {
 		ProductDao dao = new ProductDao();
 		Product p = dao.getProductById("-1");

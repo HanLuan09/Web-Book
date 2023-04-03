@@ -47,7 +47,7 @@
                                         <div class="row-nowrap sm-gutter">
                                             <!-- lisi -->
                                             <div th:each="pTop: ${listTopProduct}" class="col l-2-4 m-4 c-6">
-                                                <a class="home-product-item" href="#">
+                                                <a class="home-product-item" th:href="@{/book/{id}(id = ${pTop.idB})}">
                                                     <div class="home-product-item__img" th:style="'background-image: url(' + ${pTop.imageB} + ');'"></div>
                                                     <h5 class="home-product-item__name" th:text="${pTop.nameB}">...</h5>
                                                     <div class="home-product-item__origin">

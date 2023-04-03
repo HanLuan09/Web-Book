@@ -62,7 +62,7 @@ public class LoginController {
 	    
 	    return "login_register";
 	}
-	@GetMapping("logout")
+	@GetMapping("/logout")
 	public String logout() {
 		sesion.remove("usernameS");
 		return "redirect:/webbook"; 

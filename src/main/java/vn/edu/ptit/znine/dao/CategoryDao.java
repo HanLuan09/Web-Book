@@ -6,10 +6,12 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import vn.edu.ptit.znine.context.DbContext;
 import vn.edu.ptit.znine.model.Category;
 
-
+@Repository
 public class CategoryDao {
 	private Connection conn = null;
 	private PreparedStatement ps = null;

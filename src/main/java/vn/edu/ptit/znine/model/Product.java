@@ -1,6 +1,6 @@
 package vn.edu.ptit.znine.model;
 
-import java.util.Date;
+import java.sql.*;
 
 import org.springframework.context.annotation.Configuration;
 
@@ -15,9 +15,8 @@ public class Product {
 	private String title;
 	@NotEmpty(message = "Vui lòng nhập trường này")
 	private String author;
-	@NotEmpty(message = "Vui lòng nhập trường này")
+	
 	private Date releaseDate;
-	@NotEmpty(message = "Vui lòng nhập trường này")
 	private int pages;
 	private int cateId;
 	
