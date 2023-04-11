@@ -1,16 +1,14 @@
 package vn.edu.ptit.znine.controller.admin;
 
+import java.io.IOException;
 import java.sql.Date;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,14 +17,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import vn.edu.ptit.znine.context.DbContext;
-import vn.edu.ptit.znine.dao.AccountDao;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import vn.edu.ptit.znine.context.FileUploadUtil;
 import vn.edu.ptit.znine.dao.AdminDao;
-import vn.edu.ptit.znine.dao.CategoryDao;
 import vn.edu.ptit.znine.dao.ProductDao;
 import vn.edu.ptit.znine.model.Account;
 import vn.edu.ptit.znine.model.Category;
@@ -54,13 +49,16 @@ public class AdminController {
 	public String getAllProduct(Model model){
 		 AdminDao dao = new AdminDao();
 	     List<ProductAdmin> listP = dao.getAllProductCate();
+	     String name = cookie.getValue("nameCAdmin","");
+		 String pass = cookie.getValue("passCAdmin","");
+		 model.addAttribute("nameCAdmin", name);
+		 model.addAttribute("passCAdmin", pass);
 	     model.addAttribute("listP", listP);	     
 		 return "manager_product";
 	} //index
-	 
 	
 	@PostMapping("/admin")
-	public String login(HttpServletRequest request, HttpServletResponse response,@RequestParam("name") String name, @RequestParam("password") String password, Model model) {
+	public String login(@RequestParam("name") String name, @RequestParam("password") String password, Model model) {
 	    Account a = accService.findById(name, password);
 	    if (a != null) {
 	        if(a.getIsAdmin() !=1) {
@@ -85,6 +83,22 @@ public class AdminController {
         } 
 	    
 	}
+	@GetMapping("/admin/logout")
+	public String logout() {
+		sesion.remove("accountAdmin");
+		return "redirect:/admin"; 
+	}
+	@GetMapping("/admin/search")
+	public String getBooksSearch(Model model, @RequestParam("search") String search) {
+		 AdminDao dao = new AdminDao();
+	     List<ProductAdmin> listP = dao.getAllProductAdminSearch(search);
+	     String name = cookie.getValue("nameCAdmin","");
+		 String pass = cookie.getValue("passCAdmin","");
+		 model.addAttribute("nameCAdmin", name);
+		 model.addAttribute("passCAdmin", pass);
+	     model.addAttribute("listP", listP);	     
+		 return "manager_product";
+	}
 //	Get 1 book// xử lý chuyển trang 
 	@GetMapping("/admin/{id}")
 	public String getBook(Model model, @PathVariable String id){
@@ -104,19 +118,24 @@ public class AdminController {
 	}
 	//form
 	@PostMapping("/admin/save/{id}")
-	public String postBook(Model model, @Validated Product book, Errors error, @RequestParam("cateId") int cateId, @RequestParam("date") Date d, @RequestParam("image") String image) throws ParseException, ParseException { 
+	public String postBook(Model model, @Validated Product book, Errors error, @RequestParam("cateId") int cateId, @RequestParam("date") Date d,
+			@PathVariable String id, @RequestParam("image") MultipartFile file, RedirectAttributes redirectAttributes) throws IOException{ 
 		if(error.hasErrors()) {
 			return "book_details";
 		}
-		if(proService.checkProductName(book.getNameB()) != null) {
-			model.addAttribute("messError","Tên sách đã tồn tại!");
+		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+		String upLoadDir = "uploads/";
+		FileUploadUtil.saveFile(upLoadDir, fileName, file);
+		if(proService.checkProductName(book.getNameB(), id) != null) {
+			redirectAttributes.addFlashAttribute("messError","Tên sách đã tồn tại!");
 		}
 		else {
 			try {
 				book.setCateId(cateId);
 				book.setReleaseDate(d);
-				book.setImageB(image);
+				book.setImageB(fileName);
 				proService.addProduct(book);
+				redirectAttributes.addFlashAttribute("succesMess","Thêm sản phẩm thành công");
 				return "redirect:/admin";
 			} catch (Exception e) {
 			}
@@ -126,31 +145,43 @@ public class AdminController {
 	}
 //	sửa book
 	@PutMapping("/admin/save/{idB}")
-	public String putBook(Model model, Product book, @RequestParam("cateId") int cateId, @RequestParam("date") Date d, @RequestParam("image") String image) throws ParseException {
-		//validate 
-		//UPdate
-//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//		java.util.Date utilDate = sdf.parse(d);
-//		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-//		if(proService.checkProductName(book.getNameB()) != null)
+	public String putBook(Model model, @Validated Product book, Errors error, @RequestParam("cateId") int cateId, @RequestParam("date") Date d, 
+			@PathVariable String idB, @RequestParam("image") MultipartFile file, RedirectAttributes redirectAttributes) throws IOException {
+		
+		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+		int id= book.getIdB();
+		Product p = proService.getProductById(id+"");
+		if(fileName == null || fileName.equals("")) {
+			book.setImageB(p.getImageB());
+		}
+		else {
+			String upLoadDir = "uploads/";
+			FileUploadUtil.saveFile(upLoadDir, fileName, file);
+			book.setImageB(fileName);
+		}
 		book.setCateId(cateId);
 		book.setReleaseDate(d);
-		book.setImageB(image);
 		try {
-			proService.updateProduct(book);
-			return "redirect:/admin";
+			Product pCheck = proService.checkProductName(book.getNameB(), idB);
+			if(pCheck != null){
+				redirectAttributes.addFlashAttribute("messError","Tên sách đã tồn tại!");
+			}
+			else {
+				proService.updateProduct(book);
+				redirectAttributes.addFlashAttribute("succesMess","Sửa sản phẩm thành công");
+				return "redirect:/admin";
+			}
 		} catch (Exception e) {
 			
 		}
 //		return "book_details";
-		int id= book.getIdB();
 		return "redirect:/admin/" +id;
-		
 	}
 //	xóa book
 	@DeleteMapping("/admin/delete")
-	public String fromDeleteBook(@RequestParam("bookId") String id) {
+	public String fromDeleteBook(@RequestParam("bookId") String id, RedirectAttributes redirectAttributes) {
 		proService.deleteProduct(id);
+		redirectAttributes.addFlashAttribute("succesMess","Xóa sản phẩm thành công");
 		return "redirect:/admin";
 	}
 	public static void main(String[] args) {

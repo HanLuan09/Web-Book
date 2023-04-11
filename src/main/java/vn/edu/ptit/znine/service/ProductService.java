@@ -9,8 +9,13 @@ public interface ProductService {
 	public List<Product> getTop10Product();
 	public Product getProductById(String id);
 	public List<Product> getAllProductByCateId(String cateId);
+	List<Product> getAllProductSearch(String search);
 	public void deleteProduct(String idB);
 	public void addProduct(Product p);
 	public void updateProduct(Product p);
-	public Product checkProductName(String name);
+	public Product checkProductName(String name, String idB);
+//	sort
+	public List<Product> getAllProductSelling();
+	public List<Product> getAllProductNew();
+	public List<Product> getAllProductLike();
 }

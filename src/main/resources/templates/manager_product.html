@@ -26,6 +26,10 @@
 				text-decoration: none;
 				color: #FF0000;
 			}
+			.none {
+				display: none;
+			}
+			
             
         </style>
     <body>
@@ -35,37 +39,47 @@
                 <div class="table-title">
                     <div class="row">
                         <div class="col-sm-3">
-                            <h2><a href=""><b>Web Book</b></a></h2>
+                            <h2><a href="/admin"><b>Web Book</b></a></h2>
                         </div>
                         <div class="col-sm-5">
-                            <div class="header__search">    
+                            <div th:if="${session.accountAdmin != null}" class="header__search">    
                                 <div class="header__search-input__wrap">
+                                	<form action="/admin/search" method="get">
                                     <div class="header__search-box">
                                         <span class="header__search-icon"></span>
                                         <div class="header__search-content">
-                                            <input type="search" class="header__search-input" placeholder="Tìm kiếm tại đây"> 
-                                            <!-- search lịch sử tìm kiếm-->
-                                            <div class="header__search-history">
-                                                <h3 class="header__search-history-heading">Lịch sử tìm kiếm</h3>
-                                                <ul class="header__search-history-list">
-                                                    <li class="header__search-history-item"><a href="">luan</a></li>
-                                                    <li class="header__search-history-item"><a href="">hán</a></li>
-                                                </ul>
-                                            </div>
+                                            <input type="search" name="search" class="header__search-input" placeholder="Tìm kiếm tại đây"> 
                                         </div>
-                                        <div class="header__search-button">Tìm kiếm</div>
-                                        
+                                        <button class="header__search-button" type="submit" style="border: 0; font-size: 0.9rem">Tìm kiếm</button>
                                     </div>
+                                	</form>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <a th:href="@{/admin/{id}(id=-1)}"  class="btn btn-success" style="background: linear-gradient(90deg,#1a9545,#ea7221);" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Thêm Sách Mới</span></a>
+                            <a th:if="${session.accountAdmin != null}" th:href="@{/admin/{id}(id=-1)}"  class="btn btn-success" style="background: linear-gradient(90deg,#1a9545,#ea7221);" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Thêm Sách Mới</span></a>
                             
-                            <a href="#loginEmployeeModal" class="btn btn-danger" id="btn-login" style="background: linear-gradient(90deg,#183545,#1a9cb7);" data-toggle="modal"><span>Đăng Nhập</span></a>                          				
+                            <a th:if="${session.accountAdmin== null}" href="#loginEmployeeModal" class="btn btn-danger" id="btn-login" style="background: linear-gradient(90deg,#183545,#1a9cb7);" data-toggle="modal"><span>Đăng Nhập</span></a>     
+                            <a th:if="${session.accountAdmin != null}" href="/admin/logout" class="btn btn-danger" id="btn-login" style="background: linear-gradient(90deg,#183545,#1a9cb7);" data-toggle="modal"><span>Đăng Xuất</span></a>                          				                     				
                         </div>
                     </div>
                 </div>
+                <div class="row mt-4">
+                	<div id="myAlert" th:if="${succesMess}" class="col-12 alert alert-success alert-dismissible" role="alert">
+                		<span th:text="${succesMess}"></span>
+                		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                			<span aria-hidden="true">&times;</span>
+                		</button>
+                	</div>
+                </div>
+                <script type="text/javascript">
+	                $(document).ready(function() {
+	                    // Mờ dần đối tượng
+	                    $("#myAlert").fadeTo(2000, 500).slideUp(500, function(){
+	                        $("#myAlert").slideUp(500);
+	                    });
+	                });
+                </script>
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
@@ -87,7 +101,7 @@
                                 <td th:text="${p.releaseDate}">...</td>
                                 <td th:text="${p.pages}">...</td>
                                 <td th:text="${p.sellNumber}">...</td>
-                                <td>
+                                <td th:class="${session.accountAdmin== null} ? 'none':''">
                                 <!-- th:href="@{admin/{id}/delete(id = ${p.idB})}" -->
                                     <a th:href="@{/admin/{id}(id = ${p.idB})}"  class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                     <a href="#deleteEmployeeModal" class="delete" data-toggle="modal" th:data-book-id="${p.idB}"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
@@ -171,13 +185,13 @@
 	
 	                        <div class="auth-form__form">
 	                            <div class="auth-form__group">
-	                                <input name="name" type="text" id="name" class="auth-form__input" placeholder="Email/Nhập tên đăng nhập">
+	                                <input name="name" th:value="${nameCAdmin}" type="text" id="name" class="auth-form__input" placeholder="Email/Nhập tên đăng nhập">
 	                               
 	                                <span class="form-message"></span> 
 	                            </div>
 	                            
 	                            <div class="auth-form__group">
-	                                <input name="password" value="${cookie.passCAdmin.value}" id="login_password" type="password" class="auth-form__input" placeholder="Nhập mật khẩu">
+	                                <input name="password" th:value="${passCAdmin}" id="login_password" type="password" class="auth-form__input" placeholder="Nhập mật khẩu">
 	                                <span class="form-message"></span>  
 	                            </div>
 	                        </div>

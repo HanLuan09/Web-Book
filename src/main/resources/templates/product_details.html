@@ -14,7 +14,7 @@
 </head>
 <body>
     <div class="main">
-        <div th:include="navi.html"></div>
+        <div th:replace="~{navi.html}"></div>
         <div class="container">
             <div class="container__details-sp">
                 <div class="grid wide">
@@ -27,7 +27,8 @@
                                         <div class="UuFd15">
                                         </div>
                                         <div class="container__left-img">
-                                            <div class="VWiifV qO2bZw" th:style="'background-image: url(' + ${book.imageB} + '); background-size: contain; background-repeat: no-repeat;'"></div>
+                               
+                                            <div class="VWiifV qO2bZw" th:style="'background-image: url(/uploads/' + ${book.imageB} + '); background-size: contain; background-repeat: no-repeat;'"></div>
                                         </div>
                                     </div>
                                         <!--  -->
@@ -66,24 +67,12 @@
                                                 <div>Đã bán</div>
                                             </div>
                                         </div>
+                                        
                                         <!-- end rating -->
+                                        <form action="th:action="@{books/order}"" method="post">
                                         <div class="container__origin">Ngày phát hành: <span th:text="${book.releaseDate}">...</span></div>
                                         <div class="container__origin">Tác giả: <span th:text="${book.author}">...</span></div> 
                                         <div class="container__origin">Số trang: <span th:text="${book.pages}">...</span></div>
-                                        <!-- price 
-                                        <div class="container__price">
-                                            <div class="container__price-old">
-                                                <span id= "price-old" th:text="${book.price}">...</span> đ
-                                            </div>
-                                            <div class="container__price-new">
-                                                <span id= "price-new" th:text="${book.priceNew}">...</span> đ
-                                            </div>
-                                            <div class="container__price-discount">
-                                                Giảm: <span th:text="${book.discount}">...</span>%
-                                            </div>
-                                        </div>
-                                        end price -->
-                                      
                                         <!-- số lương và đặt hàng -->
                                         <div class="container__right-purchase" style="display: block;">
                                             <div class="container__right-purchase-list">
@@ -111,37 +100,16 @@
                                             <div style="margin-top: 40px;">
                                                 <div class="container__right-purchase-wrap">
                                                     <div class="container__right-purchase-btn" style="display: flex; flex-direction: row;">
-                                                     <!-- đã có tài khoản -->
-                                                    	
-                                                        
-	                                                        <button id="btn-add--login" class="btn btn-tinted btn--l container__right-purchase-btn__cart iFo-rx" type="button"aria-disabled="false">
-	                                                            <span>Thêm vào giỏ hàng</span>
-	                                                        </button>
-	                                                        <button id="btn-buynow--login" class="btn btn-solid-primary btn--l container__right-purchase-btn__buy iFo-rx" type="button" aria-disabled="false">Mua ngay</button>
-                                                        
+	                                                   	<!--<button id="btn-add--login" class="btn btn-tinted btn--l container__right-purchase-btn__cart iFo-rx" type="button"aria-disabled="false">
+	                                                    	<span>Thêm vào giỏ hàng</span>
+	                                                    </button>-->
+	                                                	<button class="btn btn-solid-primary btn--l container__right-purchase-btn__buy iFo-rx" type="submit" aria-disabled="false">Mua sách</button>
                                                     </div>
-                                                    
                                                 </div>
                                             </div>
-                                            <script>
-				                				// xét xem người đăng nhập khi nhấn mua hàng mà chưa có tài khoản
-				                                const btnAT = document.querySelector('#btn-add--login');
-				                                const btnBT = document.querySelector('#btn-buynow--login');
-				                                if(btnAT != undefined) {
-					                                btnAT.addEventListener('click', function() {
-					                                  localStorage.setItem('buttonClicked', 'login');
-					                                });	
-					                                
-					                     
-				                                }
-				                                
-				                                if(btnBT != undefined) {
-					                                btnBT.addEventListener('click', function() {
-					                                  localStorage.setItem('buttonClicked', 'login');
-					                                });
-									            }
-                        					</script>
+                                        
                                         </div>
+                                        </form>
                                         <!-- end số lượng và đặt hàng -->
                                     </div>
                             </div>
@@ -197,7 +165,7 @@
 	                                <div class="row sm-gutter home-product-add">
 	                                	<div th:each= "p: ${listProduct}" class="col l-2-4 m-4 c-6 home-product-list">
 		                                	<a class="home-product-item" th:href="@{/book/{id}(id = ${p.idB})}">
-		                                       	<div class="home-product-item__img"  th:style="'background-image: url(' + ${p.imageB} + ');'"></div>
+		                                       	<div class="home-product-item__img"  th:style="'background-image: url(/uploads/' + ${p.imageB} + ');'"></div>
 		                                        	<h5 class="home-product-item__name" th:text="${p.nameB}">...</h5>
 		                                        <div class="home-product-item__origin">
 		                                        	<span class="home-product-item__origin-title" th:text="${p.author}">...</span>
@@ -250,12 +218,11 @@
                 <!-- end đồ thú cưng -->
                 </div>
                 <script type="text/javascript" th:src="@{../javascript/main.js}"></script>
-                <div th:include="footer.html"></div>
+                
+                <div th:replace="~{footer.html}"></div>
             </div>
             <!-- end -->
             
-        </div>
-        
-    </div>
+     </div>
 </body>
 </html>

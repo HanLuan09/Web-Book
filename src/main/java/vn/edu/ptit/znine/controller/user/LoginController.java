@@ -1,5 +1,7 @@
 package vn.edu.ptit.znine.controller.user;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.Cookie;
 import vn.edu.ptit.znine.model.Account;
+import vn.edu.ptit.znine.model.Product;
 import vn.edu.ptit.znine.service.AccountService;
 import vn.edu.ptit.znine.service.CookieService;
 import vn.edu.ptit.znine.service.SessionService;
@@ -30,6 +33,10 @@ public class LoginController {
 	public String viewLogin(Model model) {
 		String name = cookie.getValue("nameP","");
 		String pass = cookie.getValue("passP","");
+		Account p = sesion.get("account");
+		if(p!= null) {
+			if(p.getIsAdmin()==1) sesion.set("accountAdmin", p);
+		}
 		model.addAttribute("passC",pass);
 		model.addAttribute("nameC",name);
 		return "login_register";
@@ -67,6 +74,7 @@ public class LoginController {
 		sesion.remove("usernameS");
 		return "redirect:/webbook"; 
 	}
+	
 	@PostMapping("/register")
 	public String register(@Validated Account account, Errors errors, Model model, @RequestParam("fullname") String name, @RequestParam("password") String password,
 			@RequestParam("password_comfirmation") String comPassword, @RequestParam("email") String email) {

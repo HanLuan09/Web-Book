@@ -1,13 +1,16 @@
 <meta charset="UTF-8">
 <div class="search-wrap hide-on-tablet hide-on-pc" data-fixed="fixed">
             <header class="search search-wrap-shadow">
+            	<form action="/books/search" method="get">
                 <div class="search-box">
                     <span class="search-icon"></span>
                     <div class="search-content">
-                        <input type="search" class="search-input" value>
+                        <input type="search" name="search" class="search-input" value>
                     </div>
-                    <div class="search-btn">Tìm kiếm</div>
+                    <button class="search-btn" type="submit" style="border: 0">Tìm kiếm</button>
+                    <!--  <div class="search-btn">Tìm kiếm</div>-->
                 </div>
+                </form>
             </header>
         </div>
         <nav class="h2-tabbar hide-on-pc" style="background-image:url('//lzd-img-global.slatic.net/g/tps/imgextra/i1/O1CN01Uz4Tvs1yUbd3VkjJs_!!6000000006582-2-tps-1125-147.png')">
@@ -40,16 +43,16 @@
                     <!-- search view -->
                     <div class="header__search hide-on-mobile">    
                         <div class="header__search-input__wrap">
+                        <form action="/books/search" method="get">
                             <div class="header__search-box">
                                 <span class="header__search-icon"></span>
                                 <div class="header__search-content">
-                                    <input type="search" class="header__search-input" placeholder="Tìm kiếm tại đây"> 
-                                    <!-- search lịch sử tìm kiếm-->
+                                    <input type="search" name="search" class="header__search-input" placeholder="Tìm kiếm tại đây"> 
                                     
                                 </div>
-                                <div class="header__search-button">Tìm kiếm</div>
-                                
+                                <button class="header__search-button" type="submit" style="border: 0">Tìm kiếm</button>
                             </div>
+                        </form>
                         </div>
                     </div>
                     <!-- end search -->
@@ -146,7 +149,7 @@
                                                 </li>
                     
                                                 <li th:if="${session.account.isAdmin}==1" class="header__user-item-users-item">
-                                                    <a href="">Quản lý bán hàng</a>
+                                                    <a href="/admin">Quản lý web book</a>
                                                 </li>
                                                 
                                                 <li class="header__user-item-users-item">

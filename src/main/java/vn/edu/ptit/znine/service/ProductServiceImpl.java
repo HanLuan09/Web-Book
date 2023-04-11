@@ -33,6 +33,10 @@ public class ProductServiceImpl implements ProductService {
 		return p;
 	}
 	@Override
+	public List<Product> getAllProductSearch(String search) {
+		return daoP.getAllProductSearch(search);
+	}
+	@Override
 	public void addProduct(Product p) {
 		daoP.addProduct(p);
 	}
@@ -45,7 +49,23 @@ public class ProductServiceImpl implements ProductService {
 		daoP.deleteProduct(idB);
 	}
 	@Override
-	public Product checkProductName(String name) {
-		return daoP.checkProductName(name);
+	public Product checkProductName(String name, String idB) {
+		return daoP.checkProductName(name, idB);
+	}
+	// sort
+	@Override
+	public List<Product> getAllProductSelling() {
+		
+		return daoP.getAllProductSelling();
+	}
+	@Override
+	public List<Product> getAllProductLike() {
+		
+		return daoP.getAllProductLike();
+	}
+	@Override
+	public List<Product> getAllProductNew() {
+		
+		return daoP.getAllProductNew();
 	}
 }

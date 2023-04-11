@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShopPet</title>
+    <title>Web Book</title>
     <!-- icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- css -->
@@ -42,7 +42,7 @@
 </head>
 <body>
     <div class="main">
-		<div th:include="navi.html"></div>
+		<div th:replace="~{navi.html}"></div>
         <div class="container">
             <!-- container -->
             
@@ -53,7 +53,7 @@
                         <div class="col l-2 m-0 c-0">
                             <nav class="category">
                                 <h3 class="category__heading">Danh mục</h3>
-                                <ul class="category-list">
+                                <ul class="">
                                 	<li th:each= "c: ${listCategory}" class="category-item category-item--activve">
                                      	<a th:href="@{/books/{id}(id = ${c.cid})}" class="category-item__link" th:text="${c.cname}">...</a>
                                    	</li>                                                                    
@@ -63,9 +63,9 @@
                         <div class="col l-10 m-12 c-12">
                         	<div class="category-sort hide-on-mobile-tablet">
                                 <span class="category-sort-span">Sắp xếp theo</span>
-                                <button class="btn m-left" onclick="location.href='sort-popular';">Phổ biến</button>
-                                <button class="btn m-left" style="background-color:  #ea7221;" onclick="location.href='sort-latest';">Mới nhất</button>
-                                <button class="btn btn--primary m-left" onclick="location.href='sort-sell';">Bán chạy</button>
+                                <button class="btn m-left" onclick="location.href='sort-like';">Yêu thích</button>
+                                <button class="btn m-left" style="background-color:  #ea7221;" onclick="location.href='sort-new';">Mới nhất</button>
+                                <button class="btn btn--primary m-left" onclick="location.href='sort-selling';">Bán chạy</button>
                             </div>
                             <!-- sản phảm -->
                             <div class="home-product home-product--position">
@@ -75,7 +75,7 @@
                                             <!-- lisi -->
                                             <div th:each= "p: ${listProduct}" class="col l-2-4 m-4 c-6 home-product-list">
 		                                        <a class="home-product-item" th:href="@{/book/{id}(id = ${p.idB})}">
-		                                            <div class="home-product-item__img"  th:style="'background-image: url(' + ${p.imageB} + ');'"></div>
+		                                            <div class="home-product-item__img"  th:style="'background-image: url(/uploads/' + ${p.imageB} + ');'"></div>
 		                                            <h5 class="home-product-item__name" th:text="${p.nameB}">...</h5>
 		                                            <div class="home-product-item__origin">
 		                                                <span class="home-product-item__origin-title" th:text="${p.author}">...</span>
@@ -131,8 +131,7 @@
 
                             </script>
             </div>
-            
-			<div th:include="footer.html"></div>
+            <div th:replace="~{footer.html}"></div>
         </div>
         
     </div>

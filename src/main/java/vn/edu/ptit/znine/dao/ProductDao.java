@@ -31,6 +31,9 @@ public class ProductDao {
                         rs.getInt(7),
                         rs.getInt(8)));
             }
+            ps.close();
+    		conn.close();
+    		rs.close();
         } catch (Exception e) {
         }
         return list;
@@ -59,6 +62,9 @@ public class ProductDao {
                         rs.getInt(7),
                         rs.getInt(8)));
             }
+            ps.close();
+    		conn.close();
+    		rs.close();
         } catch (Exception e) {
         }
         return list;
@@ -82,6 +88,9 @@ public class ProductDao {
                         rs.getInt(8));
                         
             }
+            ps.close();
+    		conn.close();
+    		rs.close();
         } catch (Exception e) {
         }
         return new Product();
@@ -105,6 +114,42 @@ public class ProductDao {
                         rs.getInt(7),
                         rs.getInt(8)));
             }
+            ps.close();
+    		conn.close();
+    		rs.close();
+        } catch (Exception e) {
+        }
+        return list;
+    }
+	//tìm kiếm sản phẩm
+	public List<Product> getAllProductSearch(String search) {
+		List<Product> list = new ArrayList<Product>();
+        String query ="SELECT B.*\r\n"
+        		+ "FROM Book B\r\n"
+        		+ "JOIN Category C ON B.CateId = C.CateID\r\n"
+        		+ "WHERE B.nameB LIKE ?\r\n"
+        		+ "   OR C.NameC LIKE ?\r\n"
+        		+ "   OR B.author LIKE ?";
+        try {
+            conn = new DbContext().getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query);
+            ps.setString(1, "%"+search+"%");
+            ps.setString(2, "%"+search+"%");
+            ps.setString(3, "%"+search+"%");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Product(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getDate(6),
+                        rs.getInt(7),
+                        rs.getInt(8)));
+            }
+            ps.close();
+    		conn.close();
+    		rs.close();
         } catch (Exception e) {
         }
         return list;
@@ -117,7 +162,9 @@ public class ProductDao {
 	        ps = conn.prepareStatement(query);
 	        ps.setString(1, idB);
 	        ps.executeUpdate();
-            
+	        ps.close();
+    		conn.close();
+    		rs.close();
         } catch (Exception e) {
         }
    
@@ -170,12 +217,13 @@ public class ProductDao {
 	      } catch (Exception e) {
 	      }
   	}
-	public Product checkProductName(String name) {
-    	String query = "select * from Book where nameB = ?";
+	public Product checkProductName(String name, String idB) {
+    	String query = "select * from Book where nameB = ? and idB <> ?";
         try {
             conn = new DbContext().getConnection();//mo ket noi voi sql
             ps = conn.prepareStatement(query);
             ps.setString(1, name);
+            ps.setString(2, idB);
             rs = ps.executeQuery();
             while (rs.next()) {
                  return new Product(rs.getInt(1),
@@ -188,18 +236,111 @@ public class ProductDao {
                         rs.getInt(8));
                         
             }
+            ps.close();
+    		conn.close();
+    		rs.close();
         } catch (Exception e) {
         }
         return null;
     }
+//	sort
+//	bán chạy
+	public List<Product> getAllProductSelling() {
+        List<Product> list = new ArrayList<Product>();
+        String query = "SELECT Book.*, SUM(OrderDetails.Amount) AS TotalSold\r\n"
+        		+ "FROM Book\r\n"
+        		+ "LEFT JOIN OrderDetails ON Book.idB = OrderDetails.IdB\r\n"
+        		+ "GROUP BY Book.idB, Book.nameB, Book.imageB, Book.title, Book.author, Book.releaseDate, Book.pages, Book.CateId\r\n"
+        		+ "ORDER BY TotalSold DESC";
+        try {
+            conn = new DbContext().getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Product(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getDate(6),
+                        rs.getInt(7),
+                        rs.getInt(8)));
+            }
+            ps.close();
+    		conn.close();
+    		rs.close();
+        } catch (Exception e) {
+        }
+        return list;
+    }
+//	mới
+	public List<Product> getAllProductNew() {
+        List<Product> list = new ArrayList<Product>();
+        String query = "SELECT *\r\n"
+        		+ "FROM Book\r\n"
+        		+ "ORDER BY Book.idB DESC;";
+        try {
+            conn = new DbContext().getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Product(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getDate(6),
+                        rs.getInt(7),
+                        rs.getInt(8)));
+            }
+            ps.close();
+    		conn.close();
+    		rs.close();
+        } catch (Exception e) {
+        }
+        return list;
+    }
+//	yêu thích
+	public List<Product> getAllProductLike() {
+        List<Product> list = new ArrayList<Product>();
+        String query = "SELECT b.*\r\n"
+        		+ "FROM Book b\r\n"
+        		+ "LEFT JOIN (\r\n"
+        		+ "    SELECT IdB, AVG(Evaluate) as avg_evaluate\r\n"
+        		+ "    FROM BookValue\r\n"
+        		+ "    GROUP BY IdB\r\n"
+        		+ ") bv ON b.IdB = bv.IdB\r\n"
+        		+ "ORDER BY bv.avg_evaluate DESC";
+        try {
+            conn = new DbContext().getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Product(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getDate(6),
+                        rs.getInt(7),
+                        rs.getInt(8)));
+            }
+            ps.close();
+    		conn.close();
+    		rs.close();
+        } catch (Exception e) {
+        }
+        return list;
+    }
+//	end sort
 	public static void main(String[] args) {
 		ProductDao dao = new ProductDao();
 		Product p = dao.getProductById("-1");
-		List<Product> list = dao.getTop10Product();
+		List<Product> list = dao.getAllProductSearch("g");
 		for(Product o: list) {
 			System.out.println(o);
 		}
-		System.out.println(p);
+		
 		
 	}
 }

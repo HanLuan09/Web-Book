@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.websocket.Session;
 import vn.edu.ptit.znine.dao.*;
@@ -68,6 +70,38 @@ public class HomeController {
 	     model.addAttribute("listProduct", listP);
 	     model.addAttribute("listCategory", listC);
 	     model.addAttribute("active", cateId);
+		 return "category_product";
+	 }//tìm sản phẩm 
+	 @GetMapping("/books/search")
+	 public String getAllProductSearch(Model model, @RequestParam("search") String search){
+	     List<Category> listC = cateService.getAllCategory();
+	     List<Product> listP = proService.getAllProductSearch(search);
+	     model.addAttribute("listProduct", listP);
+	     model.addAttribute("listCategory", listC);
+		 return "category_product";
+	 }//tìm sản phẩm 
+	 @GetMapping("/books/sort-selling")
+	 public String getAllProductSelling(Model model){
+	     List<Category> listC = cateService.getAllCategory();
+	     List<Product> listP = proService.getAllProductSelling();
+	     model.addAttribute("listProduct", listP);
+	     model.addAttribute("listCategory", listC);
+		 return "category_product";
+	 }//tìm sản phẩm 
+	 @GetMapping("/books/sort-new")
+	 public String getAllProductNew(Model model){
+	     List<Category> listC = cateService.getAllCategory();
+	     List<Product> listP = proService.getAllProductNew();
+	     model.addAttribute("listProduct", listP);
+	     model.addAttribute("listCategory", listC);
+		 return "category_product";
+	 }//tìm sản phẩm 
+	 @GetMapping("/books/sort-like")
+	 public String getAllProductLike(Model model){
+	     List<Category> listC = cateService.getAllCategory();
+	     List<Product> listP = proService.getAllProductLike();
+	     model.addAttribute("listProduct", listP);
+	     model.addAttribute("listCategory", listC);
 		 return "category_product";
 	 }//tìm sản phẩm 
 }

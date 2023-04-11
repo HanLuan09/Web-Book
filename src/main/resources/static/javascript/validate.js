@@ -146,7 +146,14 @@ Validator.isRequired = function (selector, message) {
         }
     };
 }
-
+Validator.isNumber = function (selector, message) {
+    return {
+        selector: selector,
+        test: function (value) {
+            return value > 0 ? undefined :  message || 'Vui lòng nhập số nguyên lớn hơn 0'
+        }
+    };
+}
 Validator.isEmail = function (selector, message) {
     return {
         selector: selector,

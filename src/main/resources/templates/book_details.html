@@ -24,11 +24,17 @@
         	margin: 0 40px;
         	margin-bottom: 20px;
         }
-        
+         .auth-form__group.invalid .form-control {
+		    border-color: #f33a58;
+		}
+		
+		.auth-form__group.invalid .form-message {
+		    color: #f33a58;
+		}
     </style>
 </head>
 <body>
-	<form id="form" th:object="${book}" th:action="@{/admin/save/{id}(id = ${book.idB})}" th:method="${idBook}<=0 ? POST : PUT">
+	<form id="form" th:object="${book}" th:action="@{/admin/save/{id}(id = ${book.idB})}" th:method="${idBook}<=0 ? POST : PUT" enctype="multipart/form-data">
 	<input type="hidden" name="idB" id ="idBook" th:value = "${book.idB}">
     <div class="main">
        <div class="container">
@@ -42,33 +48,33 @@
                         <div class="flex container-list">
                             <div class="auth-form__group">
                                 <label class="container-label" for="">Tiêu đề</label>
-                                <input id ="nameB" name="nameB" class="container-text" type="text" placeholder="Nhập tiêu đề" th:value = "${book.nameB}">
-                                <span class="form-message"></span>
+                                <input id ="nameB" name="nameB" class="container-text form-control" type="text" placeholder="Nhập tiêu đề" th:value = "${book.nameB}">
+                                <span class="form-message" th:text="${messError}"></span>
                             </div>
                             <div class="auth-form__group">
                                 <label class="container-label" for="">Tác giả</label>
-                                <input id="author" name="author" class="container-text" type="text" placeholder="Nhập tên tác giả" th:value="${book.author}">
+                                <input id="author" name="author" class="container-text form-control" type="text" placeholder="Nhập tên tác giả" th:value="${book.author}">
                                 <span class="form-message"></span>
                             </div>
                             
                         </div>
                         <div class="auth-form__group">
                             <label class="container-label" for="" style="margin-left: 20px;">Mô tả về sách</label>
-                            <div class="container-description">
+                            <div class="container-description form-control">
                                 <textarea id="title" name="title" class="fixed-size" placeholder="Nhập mô tả" th:value = "${book.title}" th:text = "${book.title}">...</textarea>
                             </div>
-                            <span class="form-message"></span>
+                            <span class="form-message" style="margin-left: 15px"></span>
                             
                         </div>
                         <div class="flex container-list">
                             <div class="auth-form__group">
                                 <label class="container-label" for="">Ngày phát hành</label>
-                                <input class="container-text" name="date" type="date" th:value = "${book.releaseDate}">
+                                <input id="date" class="container-text form-control" name="date" type="date" th:value = "${book.releaseDate}">
                                 <span class="form-message"></span>
                             </div>
                             <div class="auth-form__group">
                                 <label class="container-label" for="">Số trang</label>
-                                <input class="container-text" name="pages" type="number" th:value = "${book.pages}">
+                                <input id="pages" class="container-text form-control" name="pages" type="number" th:value = "${book.pages}">
                                 <span class="form-message"></span>
                             </div>  
                         </div>
@@ -88,12 +94,13 @@
                                 <label for="file-input" class="custom-file-upload">
                                     Chọn ảnh
                                   </label>
-                                  <input name="image" type="file" id="file-input" accept=".jpg,.jpeg,.png" style="display:none;" th:value="${book.imageB}">
-                                  <span class="form-message"></span>
+                                  <!-- accept=".jpg,.jpeg,.png" -->
+                                  <input name="image" type="file" id="file-input" style="display:none;" accept=".jpg,.jpeg,.png" th:value="${book.imageB}">
+                                  <span id="file-input-span" class="form-message"></span>
                                 
                             </div>
                             <div class="container-img">
-                                <img id="preview-image" th:src="${book.imageB}" alt="" style=" width: 100%; height: 100%; background-size: contain; background-repeat: no-repeat;">
+                                <img id="preview-image" th:src="'/uploads/'+${book.imageB}" alt="" style=" max-width: 100%; max-height: 100%; background-size: contain; background-repeat: no-repeat;">
                             </div>
                         </div>
                         <script>
@@ -116,7 +123,6 @@
                     </div>
                 </div>
             </div>
-            <div style="color: #ff0000" th:text="${messError}" >...</div>
        </div>
        <footer class="footer">
        		
@@ -171,9 +177,6 @@
 	</form>
 	<script type="text/javascript" th:src="@{../javascript/validate.js}"></script>
 	<script>
-        // mong muốn 
-        //pc
-        // regster
         Validator({
             form: "#form",
             formGroupSelector: ".auth-form__group",
@@ -182,14 +185,11 @@
                 Validator.isRequired('#title'),
                 Validator.isRequired('#nameB'),
                 Validator.isRequired('#author'),
-                
-                //Validator.isRequired('#file-input'),
-                //Validator.minLength('#password', 6),
-                
+                Validator.isRequired('#date'),
+                Validator.isNumber('#pages'), 
             ]
             
         });
-        
     </script>
 </body>
 </html>
