@@ -6,14 +6,14 @@ public class Order {
 	private int idO;
 	private Date date;
 	private int idA;
-	private int status;
+	
 	public Order() {
 	}
-	public Order(int idO, Date date, int idA, int status) {
+	public Order(int idO, Date date, int idA) {
 		this.idO = idO;
 		this.date = date;
 		this.idA = idA;
-		this.status = status;
+		
 	}
 	public int getIdO() {
 		return idO;
@@ -32,12 +32,6 @@ public class Order {
 	}
 	public void setIdA(int idA) {
 		this.idA = idA;
-	}
-	public int getStatus() {
-		return status;
-	}
-	public void setStatus(int status) {
-		this.status = status;
 	}
 	
 }

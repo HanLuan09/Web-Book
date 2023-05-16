@@ -7,5 +7,6 @@ public interface AccountService {
 	public Account checkAccountName(String name);
 	public Account checkAccountEmail(String email);
 	public void addAccount(Account account);
+	public void saveImageAccount(String imageA, int idA);
 	
 }

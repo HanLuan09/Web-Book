@@ -1,5 +1,6 @@
 package vn.edu.ptit.znine.service;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import vn.edu.ptit.znine.dao.ProductDao;
 import vn.edu.ptit.znine.model.Product;
+import vn.edu.ptit.znine.model.ProductDetail;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -33,39 +35,34 @@ public class ProductServiceImpl implements ProductService {
 		return p;
 	}
 	@Override
-	public List<Product> getAllProductSearch(String search) {
+	public List<ProductDetail> getAllProductSearch(String search) {
 		return daoP.getAllProductSearch(search);
-	}
-	@Override
-	public void addProduct(Product p) {
-		daoP.addProduct(p);
-	}
-	@Override
-	public void updateProduct(Product p) {
-		daoP.updateProduct(p);
-	}
-	@Override
-	public void deleteProduct(String idB) {
-		daoP.deleteProduct(idB);
-	}
-	@Override
-	public Product checkProductName(String name, String idB) {
-		return daoP.checkProductName(name, idB);
 	}
 	// sort
 	@Override
 	public List<Product> getAllProductSelling() {
-		
 		return daoP.getAllProductSelling();
 	}
 	@Override
 	public List<Product> getAllProductLike() {
-		
 		return daoP.getAllProductLike();
 	}
 	@Override
 	public List<Product> getAllProductNew() {
-		
 		return daoP.getAllProductNew();
 	}
+//	productdetail
+	@Override
+	public List<ProductDetail> getAllProductDetail() {
+		return daoP.getAllProductDetail();
+	}
+	@Override
+	public List<ProductDetail> getAllProductDetailByCateId(String cateId) {
+		return daoP.getAllProductDetailByCateId(cateId);
+	}
+	@Override
+	public ProductDetail getProductDetailById(String id) {
+		return daoP.getProductDetailById(id);
+	}
+	
 }

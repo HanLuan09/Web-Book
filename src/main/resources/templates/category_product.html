@@ -54,18 +54,19 @@
                             <nav class="category">
                                 <h3 class="category__heading">Danh mục</h3>
                                 <ul class="">
-                                	<li th:each= "c: ${listCategory}" class="category-item category-item--activve">
-                                     	<a th:href="@{/books/{id}(id = ${c.cid})}" class="category-item__link" th:text="${c.cname}">...</a>
-                                   	</li>                                                                    
+                                	<li th:each= "c: ${listCategory}" class="category-item">
+                                     	<a th:href="@{/books/{id}(id = ${c.cid})}" class="category-item__link" th:classappend="${active} == ${c.cid} ? 'category-item--active' : ''" th:text="${c.cname}">...</a>                            	
+                                   	</li> 
+                                   	                                                                   
                                 </ul>
                             </nav>  
                         </div>
                         <div class="col l-10 m-12 c-12">
                         	<div class="category-sort hide-on-mobile-tablet">
                                 <span class="category-sort-span">Sắp xếp theo</span>
-                                <button class="btn m-left" onclick="location.href='sort-like';">Yêu thích</button>
-                                <button class="btn m-left" style="background-color:  #ea7221;" onclick="location.href='sort-new';">Mới nhất</button>
-                                <button class="btn btn--primary m-left" onclick="location.href='sort-selling';">Bán chạy</button>
+                                <a class="btn m-left" th:href="@{/sort-books/{id}(id = 1)}" style="border: 1px #f5f5f5 solid;">Yêu thích</a>
+                                <a class="btn m-left" style="background-color:  #ea7221;" th:href="@{/sort-books/{id}(id = 3)}">Mới nhất</a>
+                                <a class="btn btn--primary m-left" th:href="@{/sort-books/{id}(id = 2)}">Bán chạy</a>
                             </div>
                             <!-- sản phảm -->
                             <div class="home-product home-product--position">
@@ -73,14 +74,47 @@
                                     <div class="home-product-dog">
                                         <div class="row sm-gutter home-product-add">
                                             <!-- lisi -->
-                                            <div th:each= "p: ${listProduct}" class="col l-2-4 m-4 c-6 home-product-list">
+                                            <div th:each= "p: ${listProduct}" class="col l-2-4 m-4 c-6 home-product-list home-product-list--rating">
 		                                        <a class="home-product-item" th:href="@{/book/{id}(id = ${p.idB})}">
 		                                            <div class="home-product-item__img"  th:style="'background-image: url(/uploads/' + ${p.imageB} + ');'"></div>
 		                                            <h5 class="home-product-item__name" th:text="${p.nameB}">...</h5>
+		                                            <div class="home-product-item__action">
+		                                            	<div class="product-rating-value home-product-item__rating " style="display: none"th:text="${p.rating}"></div>
+			                                            <div class="home-product-item__rating">
+		                                                    <div class="card-jfy-rating-layer top-layer checked home-product-item__rating--gold" style="width: 100%;">
+		                                                        <i class="fa-solid fa-star"></i>
+		                                                        <i class="fa-solid fa-star"></i>
+		                                                        <i class="fa-solid fa-star"></i>
+		                                                        <i class="fa-solid fa-star"></i>
+		                                                        <i class="fa-solid fa-star"></i>
+		                                                    </div>
+		                                                    <div class="card-jfy-rating-layer">
+		                                                        <i class="fa-solid fa-star"></i>
+		                                                        <i class="fa-solid fa-star"></i>
+		                                                        <i class="fa-solid fa-star"></i>
+		                                                        <i class="fa-solid fa-star"></i>
+		                                                        <i class="fa-solid fa-star"></i>
+		                                                    </div>
+		                                                </div>
+	                                                	<div class="product-rating-value home-product-item__rating" style="color: #999;">(40)</div>
+		                                                <span class="home-product-item__rating-separate"></span>
+		                                                <span class="home-product-item__action-sold" >Đã bán ${50}</span>
+		                                            </div>
 		                                            <div class="home-product-item__origin">
 		                                                <span class="home-product-item__origin-title" th:text="${p.author}">...</span>
 		                                            </div>
 		                                        </a>
+		                                        <script type="text/javascript">
+			                                        var productItems = document.querySelectorAll('.home-product-list--rating');
+			                                        productItems.forEach(function(item) {
+			                                        	var ratingValue = parseFloat(item.querySelector('.product-rating-value').textContent);
+			                                        	
+			                                        	var ratingWidth = ratingValue * 20; // Chuyển đổi từ điểm đánh giá (0-5) sang phần trăm (0-100)
+			                                        	var cardRatingLayer = item.querySelector('.top-layer');
+			                                        	cardRatingLayer.style.width = ratingWidth + '%';
+			                                        });
+			
+			                                    </script>
 		                                    </div>
                                         </div>
                                         

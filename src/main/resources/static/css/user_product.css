@@ -1,0 +1,227 @@
+.petshop__account {
+    display: flex;
+    padding: 15px 0;
+    border-bottom: 1px solid #efefef;
+    margin-bottom: 18px;
+}
+.petShop-avatar {
+    width: 50px;
+    height: 50px;
+}
+.petShop-avatar__placeholder {
+    width: 100%;
+    position: relative;
+    padding-top: 100%;
+    background-color: #f5f5f5;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.shopee-avatar__img {
+    border: 0;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+.petShop-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 15px;
+    overflow: hidden;
+}
+.petShop-text-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-height: 1rem;
+    font-weight: 600;
+    font-size: 1.4rem;
+    margin-bottom: 5px;
+    color: #333;
+}
+.petShop-text-welcome {
+    color: #888;
+    text-transform: capitalize;
+    text-decoration: none;
+}
+.stardust-dropdown {
+    margin-bottom: 15px;
+    position: relative;
+}
+.l1U02e {
+    text-decoration: none;
+    color: #173545;
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.9375rem;
+}
+.l1U02e:hover {
+    cursor: pointer;
+    color: #EF5600;
+}
+.l1U02e, .qyt-aY {
+    text-transform: capitalize;
+    transition: color .1s cubic-bezier(.4,0,.2,1);
+}
+.bfikuD {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    line-height: 1.25rem;
+    text-align: center;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-right: 0.625rem;
+}
+.bfikuD>i {
+    font-size: 1.5rem;
+    width: 100%;
+    height: 100%;
+}
+.DlL0zX {
+    margin-bottom: -4px;
+    line-height: 1rem;
+}
+.adF7Xs {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-right: 0.3125rem;
+}
+.active {
+    border-bottom: 3px solid #fe4960;
+    color: #fe4960;
+}
+.active--right{
+    color: #fe4960;
+}
+/* tài khoản của tôi */
+.IQPHvE {
+    overflow: hidden;
+}
+.scvgOW {
+    flex-direction: column;
+}
+.scvgOW, .XWsmVn {
+    align-items: center;
+    display: flex;
+}
+.XWsmVn {
+    height: 6.25rem;
+    width: 6.25rem;
+    margin: 1.25rem 0;
+    position: relative;
+    justify-content: center;
+}
+.bMWDYw {
+    display: none;
+}
+.LoNm4g {
+    border-radius: 50%;
+}
+.LoNm4g {
+    width: 100%;
+    height: 100%;
+    background-position: 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+.btn-light {
+    outline: 0;
+    background: #fff;
+    color: #555;
+    border: 1px solid rgba(0,0,0,.09);
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.03);
+    position: relative;
+    overflow: visible;
+}
+.btn--m {
+    height: 40px;
+    padding: 0 20px;
+    min-width: 70px;
+    max-width: 220px;
+}
+.btn--inline {
+    display: inline-flex;
+}
+.btn {
+    overflow: hidden;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    flex-direction: column;
+    font-size: 14px;
+    box-sizing: border-box;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.09);
+    border-radius: 2px;
+    border: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: capitalize;
+    outline: 0;
+    cursor: pointer;
+}
+.btn-solid-primary {
+    color: #fff;
+    position: relative;
+    overflow: visible;
+    outline: 0;
+    background: #ee4d2d;
+}
+.L4SAGB {
+    margin-top: 0.75rem;
+    display: block;
+}
+.SlaeTm {
+    color: #999;
+    font-size: .875rem;
+    line-height: 1.25rem;
+}
+/* bên trái */
+.Tmj5Z6 {
+    box-sizing: border-box;
+    padding-left: 20px;
+    padding-bottom: 20px;
+}
+td, th {
+    padding: 0;
+}
+.W50dp5 {
+    align-items: center;
+    display: flex;
+    box-sizing: border-box;
+    width: 100%;
+    height: 40px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,.14);
+    border-radius: 2px;
+    box-shadow: inset 0 2px 0 rgba(0,0,0,.02);
+}
+.qQTY0O,.espR83 {
+    color: rgba(85,85,85,.8);
+    overflow: hidden;
+    padding: 0;
+    white-space: nowrap;
+    min-width: 20%;
+}
+.espR83 {
+    width: 100%;
+    display: block;
+}
+.CMyrTJ {
+    background: none;
+    padding: 12px;
+    outline: none;
+    border: 0;
+    flex: 1;
+    flex-shrink: 0;
+    filter: none;
+}

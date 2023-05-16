@@ -41,7 +41,13 @@
                         </div>
                         <div class="col l-10 m-12 c-12">
                             <!-- sản phảm -->
-                            <div class="home-product home-product--position">
+                            <div class="card-fs-content-header" style="background-color: #fff;">
+                                <div>
+                                    <span class="stardust-tabs-header__text" style="color: #ee4d2d; font-size: 1.5rem; font-weight: 500; margin-left: 10px;">Sản phẩm bán chạy</span>
+                                    <a href="" class="card-fs-content-button">Mua sắm toàn bộ sản phẩm</a>
+                                </div>
+                            </div>
+                            <div class="home-product home-product--position" style="background-color: #fff;">
                                 <div class="home-product-pet">
                                     <div class="home-product-dog">
                                         <div class="row-nowrap sm-gutter">
@@ -68,55 +74,67 @@
                                     </div>
                                 </div>
                                 <script>
-                                    // Lấy danh sách các khung danh mục sản phẩm
-                                    const productContainer1 = document.querySelector('.home-product-dog');
-                                    const productContainer2 = productContainer1.querySelector('.row-nowrap');
-                                    const productContainers = productContainer2.querySelectorAll('.col');
-                                    // const productContainers = productContainer3.querySelectorAll('.home-product-item');
-                                    // console.log(productContainers.length)
-                                    // Xác định vị trí của khung danh mục sản phẩm hiện tại
-                                    let currentPosition = 0;
-                                
-                                    // Lấy các nút chuyển đổi
-                                    const leftButton = document.getElementById('btnLeft-dog');
-                                    const rightButton = document.getElementById('btnRight-dog');
-                                
-                                    // Xử lý sự kiện click của nút chuyển đến trái
-                                    leftButton.addEventListener('click', () => {
-                                        if (currentPosition > 0) {
-                                            currentPosition--;
-                                            productContainers.forEach(container => {
-                                                container.style.transform = `translateX(-${currentPosition * container.offsetWidth}px)`;
-                                            });
-                                            rightButton.style.display = 'flex';
-                                            if (currentPosition === 0) {
-                                                leftButton.style.display = 'none';
-                                            }
-                                        }
-                                    });
-                                
-                                    // Xử lý sự kiện click của nút chuyển đến phải
-                                    rightButton.addEventListener('click', () => {
-                                        if (currentPosition < productContainers.length - 1) {
-                                            currentPosition++;
-                                            productContainers.forEach(container => {
-                                                container.style.transform = `translateX(-${currentPosition * container.offsetWidth}px)`;
-                                            });
-                                            leftButton.style.display = 'flex';
-                                            if (currentPosition === productContainers.length - 5) {
-                                                rightButton.style.display = 'none';
-                                            }
-
-                                        }
-                                        // console.log(currentPosition)
-                                    });
-                                    // console.log(currentPosition)
-                                    // Ẩn nút chuyển đến trái khi hiển thị khung đầu tiên
-                                    if (currentPosition === 0) {
-                                        leftButton.style.display = 'none';
-                                    }
-                                    
-                                </script>
+									  // Lấy danh sách các khung danh mục sản phẩm
+									  const productContainer1 = document.querySelector('.home-product-dog');
+									  const productContainer2 = productContainer1.querySelector('.row-nowrap');
+									  const productContainers = productContainer2.querySelectorAll('.col');
+									  let currentPosition = 0; // Xác định vị trí của khung danh mục sản phẩm hiện tại
+									
+									  // Lấy các nút chuyển đổi
+									  const leftButton = document.getElementById('btnLeft-dog');
+									  const rightButton = document.getElementById('btnRight-dog');
+									
+									  // Thêm transition CSS cho các container
+									  productContainers.forEach(container => {
+									    container.style.transition = 'transform 0.3s ease';
+									  });
+									
+									  // Xử lý sự kiện click của nút chuyển đến trái
+									  leftButton.addEventListener('click', () => {
+									    if (currentPosition > 3) {
+									    	currentPosition = currentPosition - 4;
+									      updateContainerTransform();
+									      rightButton.style.display = 'flex';
+									      if (currentPosition === 0) {
+									        leftButton.style.display = 'none';
+									      }
+									    }
+									  });
+									
+									  // Xử lý sự kiện click của nút chuyển đến phải
+									  rightButton.addEventListener('click', () => {
+										  if (currentPosition < productContainers.length - 4) {
+										      currentPosition = currentPosition + 4;
+										      updateContainerTransform();
+										      leftButton.style.display = 'flex';
+										      if (currentPosition >= productContainers.length - 4) {
+										        	rightButton.style.display = 'none';
+										      }
+										      
+										    }
+									  });
+									
+									  // Ẩn nút chuyển đến trái khi hiển thị khung đầu tiên
+									  if (currentPosition === 0) {
+									    leftButton.style.display = 'none';
+									  }
+									
+									  // Cập nhật giá trị transform của container
+									  function updateContainerTransform() {
+									    productContainers.forEach(container => {
+									      container.style.transform = `translateX(-${currentPosition * container.offsetWidth}px)`;
+									    });
+									  }
+									
+									  // Hàm thực hiện animation mượt mà
+									  function animate() {
+									    requestAnimationFrame(animate);
+									    updateContainerTransform();
+									  }
+									
+									  // Bắt đầu animation
+									  animate();
+									</script>
                                 
                                 <!--  -->
                             </div>
@@ -128,9 +146,14 @@
                 <div class="grid wide">
                     <div class="row sm-gutter">
                         <div class="col l-12 m-12">
+                        	<div class="card-fs-content-header stardust-tabs-header">
+                                <div class="stardust-tabs-header__text ">
+                                    <span>Gợi ý hôm nay</span>
+                                </div>
+                            </div>
                             <div class="home-product">
                                 <div class="row sm-gutter home-product-add">
-                                    <div th:each= "p: ${listProduct}" class="col l-2-4 m-4 c-6 home-product-list">
+                                    <div th:each= "p: ${listProduct}" class="col l-2 m-4 c-6 home-product-list">
                                         <a class="home-product-item" th:href="@{/book/{id}(id = ${p.idB})}">
                                             <div class="home-product-item__img"  th:style="'background-image: url(/uploads/' + ${p.imageB} + ');'"></div>
                                             <h5 class="home-product-item__name" th:text="${p.nameB}">...</h5>

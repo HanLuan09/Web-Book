@@ -46,35 +46,49 @@
                                             <span th:text="${book.nameB}">...</span>
                                         </div>
                                         <div class="container__home">
-                                            <div class="flex X5u-5c">
-                                                <div class="home-right-rating">
-                                                    <div class="home-right-rating-gpa">4.8</div>
-                                                    <div class="home-right__rating-star">
-                                                        <i class="home-right__rating--gold fa-solid fa-star"></i>
-                                                        <i class="home-right__rating--gold fa-solid fa-star"></i>
-                                                        <i class="home-right__rating--gold fa-solid fa-star"></i>
-                                                        <i class="home-right__rating--gold fa-solid fa-star"></i>
-                                                        <i class="home-right__rating--gold fa-solid fa-star"></i>
-                                                    </div>
-                                                </div>
+                                            <div class="flex home-right-quantity">
+                                        		<div class="home-right-rating-gpa home-right-number" style="color: #ee4d2d;" th:text="${book.rating}"></div>
+                                                <div class="home-right__rating-star">
+		                                        	<div class="card-jfy-rating-layer top-layer checked home-right__rating--gold" style="width: 100%;">
+		                                            	<i class="fa-solid fa-star"></i>
+		                                            	<i class="fa-solid fa-star"></i>
+		                                                <i class="fa-solid fa-star"></i>
+		                                                <i class="fa-solid fa-star"></i>
+		                                                <i class="fa-solid fa-star"></i>      
+		                                            </div>
+		                                            <div class="card-jfy-rating-layer">
+		                                            	<i class="fa-solid fa-star"></i>
+		                                            	<i class="fa-solid fa-star"></i>
+		                                            	<i class="fa-solid fa-star"></i>
+		                                            	<i class="fa-solid fa-star"></i>
+		                                            	<i class="fa-solid fa-star"></i>          
+		                                        	</div>
+		                                    	</div>
+                                                
                                             </div>
                                             <div class="home-right-quantity">
-                                                <div class="home-right-number">1.4k</div>
+                                                <div class="home-right-number" th:text="${countRating}"></div>
                                                 <div>Đánh giá</div>
                                             </div>
                                             <div class="home-right-quantity">
-                                                <div class="home-right-number">1.4k</div>
+                                                <div class="home-right-number" th:text="${book.sumPrice}"></div>
                                                 <div>Đã bán</div>
                                             </div>
                                         </div>
+                                        <script type="text/javascript">
+	                                        var ratingValue = parseFloat(document.querySelector('.home-right-rating-gpa').textContent);
+	                                        var ratingWidth = ratingValue * 20; // Chuyển đổi từ điểm đánh giá (0-5) sang phần trăm (0-100)
+	                                        var cardRatingLayer = document.querySelector('.top-layer');
+	                                        cardRatingLayer.style.width = ratingWidth + '%';
+                                        </script>
                                         
-                                        <!-- end rating -->
-                                        <form action="th:action="@{books/order}"" method="post">
                                         <div class="container__origin">Ngày phát hành: <span th:text="${book.releaseDate}">...</span></div>
                                         <div class="container__origin">Tác giả: <span th:text="${book.author}">...</span></div> 
                                         <div class="container__origin">Số trang: <span th:text="${book.pages}">...</span></div>
                                         <!-- số lương và đặt hàng -->
                                         <div class="container__right-purchase" style="display: block;">
+                                        	<form action="/buy-book" method="post">
+                                        	<input name="idb" type="hidden" th:value="${book.idB}">
                                             <div class="container__right-purchase-list">
                                                 <div class="flex flex-column">
                                                     <div class="flex container__right-purchase-item-center">
@@ -82,11 +96,11 @@
                                                         <div style="display: flex; flex-direction: row; align-items: center;">
                                                             <div style="margin-right: 15px;">
                                                                 <div class="container__right-purchase-input" style="display: flex; flex-direction: row;">
-                                                                    <button class="container__right-purchase-input-btn" id="container__left">
+                                                                    <button class="container__right-purchase-input-btn" id="container__left" type="button">
                                                                         <i class="fa-solid fa-minus"></i>
                                                                     </button>
-                                                                    <input type="text" class="container__right-purchase-input-text" value="1" role="spinbutton" aria-valuenow="1">
-                                                                    <button class="container__right-purchase-input-btn" id="container__right">
+                                                                    <input type="text" id="quantity-input" name ="quantity" class="container__right-purchase-input-text" value="1" role="spinbutton" aria-valuenow="1">
+                                                                    <button class="container__right-purchase-input-btn" id="container__right" type="button">
                                                                         <i class="fa-solid fa-plus"></i>
                                                                     </button>
                                                                 </div>
@@ -107,9 +121,9 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        
+                                        	</form>
                                         </div>
-                                        </form>
+                                        
                                         <!-- end số lượng và đặt hàng -->
                                     </div>
                             </div>
@@ -118,18 +132,21 @@
                 </div>
                 <script type="text/javascript" th:src="@{../javascript/base.js}"></script>
                 <script th:src="@{../javascript/main.js}"></script>
-                <!-- xử lý chọn 1 -->
-                
-                <script th:src="@{../javascript/validate.js}"></script>
+              
                 <script>
-                	
-                    Validator2({
-                        id: ".container__header-btn-1",
-                        action: "container__header-btn--selecter"   
+          
+                    const inputMax = 100;
+                    productNumber({
+                    	minus: "#container__left",
+                    	plus: "#container__right",
+                    	quantity: ".container__right-purchase-input-text",
+                    	quamax: inputMax
                     });
-                    Validator2({
-                        id: ".container__header-btn-2",
-                        action: "container__header-btn--selecter"   
+                    
+                    productSalary({
+                    	quainput: "#quantity-input", 
+                    	quantity: "1",
+                    	quamax: inputMax
                     });
                     
                 </script>
@@ -152,6 +169,62 @@
                         </div>
                     </div>
                 </div>
+                <!-- nhận xét -->
+                <div class="container-wrap"></div>
+                <div class="grid wide">
+                    <div class="container-details">
+                        <div class="row c-gutter">
+                            <div style="width: 95%; background-color: #fffbf8; border: 1px solid #f9ede5; border-radius: 2px; padding: 1.875rem; margin: 1.875rem;">
+                                <div class="container-details-frame">Đánh giá sản phẩm</div>
+                                <div class="container-details-list">
+                                    <div class="content">
+                                        <div class="col l-2 m-2 c-1">
+                                            <div class="content__left-summary">
+                                                <div class="content__left-score">
+                                                    <span class="content__left-score-average" th:text="${book.rating}">...</span>
+                                                    <span class="content__left-score-max">/5</span>
+                                                    <i class="home-product-item__rating--gold fa-solid fa-star"></i>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col l-10 c-10 m-11">
+                                            <div>
+                                                <button class="container__header-btn--selecter container__header-btn container__header-btn-1">Tất cả</button>
+                                                <button th:each="o : ${listRatingCounts}"  class="container__header-btn container__header-btn-1" th:text="${o.rating}+' Sao ('+${o.count}+')'"></button>
+                                            </div>
+                                            <div class="content__left-count" th:text="${countRating}+' Đánh giá'"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="shopee-product-rating-list">
+                            <div class="shopee-product-rating-comment-list">
+                                <div th:each="c:${listRatingAccounts}" class="shopee-product-rating">
+                                    <div class="shopee-product-rating__avatar">
+                                        <div class="shopee-avatar">
+                                            <div class="shopee-avatar__placeholder">
+                                                <img th:src="'/uploads/'+${c.imageA}" alt="" class="shopee-avatar__img">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="shopee-product-rating__main">
+                                        <div class="shopee-product-rating__author-name" th:text="${c.username}"></div>
+                                        <div class="repeat-purchase-con">
+                                            <div class="home-product-item__rating">
+                                                <i th:each="star : ${#numbers.sequence(1, c.rating)}" class="home-product-item__rating--gold fa-solid fa-star"></i>
+                                                <i th:if="${c.rating < 5}" th:each="star : ${#numbers.sequence(c.rating + 1, 5)}" class="fa-solid fa-star"></i> 
+                                            </div>
+                                        </div>
+                                        <div class="shopee-product-rating__name" th:text="${c.comment}"></div>
+                                    </div>
+                                </div>             
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
                <!-- sản phẩm -->
             <!-- đồ thú cưng -->
@@ -163,7 +236,7 @@
 	                        <div class="col l-12 m-12">
 	                            <div class="home-product">
 	                                <div class="row sm-gutter home-product-add">
-	                                	<div th:each= "p: ${listProduct}" class="col l-2-4 m-4 c-6 home-product-list">
+	                                	<div th:each= "p: ${listProduct}" class="col l-2 m-4 c-6 home-product-list">
 		                                	<a class="home-product-item" th:href="@{/book/{id}(id = ${p.idB})}">
 		                                       	<div class="home-product-item__img"  th:style="'background-image: url(/uploads/' + ${p.imageB} + ');'"></div>
 		                                        	<h5 class="home-product-item__name" th:text="${p.nameB}">...</h5>

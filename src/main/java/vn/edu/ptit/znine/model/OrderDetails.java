@@ -4,15 +4,15 @@ public class OrderDetails {
 	private int idO;
 	private int idB;
 	private int amount;
-	private int price;
+	private int status;
 	public OrderDetails() {
 	}
-	public OrderDetails(int idO, int idB, int amount, int price) {
+	public OrderDetails(int idO, int idB, int amount, int status) {
 		super();
 		this.idO = idO;
 		this.idB = idB;
 		this.amount = amount;
-		this.price = price;
+		this.status = status;
 	}
 	public int getIdO() {
 		return idO;
@@ -32,11 +32,11 @@ public class OrderDetails {
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
-	public int getPrice() {
-		return price;
+	public int getStatus() {
+		return status;
 	}
-	public void setPrice(int price) {
-		this.price = price;
+	public void setStatus(int status) {
+		this.status = status;
 	}
 	
 }

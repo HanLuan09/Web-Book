@@ -14,7 +14,6 @@
     background-color: #F5F5F5;
 }
 .category {
-    margin-top: 10px;
     background-color: var(--while-color);
     border-radius: 2px;
     border: 1px solid var(--border-color);
@@ -65,7 +64,7 @@
 }
 .category-list{
             overflow-y: scroll;
-            height: 220px;
+            height: 286px;
         }
         ::-webkit-scrollbar-thumb {
         background-color: rgba(0, 0, 0, 0.5);
@@ -80,7 +79,46 @@
         /* display: none; */
         }
 /* Home sort */
-
+.card-fs-content-header {
+    overflow: hidden;
+    border-bottom: #d5d5d5 1px solid;
+    height: 60px;
+    line-height: 60px;
+}
+.card-fs-content-button {
+    font-weight: 500;
+    font-size: 14px;
+    float: right;
+    display: block;
+    border: 1px solid #f57224;
+    border-radius: 2px;
+    color: #f57224;
+    height: 35px;
+    background-color: transparent;
+    line-height: 35px;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-right: 11px;
+    margin-top: 13px;
+}
+.stardust-tabs-header {
+    margin-top: 10px;
+    background-color: #fff;
+    list-style: none;
+    border-bottom: 4px solid rgb(238, 77, 45);
+}
+.stardust-tabs-header__text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    position: relative;
+    max-width: 100%;
+    color: #ee4d2d;
+    text-transform: uppercase;
+    align-items: center;
+    text-align: center;
+}
 .home-product {
     background-color: #F5F5F5;
     margin-bottom: 10px;
@@ -173,13 +211,28 @@
     margin: 8px 10px 0;
     display: flex;
 }
-
 .home-product-item__rating {
-    color: #999;
+    color: #d5d5d5;
     font-size: 0.9rem;
     margin-top: 2px;
     margin-right: 5px;
+    /*  */
+    position: relative;
+    float: left;
+    margin-bottom: 3px;
+    display: block;
+    height: 11px;
+    line-height: 11px;
 }
+.card-jfy-rating-layer.top-layer {
+    position: absolute;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.card-jfy-rating-layer {
+    display: inline-block;
+}
+
 .home-product-item__rating--gold {
     color: var(--star-gold);
 }
@@ -208,6 +261,9 @@
     color: #595959;
     font-size: 1.3rem;
     font-weight: 300;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 /*  */
 /* sale */

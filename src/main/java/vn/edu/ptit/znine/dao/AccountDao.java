@@ -29,8 +29,11 @@ public class AccountDao {
 	            		  rs.getString(2),
 	            		  rs.getString(3),
 	            		  rs.getString(4),
-	            		  rs.getInt(5));
+	            		  rs.getString(5),
+	            		  rs.getInt(6));
 	          }
+	          ps.close();
+	          conn.close();
 	      } catch (Exception e) {
 	      }
     	return null;
@@ -48,7 +51,8 @@ public class AccountDao {
 	            		  rs.getString(2),
 	            		  rs.getString(3),
 	            		  rs.getString(4),
-	            		  rs.getInt(5));
+	            		  rs.getString(5),
+	            		  rs.getInt(6));
 	          }
 	      } catch (Exception e) {
 	      }
@@ -66,31 +70,52 @@ public class AccountDao {
 	            		  rs.getString(2),
 	            		  rs.getString(3),
 	            		  rs.getString(4),
-	            		  rs.getInt(5));
+	            		  rs.getString(5),
+	            		  rs.getInt(6));
 	          }
+	          ps.close();
+	          conn.close();
 	      } catch (Exception e) {
 	      }
     	return null;
     }
 //    Post Account
     public void postAccount(Account a) {
-    	String query = "INSERT INTO Account([Username], [email], [Password], [isAdmin]) VALUES( ? , ?,  ?, ?)";
+    	String query = "INSERT INTO Account([imageA], [Username], [email], [Password], [isAdmin]) VALUES('anhuserwebbook.png', ? , ?, ?, ?)";
 	      try {
 	          conn = new DbContext().getConnection();//mo ket noi voi sql
 	          ps = conn.prepareStatement(query);
 	          ps.setString(1, a.getUsername());
-	          ps.setString(2, a.getEmail() );
+	          ps.setString(2, a.getEmail());
 	          ps.setString(3, a.getPassword());
 	          ps.setInt(4, 0);
 	          ps.executeUpdate();
-	          
+	          ps.close();
+	          conn.close();
 	      } catch (Exception e) {
 	      }
     }
+//  Post Account
+  public void saveImageAccount(String imageA, int idA) {
+  	String query = "UPDATE Account SET [imageA] = ? where idA = ?";
+	      try {
+	          conn = new DbContext().getConnection();//mo ket noi voi sql
+	          ps = conn.prepareStatement(query);
+	          ps.setString(1, imageA);
+	          ps.setInt(2, idA);
+	          ps.executeUpdate();
+	          ps.close();
+	          conn.close();
+	          
+	      } catch (Exception e) {
+	      }
+  }
 //    end account
 
     public static void main(String[] args) {
-    	
-		
+//    	Account a = new Account(1, "anhuserwebbook.png", "luan","luan@gmail.com", "123456", 0);
+		AccountDao dao = new AccountDao();
+		Account a = dao.getAccount("Tiến Anh", "123456");
+		System.out.println(a);
 	}
 }

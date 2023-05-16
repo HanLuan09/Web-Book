@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebBook</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/cart.css">
+    <link rel="stylesheet" href="./css/gird.css">
+    <link rel="stylesheet" href="./css/order.css">
+    <link rel="stylesheet" href="./css/responsive.css">
+</head>
+<body>
+    <div class="main" style="background: #f5f5f5;">
+        <div class="YqIqug">
+            <div class="contai">
+                <div class="jb8bh0">
+                    <a href="/petshop/home" class="lJqn"> <spam class="logo">WebBook</spam> 
+                        <span class="eSRYBr">Mua hàng</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="grid wide">
+                <div class="">
+                    
+                    <div class="">
+                        <div class="l-12 m-12 c-12">
+                            <div class="p7ULT">
+                                <div class="vtrWey"></div>
+                                <div class="jJlG8">
+                                    <div class="nU2ylc">
+                                        <div class="MqmqK4">
+                                            <div class="Iafoll">
+                                                <i class="fa-solid fa-location-dot"></i>
+                                            </div>
+                                            <div>Địa chỉ cửa hàng</div>
+                                        </div>
+                                    </div>
+                                    <div class="Jw2Sc">
+	                                    <div>
+	                                    	<div class="NYnMjH">
+	                                            <div class="FVWWQy">Cửa hàng sách WebBook (+84) 0366898968</div>
+	                                            <div class="QsWYfx">Số 40 - Cầu Diễn - Nam Từ Liêm - Hà Nội</div>
+	                                        	<div class="uk7Wpm">Mặc định</div>
+	                                    	</div>                                                
+	                                     </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!--  -->
+                <div style="margin: 10px 0;"></div>
+                <div class="">
+                    <div class="">
+                        <div class="l-12 m-12 c-12">
+                            <div class="sqxwIi">
+                                <div class="cPNXP ">
+                                    <div class="sVj2 row sm-gutter">
+                                        <div class="col l-6 m-5 c-5">Tên sách</div>
+                                        <div class="col l-3 m-4 c-4 content__order">Tác giả</div>
+                                        <div class="col l-3 m-3 c-3 content__order">Số lượng</div>    
+                                    </div>
+                                </div>
+	                                <div class="container_cart BjIo5w">
+	                                    <div class="container_cart-wrap">
+	                                        <div class="row sm-gutter">
+	                                            <div class="col l-6 m-5 c-5" style="display: flex;">
+	                                                <img style="height: 50px; width: 45px;" th:src="'uploads/'+ ${product.imageB}" alt="">
+	                                                <span class="oEI3Ln">
+	                                                    <span class="order-text-name" th:text="${product.nameB}"></span>
+	                                                </span>
+	                                            </div>
+	                                            <div class="col l-3 m-4 c-4">
+	                                                <div class="container_cart-list">
+	                                                    <span class="order_text" th:text="${product.author}"></span>
+	                                                </div>
+	                                            </div>
+	                                            <div class="col l-3 m-3 c-3">
+	                                                <div class="container_cart-list">
+	                                                    <span class="order_text" th:text="${quantity}"></span>
+	                                                </div>
+	                                            </div>
+	                                            
+	                                        </div>
+	                                    </div>
+	                                </div>						
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--  -->
+                <div class="container__navi-cart ">
+                    <div class="l-12 m-12 c-12">
+                        <div class="DQ7t9K">
+                            <div class="qsKTk">
+                                <div>
+                                    <div>
+                                        <span class="zDPGhr SzEjHI">Tổng số quyển sách:</span>
+                                        <span class="KoRB7y" th:text="${quantity} +' quyển'"></span>
+                                    </div>
+                                    <div>
+                                        <span style="color: #888; margin-top: 5px;">Cảm ơn bạn đã tin tưởng và sử dụng WebBook</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container_cart BjIo5w" style="border: 0; border-top: 1px dashed rgba(0,0,0,.09); background: #fffefb;">
+                            <div class="container_cart-wrap">
+                            	<form id="orderform" action="order-pay" method="post" onsubmit="confirmCancelOrder(event)">
+                            		<input type="hidden" name ="idb" th:value="${product.idB}">
+                            		<input type="hidden" name ="quantity" th:value="${quantity}">
+	                                <div class="row sm-gutter" style="display: flex; justify-content: space-between;">
+	                                    <div class="container__header-total" style="margin: auto 0;">Nhấn "Đặt hàng" đồng nghĩa với việc bạn đồng ý tuân theo điều khoản của WebBook</div>
+	                                    <button class="btn btn--primary">Đặt hàng</button>
+	                                </div>
+                            	</form>
+                            	<script>
+		                            function confirmCancelOrder(event) {
+		                                event.preventDefault(); 
+		                                if (confirm("Xác nhận bạn có chắc chắn muốn đặt hàng!")) {
+		                                	document.getElementById("orderform").submit();
+		                                } 
+		                         	}
+								</script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+        <div th:replace="~{footer.html}"></div>
+    </div>
+</body>
+</html>

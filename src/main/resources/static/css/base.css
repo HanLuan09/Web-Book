@@ -6,6 +6,7 @@
     --primary-color: #EE4D2D;
     --star-gold: #FFCE3E;
     --primary-color-rgba: rgb(238, 75, 43);
+    --primary-color-header: #ff5533;
     --height-header: 90px;
 }
 
@@ -203,8 +204,9 @@ li {
 }
 .header-main {
     height: var(--height-header);
-    /* background-color: var(--primary-color-rgba); */
-    background: linear-gradient(-180deg,#f53d2d,#f63);
+    /* background-color: var(--primary-color-rgba); 
+    background: linear-gradient(-180deg,#f53d2d,#f63);*/
+    background: var(--primary-color-header);
     display: flex;
     justify-content: space-between;
     position: fixed;
@@ -231,8 +233,7 @@ li {
 .header-petshop {
     width: 80px;
     height: 70px;
-    margin-left: 40px;
-    border-radius: 50%;
+    margin-left: 30px;
     display: inline-block;
 }
 

@@ -105,9 +105,23 @@
 .home-right__rating-star {
     margin: 0 5px;
     font-size: .875rem;
-    color: #fff;
+    color: #d5d5d5;
     text-transform: capitalize;
+    position: relative;
+    float: left;
+    display: block;
+    height: 11px;
+    line-height: 11px;
 }
+.card-jfy-rating-layer.top-layer {
+    position: absolute;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.card-jfy-rating-layer {
+    display: inline-block;
+}
+
 .home-right__rating--gold {
     color: #ee4d2d;
 }
@@ -422,4 +436,142 @@ input {
     font-size: 1.6rem;
     font-weight: 400;
     margin: 10px 30px;
+}
+/* đánh giá sản phẩm */
+.content {
+    margin-top: 18px;
+}
+.content__left {
+    float: left;
+}
+.content__left-summary {
+    float: left;
+    width: 145px;
+}
+.content__left-score {
+    color: #212121;
+}
+.content__left-score-average {
+    font-size: 48px;
+}
+.content__left-score-max {
+    font-size: 32px;
+    color: #9e9e9e;
+    text-align: center;
+    line-height: 40px;
+}
+.content__left-average {
+    margin-top: 7px;
+}
+.content__left-count {
+    margin-top: 9px;
+    color: #757575;
+}
+.progress-wrap {
+    margin-left: 17px;
+    margin-right: 12px;
+}
+.pdp-review-progress {
+    display: inline-block;
+    position: relative;
+    width: 138px;
+    height: 12px;
+}
+.pdp-review-progress .bg {
+    background: #eff0f5;
+}
+.pdp-review-progress .bar {
+    position: absolute;
+    left: 0;
+    top: -10px;
+    width: 100%;
+    height: 100%;
+}
+.pdp-review-progress .fg {
+    background: #faca51;
+}
+.pdp-review-progress .bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+/*  */
+.shopee-product-rating-comment-list {
+    margin: 30px;
+}
+.shopee-product-rating:first-child {
+    padding-top: 0;
+}
+.shopee-product-rating {
+    border-bottom: 1px solid rgba(0,0,0,.09);
+    display: flex;
+    padding: 1rem 0 1rem 1.25rem;
+}
+.shopee-product-rating__avatar {
+    width: 2.5rem;
+    margin-right: 1.6rem;
+    text-align: center;
+}
+.shopee-product-rating__avatar .shopee-avatar {
+    border: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+}
+.shopee-avatar {
+    display: inline-block;
+    width: 1.875rem;
+    height: 1.875rem;
+    position: relative;
+    border-radius: 50%;
+    border: 0.0625rem solid rgba(0,0,0,.09);
+    box-sizing: border-box;
+}
+.shopee-avatar__placeholder {
+    width: 100%;
+    position: relative;
+    padding-top: 100%;
+    background-color: #f5f5f5;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.shopee-avatar__img {
+    border-radius: 50%;
+}
+.shopee-avatar__img, .shopee-avatar__img-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.shopee-product-rating__main {
+    flex: 1;
+}
+.shopee-product-rating__author-name {
+    text-decoration: none;
+    color: #333;
+    font-size: 1.4rem;
+    font-weight: 300;
+}
+.shopee-product-rating__main .repeat-purchase-con {
+    display: flex;
+}
+.shopee-product-rating__time {
+    margin-top: 0.75rem;
+    font-size: .75rem;
+    color: rgba(0,0,0,.54);
+}
+.shopee-product-rating__name {
+    position: relative;
+    box-sizing: border-box;
+    margin: 1.1rem 0;
+    font-size: 1.5rem;
+    line-height: 1.3rem;
+    color: rgba(0,0,0,.87);
+    word-break: break-word;
+    white-space: pre-wrap;
 }

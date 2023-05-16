@@ -12,56 +12,78 @@ import vn.edu.ptit.znine.context.DbContext;
 import vn.edu.ptit.znine.model.Category;
 import vn.edu.ptit.znine.model.Order;
 import vn.edu.ptit.znine.model.OrderDetails;
+import vn.edu.ptit.znine.model.RatingAccount;
+import vn.edu.ptit.znine.model.RatingProduct;
+import vn.edu.ptit.znine.model.UserProduct;
 
 @Repository
 public class OrderDao {
 	private Connection conn = null;
 	private PreparedStatement ps = null;
 	private ResultSet rs = null;
-    public List<Category> getAllCategory() {
-    	List<Category> list = new ArrayList<Category>();
-    	String query = "select * from Category";
+	public List<UserProduct> getOrderBook(String idA) {
+		List<UserProduct> list = new ArrayList<>();
+    	String query = "SELECT Book.IdB, [Order].idO, Book.NameB, Book.ImageB, [Order].CreatedDate, [OrderDetails].[Status], dbo.OrderDetails.Amount\r\n"
+        		+ "FROM Book\r\n"
+        		+ "JOIN OrderDetails ON Book.IdB = OrderDetails.IdB\r\n"
+        		+ "JOIN [Order] ON OrderDetails.IdO = [Order].IdO\r\n"
+        		+ "WHERE [Order].IdA = ?";
+    			
     	try {
     		conn = new DbContext().getConnection();//mo ket noi voi sql
     		ps = conn.prepareStatement(query);
+    		ps.setString(1, idA);
     		rs = ps.executeQuery();
-    		while (rs.next()) {
-    			list.add(new Category(rs.getInt(1), rs.getString(2)));
+    		while(rs.next()) {
+    			list.add(new UserProduct(rs.getInt(1),
+                		rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getDate(5),
+                        rs.getInt(6),
+                        rs.getInt(7)));
     		}
-    	} catch (Exception e) {
-    	}
+    		ps.close();
+    		conn.close();
+    		rs.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
     	return list;
-	}
-    public List<Category> getAllCategoryExecpt(String cate) {
-    	List<Category> list = new ArrayList<Category>();
-    	String query = "SELECT *\r\n"
-    			+ "FROM Category\r\n"
-    			+ "ORDER BY \r\n"
-    			+ "	CASE \r\n"
-    			+ "		WHEN CateID = ? THEN 0\r\n"
-    			+ "		ELSE 1 \r\n"
-    			+ "	END, CateID";
+    }
+    public int addOrderBook(Order o) {
+    	int ido =0;
+    	String query = "DECLARE @InsertedIds TABLE (IdO int);\r\n"
+    			+ "INSERT INTO dbo.[Order] ([CreatedDate], [IdA])\r\n"
+    			+ "OUTPUT INSERTED.IdO INTO @InsertedIds\r\n"
+    			+ "VALUES (?, ?);\r\n"
+    			+ "SELECT IdO FROM @InsertedIds;";
     	try {
     		conn = new DbContext().getConnection();//mo ket noi voi sql
     		ps = conn.prepareStatement(query);
-    		ps.setString(1, cate);
-    		rs = ps.executeQuery();
-    		while (rs.next()) {
-    			list.add(new Category(rs.getInt(1), rs.getString(2)));
+    		ps.setDate(1, o.getDate());
+    		ps.setInt(2, o.getIdA());
+    		ps.executeUpdate();
+    		rs = ps.getGeneratedKeys();
+    		if (rs.next()) {
+    		    ido = rs.getInt(1);
     		}
-    	} catch (Exception e) {
-    	}
-    	return list;
-	}
+    		ps.close();
+    		conn.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+    	return ido;
+    }
     
-    public void addOrderBook(Order o) {
-    	String query = "insert into dbo.[Order]([ido], [CreatedDate], [ida], [Status]) values(?, ?, ?, ?)";
+    public void addOrderDetailsBook(OrderDetails o) {
+    	String query = "insert into dbo.OrderDetails([ido], [idb], [Amount], [status]) values(?, ?, ?, ?)";
     	try {
     		conn = new DbContext().getConnection();//mo ket noi voi sql
     		ps = conn.prepareStatement(query);
     		ps.setInt(1, o.getIdO());
-    		ps.setDate(2, o.getDate());
-    		ps.setInt(3, o.getIdA());
+    		ps.setInt(2, o.getIdB());
+    		ps.setInt(3, o.getAmount());
     		ps.setInt(4, o.getStatus());
     		ps.executeUpdate();
     		ps.close();
@@ -71,28 +93,4 @@ public class OrderDao {
 		}
     }
     
-    public void addOrderDetailsBook(OrderDetails o) {
-    	String query = "insert into dbo.OrderDetails([ido], [idb], [Amount], [Price]) values(?, ?, ?, ?)";
-    	try {
-    		conn = new DbContext().getConnection();//mo ket noi voi sql
-    		ps = conn.prepareStatement(query);
-    		ps.setInt(1, o.getIdO());
-    		ps.setInt(2, o.getIdB());
-    		ps.setInt(3, o.getAmount());
-    		ps.setInt(4, o.getPrice());
-    		ps.executeUpdate();
-    		
-    		ps.close();
-    		conn.close();
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-    }
-    public static void main(String[] args) {
-    	CategoryDao dao = new CategoryDao();
-		List<Category> list =  dao.getAllCategoryExecpt("3");
-		for(Category o: list) {
-			System.out.println(o);
-		}
-	}
 }

@@ -33,4 +33,8 @@ public class AccountServiceImpl implements AccountService{
 	public void addAccount(Account account) {
 		dao.postAccount(account);
 	}
+	@Override
+	public void saveImageAccount(String imageA, int idA) {
+		dao.saveImageAccount(imageA, idA);
+	}
 }

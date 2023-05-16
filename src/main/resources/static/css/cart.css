@@ -103,3 +103,125 @@
     justify-content: flex-end;
     margin-right: 30px;
 }
+.container__navi-cart-item {
+    display: flex; 
+    font-size: 2rem;
+    color: #333;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.container__right-purchase-input {
+    background: #fff;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+.container__right-purchase-list {
+    margin-top: 1.5625rem;
+    padding: 0;
+}
+.container__right-purchase-input-text {
+    width: 60px;
+    height: 32px;
+    border-left: 0;
+    border-right: 0;
+    font-size: 16px;
+    font-weight: 400;
+    box-sizing: border-box;
+    text-align: center;
+    cursor: text;
+    border-radius: 0;
+}
+.container__right-purchase-input-btn:first-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.container__right-purchase-input-btn {
+    outline: none;
+    cursor: pointer;
+    border: 0;
+    font-size: .875rem;
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color .1s cubic-bezier(.4,0,.6,1);
+    border: 1px solid rgba(0,0,0,.09);
+    border-radius: 2px;
+    background: transparent;
+    color: rgba(0,0,0,.8);
+    width: 32px;
+    height: 32px;
+}
+.container__right-purchase-input-text {
+    width: 60px;   
+    text-align: center;
+    border: 1px solid rgba(0,0,0,.09);
+}
+.BjIo5w {
+    display: flex;
+    align-items: center;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.05);
+    border-radius: 0.125rem;
+    overflow: hidden;
+    border-radius: 3px;
+    /* height: 55px; */
+    font-size: 14px;
+    background: #fff;
+    margin-bottom: 12px;
+    color: #888;
+    padding: 0 20px;
+}
+.mcsiKT {
+    padding: 0 12px 0 20px;
+    display: flex;
+    flex-direction: row-reverse;
+    min-width: 58px;
+    box-sizing: border-box;
+}
+.stardust-checkbox {
+    font-family: -apple-system,HelveticaNeue-Light,Helvetica Neue Light,Helvetica Neue,Helvetica,Roboto,Droid Sans,Arial,sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    cursor: default;
+    position: relative;
+    color: rgba(0,0,0,.54);
+    max-width: 400px;
+}
+input{
+    line-height: normal;
+}
+input[type=checkbox], input[type=radio] {
+    box-sizing: border-box;
+    padding: 0;
+}
+.stardust-checkbox__input {
+    opacity: 0;
+    top: 0;
+    left: 0;
+    position: absolute;
+}
+.stardust-checkbox__box {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    position: relative;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    border-radius: 2px;
+    border: 1px solid rgba(0,0,0,.14);
+    text-align: center;
+    box-shadow: inset 0 2px 0 0 rgba(0,0,0,.02);
+    margin-right: 8px;
+}
+.stardust-checkbox--checked>.stardust-checkbox__box {
+    background: #ee4d2d;
+    border-color: #ee4d2d;
+}

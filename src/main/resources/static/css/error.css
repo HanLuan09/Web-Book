@@ -1,0 +1,48 @@
+.container {
+    max-width: 37.5rem;
+    margin: 0 auto;
+    text-align: center;
+    padding: 4.375rem 0;
+}
+.es-image-wrapper {
+    width: 7.5rem;
+    max-width: 100%;
+    margin: 0 auto;
+}
+.es-image {
+    background-image: url(https://phunugioi.com/wp-content/uploads/2020/10/hinh-anh-mat-cuoi-don-gian.jpg);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.es-image {
+    width: 100%;
+    padding-bottom: 100%;
+}
+.es-contents {
+    padding: 0 1rem; 
+}
+.nt-large {
+    font-size: 1.5rem;
+    line-height: 2.5rem;
+}
+.es-title {
+    color: rgba(0,0,0,.65);
+    margin: 1rem 0 0.5rem;
+    word-wrap: break-word;
+}
+
+.nt-normal-p {
+    font-size: 1.875rem;
+    line-height: 2rem;
+    padding-bottom: 5px;
+}
+.es-subtitle {
+    color: rgba(0,0,0,.54);
+    margin: 0;
+    word-wrap: break-word;
+}
+.es-buttons {
+    max-width: 100%;
+    overflow: hidden;
+}

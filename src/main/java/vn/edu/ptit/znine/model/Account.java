@@ -9,6 +9,7 @@ import jakarta.validation.constraints.Size;
 @Configuration
 public class Account {
 	private int idA;
+	private String imageA;
 	@NotEmpty(message = "Vui lòng nhập trường này")
 	private String username;
 	@NotEmpty(message = "Vui lòng nhập trường này")
@@ -18,17 +19,29 @@ public class Account {
 	@Size(min=6, message = "Vui lòng nhập mật khẩu từ 6 ký tự trở lên")
 	private String password;
 	private int isAdmin;
+	
 	public Account() {
 		
 	}
-	public Account(int idA, String username, String email, String password, int isAdmin) {
+	
+	public Account(int idA, String imageA, String username, String email, String password, int isAdmin) {
 		super();
 		this.idA = idA;
+		this.imageA = imageA;
 		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.isAdmin = isAdmin;
 	}
+	
+	public String getImageA() {
+		return imageA;
+	}
+
+	public void setImageA(String imageA) {
+		this.imageA = imageA;
+	}
+
 	public int getIdA() {
 		return idA;
 	}
@@ -59,5 +72,4 @@ public class Account {
 	public void setIsAdmin(int isAdmin) {
 		this.isAdmin = isAdmin;
 	}
-	
 }
