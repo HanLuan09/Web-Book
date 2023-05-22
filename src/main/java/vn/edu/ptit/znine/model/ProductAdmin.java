@@ -3,7 +3,7 @@ import java.util.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-public class ProductAdmin {
+public class ProductAdmin implements Comparable<ProductAdmin> {
 	private int idB;
 	private String nameB;
 	private String author;
@@ -70,6 +70,8 @@ public class ProductAdmin {
 		return "ProductAdmin [idB=" + idB + ", nameB=" + nameB + ", author=" + author + ", category=" + category
 				+ ", releaseDate=" + releaseDate + ", pages=" + pages + ", sellNumber=" + sellNumber + "]";
 	}
-	
-	
+	@Override
+	public int compareTo(ProductAdmin o) {
+		return Integer.compare(o.getIdB(), this.getIdB());
+	}
 }

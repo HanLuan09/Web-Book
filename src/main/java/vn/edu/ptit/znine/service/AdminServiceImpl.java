@@ -23,20 +23,20 @@ public class AdminServiceImpl implements AdminService{
 		return dAdminDao.getAllProductAdminSearch(search);
 	}
 	@Override
-	public void addProduct(Product p) {
-		dAdminDao.addProduct(p);
+	public int addProduct(Product p) {
+		return dAdminDao.addProduct(p);
 	}
 	@Override
-	public void updateProduct(Product p) {
-		dAdminDao.updateProduct(p);
+	public int updateProduct(Product p) {
+		return dAdminDao.updateProduct(p);
 	}
 	@Override
-	public void deleteProduct(String idB) {
-		dAdminDao.deleteProduct(idB);
+	public int deleteProduct(String idB) {
+		return dAdminDao.deleteProduct(idB);
 	}
 	@Override
-	public void removeProduct(String idB) {
-		dAdminDao.removeProduct(idB);
+	public int removeProduct(String idB) {
+		return dAdminDao.removeProduct(idB);
 	}
 	@Override
 	public Product checkProductName(String name, String author, String idB) {

@@ -27,12 +27,17 @@ public class LoginController {
 	CookieService cookie;
 	
 	@GetMapping("/login")
-	public String viewLogin(Model model) {
-		String name = cookie.getValue("nameP","");
-		String pass = cookie.getValue("passP","");
+	public String viewLogin(Model model, @RequestParam(value = "login", required = false) String login) {
+		int check = 1;
+		if(login == null || !login.equals("1")) {	
+			String name = cookie.getValue("nameP","");
+			String pass = cookie.getValue("passP","");
+			check = 0;
+			model.addAttribute("passC",pass);
+			model.addAttribute("nameC",name);
+		}
 		
-		model.addAttribute("passC",pass);
-		model.addAttribute("nameC",name);
+		model.addAttribute("checkLogin", check);
 		return "login_register";
 	}
 	@PostMapping("/login")
@@ -60,11 +65,12 @@ public class LoginController {
 		} catch (Exception e) {
 			model.addAttribute("mess", "Không thể đăng nhập!");
 		}
-	    
+	    model.addAttribute("checkLogin", 0);
 	    return "login_register";
 	}
 	@GetMapping("/logout")
 	public String logout() {
+		sesion.remove("account");
 		sesion.remove("usernameS");
 		return "redirect:/webbook"; 
 	}
@@ -72,18 +78,15 @@ public class LoginController {
 	@PostMapping("/register")
 	public String register(@Validated Account account, BindingResult errors, Model model, @RequestParam("fullname") String name, @RequestParam("password") String password,
 			@RequestParam("password_comfirmation") String comPassword, @RequestParam("email") String email) {
-//	    if(errors.hasErrors()) {
-//	    	return "login_register";
-//	    }
 	    try {
 			Account aName = accService.checkAccountName(name);
 			Account aEmail = accService.checkAccountEmail(email);
 			if(aName!= null) {
-				model.addAttribute("mess", "Tên đã tồn tại!");
+				model.addAttribute("mess", "Tên người dùng đã tồn tại!");
 				
 			}
 			else if(aEmail!= null) {
-				model.addAttribute("mess", "Email đã tồn tại!");
+				model.addAttribute("mess", "Email người dùng đã tồn tại!");
 				
 			}
 			else {
@@ -91,13 +94,15 @@ public class LoginController {
 				account.setUsername(name);
 				account.setEmail(email);
 				account.setPassword(password);
-				accService.addAccount(account);
+				int result = accService.addAccount(account);
+				if(result == 0) return "error";
 				return "redirect:/webbook"; 
 			}
 		} catch (Exception e) {
 			model.addAttribute("mess", "Không thể đăng ký tài khoản!");
 			 
 		}
+	    model.addAttribute("checkLogin", 1);
 	    return "login_register";
 	}
 

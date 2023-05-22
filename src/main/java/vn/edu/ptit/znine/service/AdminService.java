@@ -9,10 +9,10 @@ import vn.edu.ptit.znine.model.ProductAdmin;
 
 public interface AdminService {
 	public List<ProductAdmin> getAllProductCate(); 
-	public void addProduct(Product p);
-	public void updateProduct(Product p);
-	public void deleteProduct(String idB);
-	public void removeProduct(String idB);
+	public int addProduct(Product p);
+	public int updateProduct(Product p);
+	public int deleteProduct(String idB);
+	public int removeProduct(String idB);
 	public Product checkProductName(String name, String author, String idB);
 	public List<ProductAdmin> getAllProductAdminSearch(String search);
 }

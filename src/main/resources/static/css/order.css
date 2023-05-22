@@ -180,3 +180,37 @@
     display: flex;
     justify-content: center;
 }
+#add-to-cart-popup {
+  position: fixed;
+  bottom: 40%;
+  right: 40%;
+  left: 40%;
+  top: 40%;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 20px;
+  box-shadow: 0px 2px 5px rgba(0,0,0,0.3);
+  z-index: 9999;
+  transition: all 0.3s ease-in-out;
+  opacity: 0;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.add-to-cart-icon {
+font-size: 3.2rem;
+color: rgb(13, 144, 159);
+
+}
+.add-to-cart-text {
+    margin-left: 5px;
+    display: block;
+    color: #ca1a1a;
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+#add-to-cart-popup.show {
+  opacity: 1;
+  pointer-events: auto;
+}

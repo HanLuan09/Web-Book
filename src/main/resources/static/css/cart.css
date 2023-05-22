@@ -225,3 +225,38 @@ input[type=checkbox], input[type=radio] {
     background: #ee4d2d;
     border-color: #ee4d2d;
 }
+
+.snhf {
+    height: 21rem;
+}
+.snlrc5 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 37.5rem;
+    flex-direction: column;
+}
+.nxRQ {
+    width: 6.75rem;
+    height: 6.125rem;
+}
+.nxRQ {
+    background-position: 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 12.5rem;
+    height: 11.1875rem;
+    background-image: url(./img/nocart.png);
+}
+.zH4psk {
+    color: rgba(0,0,0,.4);
+    font-size: .875rem;
+    line-height: 1rem;
+    margin-top: 1.125rem;
+}
+.OpSzHa {
+    margin-top: 1.0625rem;
+    text-decoration: none;
+    color: rgba(0,0,0,.87);
+    display: block;
+}

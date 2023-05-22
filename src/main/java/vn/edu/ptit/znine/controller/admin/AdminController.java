@@ -2,6 +2,8 @@ package vn.edu.ptit.znine.controller.admin;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +18,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpServletResponse;
 import vn.edu.ptit.znine.context.FileUploadUtil;
-import vn.edu.ptit.znine.dao.AdminDao;
-import vn.edu.ptit.znine.dao.ProductDao;
 import vn.edu.ptit.znine.model.Account;
 import vn.edu.ptit.znine.model.Category;
 import vn.edu.ptit.znine.model.Product;
@@ -48,33 +49,66 @@ public class AdminController {
 	SessionService sesion;
 	@Autowired
 	CookieService cookie;
-	@GetMapping({"/", "/admin"})
-	public String getAllProduct(Model model, HttpServletResponse response){
+	
+	@GetMapping("/admin")
+	public String getAllProduct(Model model, HttpServletResponse response, @RequestParam(value = "search", required = false) String search){
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         response.setHeader("Pragma", "no-cache");
         response.setHeader("Expires", "0");
 		 
-	     List<ProductAdmin> listP = adminService.getAllProductCate();
+	     List<ProductAdmin> listP = new ArrayList<>();
+	     if(search == null) listP = adminService.getAllProductCate();
+	     else listP = adminService.getAllProductAdminSearch(search);
+	     Collections.sort(listP);
 	     String name = cookie.getValue("nameCAdmin","");
 		 String pass = cookie.getValue("passCAdmin","");
+		 
+		 List<ProductAdmin> selectedProducts = new ArrayList<>();
+		 int count = 0;
+		 if(listP.size() > 0) {	 
+			 selectedProducts = listP.subList(0, 12);
+			 count = listP.size()/12;
+			 if(listP.size()%12 != 0) count++;
+		 }
 		 model.addAttribute("nameCAdmin", name);
 		 model.addAttribute("passCAdmin", pass);
-	     model.addAttribute("listP", listP);	     
+		 model.addAttribute("count", count);
+	     model.addAttribute("listP", selectedProducts);	     
 		 return "manager_product";
+	} //index
+	@GetMapping("/admin-ajax")
+	@ResponseBody
+	public List<ProductAdmin> getAllProductAjax(HttpServletResponse response, @RequestParam(value = "search", required = false) String search,
+			@RequestParam(value = "spbatdau", required = false) String sp){
+	     List<ProductAdmin> listP = new ArrayList<>();
+	     if(search == null) listP = adminService.getAllProductCate();
+	     else listP = adminService.getAllProductAdminSearch(search);
+	     Collections.sort(listP);
+	     
+	     int spbatdau = 0;
+	     if (sp != null) {
+	         spbatdau = Integer.parseInt(sp);
+	     }
+	        
+	     List<ProductAdmin> selectedProducts = new ArrayList<>();
+	     if (spbatdau + 12 <= listP.size()) {
+	         selectedProducts = listP.subList(spbatdau, spbatdau + 12);
+	     } else {
+	         selectedProducts = listP.subList(spbatdau, listP.size());
+	     }
+		 return selectedProducts;
 	} //index
 	
 	@PostMapping("/admin")
-	public String login(@RequestParam("name") String name, @RequestParam("password") String password, Model model) {
+	public String login(@RequestParam("name") String name, @RequestParam("password") String password, RedirectAttributes redirectAttributes) {
 	    Account a = accService.findById(name, password);
 	    if (a != null) {
-	        if(a.getIsAdmin() !=1) {
-	            model.addAttribute("messlogin", "Đây không phải tài khoản admin!");
-	            //AdminController a1 = new AdminController();
-	            //return a1.getAllProduct(model);
+	        if(a.getIsAdmin() !=1) {     	
+	        	redirectAttributes.addFlashAttribute("messlogin", "Đây không phải tài khoản admin!");
 	            return "redirect:/admin";
 	        }
 	        else {
-	        	model.addAttribute("messlogin", "");
+	        	redirectAttributes.addFlashAttribute("messlogin", "");
 				sesion.set("accountAdmin", a);
 //	        	Lưu cookies
 	        	cookie.addCookie("nameCAdmin", name, 60);
@@ -84,7 +118,7 @@ public class AdminController {
 	        }
 	    } 
 	    else {
-	        model.addAttribute("messlogin", "Tên đăng nhập hoặc mật khẩu không đúng!");
+	    	redirectAttributes.addFlashAttribute("messlogin", "Tên đăng nhập hoặc mật khẩu không đúng!");
 	        AdminController a1 = new AdminController();
 	        return "redirect:/admin";
             //return a1.getAllProduct(model);
@@ -95,16 +129,6 @@ public class AdminController {
 	public String logout() {
 		sesion.remove("accountAdmin");
 		return "redirect:/admin"; 
-	}
-	@GetMapping("/admin/search")
-	public String getBooksSearch(Model model, @RequestParam("search") String search) {
-	     List<ProductAdmin> listP = adminService.getAllProductAdminSearch(search);
-	     String name = cookie.getValue("nameCAdmin","");
-		 String pass = cookie.getValue("passCAdmin","");
-		 model.addAttribute("nameCAdmin", name);
-		 model.addAttribute("passCAdmin", pass);
-	     model.addAttribute("listP", listP);	     
-		 return "manager_product";
 	}
 //	Get 1 book// xử lý chuyển trang 
 	@GetMapping("/admin/{id}")
@@ -121,7 +145,7 @@ public class AdminController {
 		List<Category> listC = cateService.getAllCategoryExecpt(cateId+"");
 		model.addAttribute("book", pBook);// có dữ liệu hay không// truyền trong object để lấy dữ liệu cho form
 		model.addAttribute("listCate",listC);
-		return "book_details";// bấm list book view hay add phải là get 
+		return "book_details";
 	}
 	//form
 	@PostMapping("/admin/save/{id}")
@@ -141,7 +165,8 @@ public class AdminController {
 				book.setCateId(cateId);
 				book.setReleaseDate(d);
 				book.setImageB(fileName);
-				adminService.addProduct(book);
+				int result = adminService.addProduct(book);
+				if(result ==0 ) return "error";
 				redirectAttributes.addFlashAttribute("succesMess","Thêm sản phẩm thành công");
 				return "redirect:/admin";
 			} catch (Exception e) {
@@ -174,7 +199,8 @@ public class AdminController {
 				redirectAttributes.addFlashAttribute("messError","Tên sách đã tồn tại!");
 			}
 			else {
-				adminService.updateProduct(book);
+				int result = adminService.updateProduct(book);
+				if(result == 0) return "error";
 				redirectAttributes.addFlashAttribute("succesMess","Sửa sản phẩm thành công");
 				return "redirect:/admin";
 			}
@@ -188,14 +214,10 @@ public class AdminController {
 	@DeleteMapping("/admin/delete")
 	public String fromDeleteBook(@RequestParam("bookId") String id, RedirectAttributes redirectAttributes) {
 		//adminService.deleteProduct(id);
-		adminService.removeProduct(id);
+		int result = adminService.removeProduct(id);
+		if(result == 0) return "error";
 		redirectAttributes.addFlashAttribute("succesMess","Xóa sản phẩm thành công");
 		return "redirect:/admin";
 	}
-	public static void main(String[] args) {
-		ProductDao dao = new ProductDao();
-		Product pBook = dao.getProductById("-1");
-		System.out.println(pBook);
-		
-	}
+	
 }

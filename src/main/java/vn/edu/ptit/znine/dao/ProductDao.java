@@ -39,45 +39,6 @@ public class ProductDao {
         }
         return list;
     }
-//	lấy top 10 sản phẩm
-	public List<Product> getTop10Product() {
-        List<Product> list = new ArrayList<Product>();
-        String query = "SELECT TOP 10\r\n"
-        		+ "dbo.Book.idB,\r\n"
-        		+ "dbo.Book.nameB,\r\n"
-        		+ "dbo.Book.imageB,\r\n"
-        		+ "dbo.Book.title,\r\n"
-        		+ "dbo.Book.author,\r\n"
-        		+ "dbo.Book.releaseDate,\r\n"
-        		+ "dbo.Book.pages,\r\n"
-        		+ "dbo.Book.CateId,\r\n"
-        		+ "SUM(OrderDetails.Amount) AS 'sumPrice'\r\n"
-        		+ "FROM Book\r\n"
-        		+ "LEFT JOIN OrderDetails ON Book.IdB = OrderDetails.IdB\r\n"
-        		+ "where [book].[status] = 1\r\n"
-        		+ "GROUP BY Book.NameB, Book.IdB, Book.releaseDate, Book.pages, Book.author, Book.imageB, Book.title, Book.CateId\r\n"
-        		+ "order by sumPrice DESC";
-        try {
-            conn = new DbContext().getConnection();//mo ket noi voi sql
-            ps = conn.prepareStatement(query);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(new Product(rs.getInt(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getString(5),
-                        rs.getDate(6),
-                        rs.getInt(7),
-                        rs.getInt(8)));
-            }
-            ps.close();
-    		conn.close();
-    		rs.close();
-        } catch (Exception e) {
-        }
-        return list;
-    }
 //	lấy 1 sản phẩm theo mã book
 	public Product getProductById(String id) {
     	String query = "select * from Book where idB = ?";
@@ -371,11 +332,12 @@ public class ProductDao {
 		        		+ "b.pages,\r\n"
 		        		+ "b.CateId, SUM(od.Amount) AS TotalSold, CAST(AVG(br.rating * 1.0) AS DECIMAL(10, 1)) AS AverageRating, COUNT(br.rating) AS TotalRating\r\n"
 		    			+ "FROM Book b\r\n"
+		    			+ "JOIN dbo.Category ON Category.CateID = b.CateId\r\n"
 		    			+ "LEFT JOIN OrderDetails od ON b.IdB = od.IdB\r\n"
 		    			+ "LEFT JOIN [Order] o ON o.IdO = od.IdO\r\n"
 		    			+ "LEFT JOIN BookRating br ON b.IdB = br.IdB AND br.IdA = o.IdA and br.idO =od.IdO\r\n"
 		    			+ "WHERE b.[status] = 1 and (B.nameB LIKE ?\r\n"
-		        		+ "   OR C.NameC LIKE ?\r\n"
+		        		+ "   OR Category.NameC LIKE ?\r\n"
 		        		+ "   OR B.author LIKE ?)\r\n"
 		    			+ "GROUP BY b.NameB, b.IdB, b.releaseDate, b.pages, b.author, b.imageB, b.title, b.CateId";
 	        		

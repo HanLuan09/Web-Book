@@ -30,11 +30,11 @@ public class AccountServiceImpl implements AccountService{
 		return null;
 	}
 	@Override
-	public void addAccount(Account account) {
-		dao.postAccount(account);
+	public int addAccount(Account account) {
+		return dao.postAccount(account);
 	}
 	@Override
-	public void saveImageAccount(String imageA, int idA) {
-		dao.saveImageAccount(imageA, idA);
+	public int saveImageAccount(String imageA, int idA) {
+		return dao.saveImageAccount(imageA, idA);
 	}
 }

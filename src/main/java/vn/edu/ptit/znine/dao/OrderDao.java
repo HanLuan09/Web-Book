@@ -9,11 +9,8 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import vn.edu.ptit.znine.context.DbContext;
-import vn.edu.ptit.znine.model.Category;
 import vn.edu.ptit.znine.model.Order;
 import vn.edu.ptit.znine.model.OrderDetails;
-import vn.edu.ptit.znine.model.RatingAccount;
-import vn.edu.ptit.znine.model.RatingProduct;
 import vn.edu.ptit.znine.model.UserProduct;
 
 @Repository
@@ -76,7 +73,8 @@ public class OrderDao {
     	return ido;
     }
     
-    public void addOrderDetailsBook(OrderDetails o) {
+    public int addOrderDetailsBook(OrderDetails o) {
+    	int result =0;
     	String query = "insert into dbo.OrderDetails([ido], [idb], [Amount], [status]) values(?, ?, ?, ?)";
     	try {
     		conn = new DbContext().getConnection();//mo ket noi voi sql
@@ -85,12 +83,30 @@ public class OrderDao {
     		ps.setInt(2, o.getIdB());
     		ps.setInt(3, o.getAmount());
     		ps.setInt(4, o.getStatus());
-    		ps.executeUpdate();
+    		result = ps.executeUpdate();
     		ps.close();
     		conn.close();
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+    	return result;
+    }
+    public int removeOrderBook(int idO, int idB) {
+    	int result = 0;
+    	String query = "UPDATE dbo.OrderDetails SET [status] = 1 WHERE [ido] = ? and [idb] = ?";
+    	try {
+    		conn = new DbContext().getConnection();//mo ket noi voi sql
+    		ps = conn.prepareStatement(query);
+    		ps.setInt(1, idO);
+    		ps.setInt(2, idB);
+    	
+    		result = ps.executeUpdate();
+    		ps.close();
+    		conn.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+    	return result;
     }
     
 }

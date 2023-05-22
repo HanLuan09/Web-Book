@@ -5,7 +5,7 @@
                 <div class="search-box">
                     <span class="search-icon"></span>
                     <div class="search-content">
-                        <input type="search" name="search" class="search-input" value>
+                        <input type="search" name="search" class="search-input" th:value="${valuesearch}">
                     </div>
                     <button class="search-btn" type="submit" style="border: 0">Tìm kiếm</button>
                     <!--  <div class="search-btn">Tìm kiếm</div>-->
@@ -27,7 +27,7 @@
                 <img alt="cart" class="tabbar-item-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABICAMAAABBaBKgAAAAmVBMVEUAAAASEhITExMWFhYUFBQSEhIdHR0RERESEhISEhITExMSEhIRERERERESEhIQEBARERETExMVFRUXFxczMzMREREeHh4RERESEhISEhITExMRERERERERERESEhISEhIRERERERESEhISEhIRERERERERERERERESEhITExMSEhIRERERERERERESEhISEhIUFBQSEhIRERGcDW4PAAAAMnRSTlMAoF8LMroRlNWAWoz3sHz7aEE9IAXjCMeYYhrow6WKb+2/VSzd0Zt1c0438bWSf0cmg1BFKdMAAAHfSURBVFjD7dfXcuJAEIXhxkoEIREkgUTGsATH/d//4bZcZe52J3StXFTZ322DwsyZ1oz8+HrBpvfhPC7kf/vFp8O4tUuTXtsZkMECjtKOZguP0o4VjKQdJ0ikHW+wlHY0KG2XI9uayFE7NmK0QG8mRjPYicI0y+FiW5elqLzAXExqSEVlD8+2iOSiUsNKjJ6gEY05ZNZ51DXWrvWPHWUXiSGvxCiDtShcrLmWPgxFYW1/pBC6ojCDi23MdMGucojFYgFT8TZ2edmlKn2ZbZnr0xdB3+X+A/FVPLkM416TvtDWMPXp28BKrAJN+oa2CdKnb2HZGunT9w5bMdGnr7ZNvT59HTiJiT59B7iKtJG+BtJCpI307Z03LyW8+35xfzvnv/ZqIFu4Oq/aZ/HwAAdxM829jh1BCZnHsWPpdUgpA3H0mMOrx/eFvojPz8/OmwTmPnMeAZ3AYVp2QFSIh2oHlKPKcuEkBYaVeAk6AOmwN3r4u/r0cgTIe4X46pc4mIWiUG26mKXDsWhN69d55x/W57dKvps4nISxqaQVJHxIAlNJJbgFpBuYShoJEA0iIDGVFOLPjtYHYlPJXwjRbescmkr+JredzgAmhtJ9PbXrWN9XQhxzfW+r0aWH/LgDfwCWrX+ukom9hgAAAABJRU5ErkJggg==">
                 <span class="tabbar-text">Cart</span>
             </a> 
-            <a href="myusers.html" class="tabbar-item selected home hp-exp-class">
+            <a href="/account" class="tabbar-item selected home hp-exp-class">
                 <img alt="account" class="tabbar-item-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABICAMAAABBaBKgAAAApVBMVEUAAAAREREVFRU1NTURERESEhIZGRkREREgICARERESEhJ2dnYSEhIRERETExMTExMRERESEhIRERERERERERERERERERERERETExMWFhYVFRUTExMSEhIRERESEhISEhITExMYGBgRERESEhIRERESEhISEhISEhIRERESEhIREREWFhYRERESEhISEhISEhIRERESEhIRERESEhIRERERERERERGg6CSWAAAANnRSTlMA7jEE+/UPhwfhYwLLsE496qugkfjPtoQ1Ix0a5dRUOCcV2Y1nQyy9pVxIC8WbgXx3upVx269/hQZeAAACt0lEQVRYw+2Y2VLqQBCGCWQwm0AWgkRQFlkFxeV87/9oJ+jFyVCo3dGbU+V/Y1lMfdX9T3dPQ+NXteQtHteR77imN8vTYPhj3HawyrDkp1c/AZ6mhjPqd74Lvn98B4+eg27RbnnTZeewcjlqd/stcjCi1Hhg59/exIZScX3TvfVb6ttz/s+P9juLmuTrCPA34flPi8QF964W+epoRup9csAHnls1yAbc4PPi2R0N17sxgl73q8tIgAftDUYlWVAAc+BGh16D2xWcC3MwTVU9A4FsCozB9xQ9OIJUeHbowIsc/aiJ5A6ctngiGdiI42jN4EJ6OIV+KM/xBkwhnM8Gtg2FdjAQl8e4/KMK25edXMFAN9Qz6IoaMQPl+5QL231hpSe1cCcs6mft+wlZKBsfQUMpHyRdE1l3Ir75iSyCQoveg2T8OVZy4v6VrA4uqN+7gcxEUyPquSDqml4nMq/7x2NKXcoq5Ak6WnQfCplvA+377+J6shH5pETfCsdwAY6y+l4gkQ6ErZWuYDYIx84FrCv/dkx/ePrExX51/Z1AJmuFJZi2VbO9pb0PjiG2ezGWl9KDvbI6d2ElDR/cTiUHR16uGzDTCtsBos39+9bRyYHsxg56FgrR4RjmVYfGlDKr5GKfO5TqLar2GM2y2jnZU1sHwz+5afvkzY0acj2B37Zu7tDnXa+DiV3TgnXZIvUgPvGvWASHYDs5bcTM2vhklrCXFKoDUUs73CXRDEfQG9aY7iRf9Hi3B06zoVUYA9H1p0u7C6bON/XWHrsNT83IgZGKbEfF7IN2+ONaWWnVfaXU8txHk7fe8b7xc8iMDx5hz75Bvd2XH5dg0xGwBWQZW0+WsvVkKVtPVrD1ZD1bT9az9WQ9W0/Ws2OLLGFLl/2JRRaxt9KdduaqfgZr5klL/AxMG7/6n/QXkYFsym4cKFEAAAAASUVORK5CYII=">
                 <span class="tabbar-text">Account</span>
             </a> 
@@ -38,7 +38,7 @@
                     <!-- nav 1 -->
                     <a href="/home" class="header__list1">
                         <img th:src="@{../img/webbook.png}" alt="" class="header-petshop">
-                        <!-- <li class="header-shoppet">ShopPet</li>    -->
+                       
                     </a>
 
                     <!-- search view -->
@@ -48,7 +48,7 @@
                             <div class="header__search-box">
                                 <span class="header__search-icon"></span>
                                 <div class="header__search-content">
-                                    <input type="search" name="search" class="header__search-input" placeholder="Tìm kiếm tại đây"> 
+                                    <input type="search" name="search" class="header__search-input" placeholder="Tìm kiếm tại đây" th:value="${valuesearch}"> 
                                     
                                 </div>
                                 <button class="header__search-button" type="submit" style="border: 0">Tìm kiếm</button>
@@ -61,17 +61,17 @@
                     <!-- nav 2 -->
                     <ul class="header__list2">
                         
-                        <div class="header__nav">
-                            <div class="header__cart hide-on-mobile-tablet">
+                        <!--<div class="header__nav">
+                              <div class="header__cart hide-on-mobile-tablet">
                                 <a href="#" class="header__cart-icon header__nav-icon"><i class="fa fa-shopping-cart"></i></a>
                                 <span class="header__cart-notice">10</span>
-                                 <!-- Chưa có san phẩm header__cart-list--no-cart -->
+                                 
                                 <div class="header__cart-list header__cart-list--no-cart">
                                     <img src="./img/no_cart.png" alt="" class="header__cart-no-cart-img">
-                                    <!-- Có giỏ hàng -->
+                                    
                                     <h4 class="header__cart-heading">Sản phẩm đã thêm</h4>
                                     <ul class="header__cart-list-ul">
-                                        <!-- item -->
+                                        
                                         <li class="header__cart-item">
                                             <img src="https://superbrain.edu.vn/wp-content/uploads/2020/05/icon-thuong-thuong-phong-cach-rieng-cua-Superbrain-7.jpg" alt="" class="header__cart-img">
                                             <div class="header__cart-item-info">
@@ -91,53 +91,15 @@
                                                 </div>
                                             </div>
                                         </li>
-                                        <!-- item -->
-                                        <li class="header__cart-item">
-                                            <img src="https://superbrain.edu.vn/wp-content/uploads/2020/05/icon-thuong-thuong-phong-cach-rieng-cua-Superbrain-7.jpg" alt="" class="header__cart-img">
-                                            <div class="header__cart-item-info">
-                                                <div class="header__cart-item-head">
-                                                    <h5 class="header__cart-item-name">Bộ kem đặc trị vùng mắt</h5>
-                                                    <div class="header__cart-item-wrap">
-                                                        <span class="header__cart-item-price">2.000.000 đ</span>
-                                                        <span class="header__cart-item-multipl">x</span>
-                                                        <span class="header__cart-item-qnt">1</span>
-                                                    </div>
-                                                </div>
-                                                <div class="header__cart-item-body">
-                                                    <span class="header__cart-item-description">
-                                                        Phân loại Bạc
-                                                    </span>
-                                                    <span class="header__cart-item-remove">Xóa</span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <!-- item -->
-                                        <li class="header__cart-item">
-                                            <img src="https://superbrain.edu.vn/wp-content/uploads/2020/05/icon-thuong-thuong-phong-cach-rieng-cua-Superbrain-7.jpg" alt="" class="header__cart-img">
-                                            <div class="header__cart-item-info">
-                                                <div class="header__cart-item-head">
-                                                    <h5 class="header__cart-item-name">Bộ kem đặc trị vùng mắt</h5>
-                                                    <div class="header__cart-item-wrap">
-                                                        <span class="header__cart-item-price">2.000.000 đ</span>
-                                                        <span class="header__cart-item-multipl">x</span>
-                                                        <span class="header__cart-item-qnt">1</span>
-                                                    </div>
-                                                </div>
-                                                <div class="header__cart-item-body">
-                                                    <span class="header__cart-item-description">
-                                                        Phân loại Bạc
-                                                    </span>
-                                                    <span class="header__cart-item-remove">Xóa</span>
-                                                </div>
-                                            </div>
-                                        </li>
+                                        
+                                        
                                     </ul>
                                     <button class="header__cart-viewcart btn btn--primary">Xem giỏ hàng</button>
                                 </div>
                             </div>
-                            <!-- end cart  -->
-                            <span class="header_nav_line  hide-on-mobile-tablet"></span>
-                            <div class="header_user  hide-on-mobile-tablet">
+                             
+                            <span class="header_nav_line  hide-on-mobile-tablet"></span>-->
+                            <div class="header_user  hide-on-mobile-tablet" style="margin-right: 20px;">
                                 <div class="header__user-list">
                         
                                     <div class="header__user-item"> 
@@ -146,7 +108,7 @@
                                             <span class="header__user-name" th:text="'Xin chào '+ ${session.account.username}">...</span>
                                             <ul class="header__user-item-users-menu">
                                                 <li class="header__user-item-users-item">
-                                                    <a href="/order">Tài khoản của tôi</a>
+                                                    <a href="/order">Đơn hàng của tôi</a>
                                                 </li>
                     
                                                 <li th:if="${session.account.isAdmin}==1" class="header__user-item-users-item">
@@ -158,7 +120,7 @@
                                                 </li>
                                             </ul>
                                         </div>
-                                        </c:if>
+                                        
                                     </div>
                                 </div>
                             </div>

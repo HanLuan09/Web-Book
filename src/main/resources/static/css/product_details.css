@@ -557,6 +557,11 @@ input {
     font-size: 1.4rem;
     font-weight: 300;
 }
+.petShop-product-rating__time {
+    margin-top: 0.75rem;
+    font-size: .75rem;
+    color: rgba(0,0,0,.54);
+}
 .shopee-product-rating__main .repeat-purchase-con {
     display: flex;
 }
@@ -574,4 +579,32 @@ input {
     color: rgba(0,0,0,.87);
     word-break: break-word;
     white-space: pre-wrap;
+}
+/*Đánh giá*/
+.review-form .input-rating .stars {
+    display: inline-block;
+    vertical-align: top;
+}
+.review-form .input-rating .stars input[type="radio"] {
+    display: none;
+}
+.review-form .input-rating .stars>label {
+    float: right;
+    cursor: pointer;
+    padding: 0px 3px;
+    margin: 0px;
+}
+.review-form .input-rating .stars>label:before {
+    content: "\f006";
+    font-family: FontAwesome;
+    color: #E4E7ED;
+    -webkit-transition: 0.2s all;
+    transition: 0.2s all;
+}
+.review-form .input-rating .stars>input:checked label:before, .review-form .input-rating .stars>input:checked~label:before {
+    content: "\f005";
+    color: #D10024;
+}
+.review-form .input-rating .stars>label:hover:before, .review-form .input-rating .stars>label:hover~label:before {
+    color: #D10024;
 }

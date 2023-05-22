@@ -3,7 +3,8 @@ package vn.edu.ptit.znine.controller.user;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import jakarta.servlet.http.HttpServletResponse;
 import vn.edu.ptit.znine.context.FileUploadUtil;
 import vn.edu.ptit.znine.model.Account;
 import vn.edu.ptit.znine.model.Order;
@@ -45,7 +48,10 @@ public class OrderController {
 	AccountService accountService;
 	
 	@GetMapping("/order")
-	public String getOrderBook(Model model) {
+	public String getOrderBook(Model model, HttpServletResponse response) {
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        response.setHeader("Expires", "0");
 		Account account = sesion.get("account");
 		if(account == null) {
 			return "login_register";
@@ -53,8 +59,9 @@ public class OrderController {
 		int idA = account.getIdA();
 		try {
 			List<UserProduct> listUserProducts = orderService.getOrderBook(idA+"");
-			Map<Integer, List<UserProduct>> map = new HashMap<>();
-
+			Collections.sort(listUserProducts);
+			Map<Integer, List<UserProduct>> map = new LinkedHashMap<>();
+			
 	    	for (UserProduct o : listUserProducts) {
 	    	    if (map.containsKey(o.getIdO())) {
 	    	        // Nếu khóa đã tồn tại trong map, thêm đối tượng UserProduct vào danh sách tương ứng
@@ -66,6 +73,8 @@ public class OrderController {
 	    	        map.put(o.getIdO(), newList);
 	    	    }
 	    	}
+	    	model.addAttribute("account", account);
+	    	model.addAttribute("checkB", listUserProducts.size());
 			model.addAttribute("listUserProducts", map);
 			model.addAttribute("listUserProduct", listUserProducts);
 			return "user_product";
@@ -74,9 +83,12 @@ public class OrderController {
 		}
 		
 	}
-
+// Trang chi tiết sản phẩm đã mua
 	@GetMapping("/order-detail")
-	public String getOrderBookDetail(Model model, @RequestParam("idb") String idB, @RequestParam("ido") String idO) {
+	public String getOrderBookDetail(Model model, @RequestParam("idb") String idB, @RequestParam("ido") String idO, HttpServletResponse response) {
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        response.setHeader("Expires", "0");
 		try {
 			
 			Account account = sesion.get("account");
@@ -85,6 +97,10 @@ public class OrderController {
 			}
 			UserProductDetail userProductDetail = ratingService.getRatingByIdOanhIdB(idO, idB);
 			RatingProduct ratingProduct = ratingService.getRatingOneProductBook(account.getIdA()+"", idB, idO);
+			int timeR = ratingService.timeRating(account.getIdA(), Integer.parseInt(idO), Integer.parseInt(idB));
+			
+			model.addAttribute("checkR", ratingProduct.getIdO()!=0 ? 1 : 0);
+			model.addAttribute("timeR", timeR);
 			model.addAttribute("userPDetail", userProductDetail);
 			model.addAttribute("rProduct", ratingProduct);
 			return "user_product_details";
@@ -92,8 +108,24 @@ public class OrderController {
 			return "error";
 		}
 	}
+	@GetMapping("/remove-order")
+	public String removeOrderBook(Model model, @RequestParam("idb") String idB, @RequestParam("ido") String idO) {
+		try {			
+			Account account = sesion.get("account");
+			if(account == null) {
+				return "login_register";
+			}
+			int ido = Integer.parseInt(idO);
+			int idb = Integer.parseInt(idB);
+			int result = orderService.removeOrderBook(ido, idb);
+			if(result == 0) return "error";
+			return "redirect:/order";
+		} catch (Exception e) {
+			return "error";
+		}
+	}
 	@PostMapping("/order/save/{rating}")
-	public String postOrderBookDetail(Model model, RatingProduct ratingProduct, @RequestParam("idb") String idB, @RequestParam("ido") String idO) {
+	public String postOrderBookDetail(RedirectAttributes redirectAttributes, RatingProduct ratingProduct, @RequestParam("idb") String idB, @RequestParam("ido") String idO) {
 		LocalDate localDate = LocalDate.now();
         Date date = java.sql.Date.valueOf(localDate);
 		Account account = sesion.get("account");
@@ -109,7 +141,9 @@ public class OrderController {
 				return "redirect:/order-detail?idb="+idB+"&ido="+idO;
 			}
 			else {
-				ratingService.addRatingProduct(ratingProduct);
+				int result = ratingService.addRatingProduct(ratingProduct);
+				if(result == 0) return "error";
+				redirectAttributes.addFlashAttribute("success", "Đánh giá thành công! Cảm ơn bạn đã đánh giá sản phẩm.");
 				return "redirect:/order-detail?idb="+idB+"&ido="+idO;
 			}
 			
@@ -118,7 +152,7 @@ public class OrderController {
 		}
 	}
 	@PutMapping("/order/save/{rating}")
-	public String putOrderBookDetail(Model model, RatingProduct ratingProduct, @RequestParam("idb") String idB, @RequestParam("ido") String idO) {
+	public String putOrderBookDetail(RedirectAttributes redirectAttributes, RatingProduct ratingProduct, @RequestParam("idb") String idB, @RequestParam("ido") String idO) {
 		LocalDate localDate = LocalDate.now();
         Date date = java.sql.Date.valueOf(localDate);
 		Account account = sesion.get("account");
@@ -131,10 +165,12 @@ public class OrderController {
 			ratingProduct.setIdB(Integer.parseInt(idB));
 			ratingProduct.setIdO(Integer.parseInt(idO));
 			
-			ratingService.saveRatingProduct(ratingProduct);
+			int result = ratingService.saveRatingProduct(ratingProduct);
+			if(result == 0) return "error";
 		} catch (Exception e) {
 			return "error";
 		}
+		redirectAttributes.addFlashAttribute("success", "Đánh giá thành công! Cảm ơn bạn đã đánh giá sản phẩm.");
 		return "redirect:/order-detail?idb="+idB+"&ido="+idO;
 	}
 	
@@ -156,7 +192,8 @@ public class OrderController {
 			int idA = account.getIdA();
 			account.setImageA(fileName);
 			sesion.set("account", account);
-			accountService.saveImageAccount(fileName, idA);
+			int result = accountService.saveImageAccount(fileName, idA);
+			if(result == 0) return "error";
 		} catch (Exception e) {
 			return "error";
 		}
@@ -167,10 +204,10 @@ public class OrderController {
 		Product p = productService.getProductById(idB);
 		model.addAttribute("product", p);
 		model.addAttribute("quantity", quantity);
-		return "order";
+		return "orderbook";
 	}
 	@PostMapping("order-pay")
-	public String orderPayBook(Model model ,@RequestParam("idb") String idB, @RequestParam("quantity") String quantity) {
+	public String orderPayBook(RedirectAttributes redirectAttributes ,@RequestParam("idb") String idB, @RequestParam("quantity") String quantity) {
 		try {
 			Account account = sesion.get("account");
 		    if(account == null) {
@@ -183,8 +220,10 @@ public class OrderController {
 			    int idO = orderService.addOrderBook(order);
 			    if(idO == 0) return "error";
 			    OrderDetails orderDetails = new OrderDetails(idO, Integer.parseInt(idB), Integer.parseInt(quantity), 0);
-			    orderService.addOrderDetailsBook(orderDetails);
+			    int result = orderService.addOrderDetailsBook(orderDetails);
+			    if(result == 0) return "error";
 			}
+			redirectAttributes.addFlashAttribute("success", "Đặt hàng thành công");
 			return "redirect:/order";
 			
 		} catch (Exception e) {

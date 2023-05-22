@@ -9,5 +9,6 @@ import vn.edu.ptit.znine.model.UserProduct;
 public interface OrderService {
 	public List<UserProduct> getOrderBook(String idA);
 	public int addOrderBook(Order o);
-	public void addOrderDetailsBook(OrderDetails o);
+	public int addOrderDetailsBook(OrderDetails o);
+	public int removeOrderBook(int idO, int idB);
 }

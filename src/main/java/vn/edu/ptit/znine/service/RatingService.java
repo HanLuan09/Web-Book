@@ -12,6 +12,7 @@ public interface RatingService {
 	public List<RatingCount> getRatingCountProduct(String idB);
 	public UserProductDetail getRatingByIdOanhIdB(String idO, String idB);
 	public RatingProduct getRatingOneProductBook(String ida, String idB, String idO);
-	public void addRatingProduct(RatingProduct rP);
-	public void saveRatingProduct(RatingProduct rP);
+	public int addRatingProduct(RatingProduct rP);
+	public int saveRatingProduct(RatingProduct rP);
+	public int timeRating(int IdA, int IdO, int IdB);
 }

@@ -8,31 +8,205 @@
   <title>Web Book</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
 
-  <!-- Template Main CSS File -->
-  <link th:href="@{../css/base.css}" rel="stylesheet">
-  <link th:href="@{../css/style.css}" rel="stylesheet">
-    
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Inter:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
+  <link th:href="@{/vendor/swiper/swiper-bundle.min.css}" rel="stylesheet">
+  <link th:href="@{/vendor/glightbox/css/glightbox.min.css}" rel="stylesheet">
+  <link th:href="@{/vendor/aos/aos.css}" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{../css/variables.css}">
+  <link rel="stylesheet" th:href="@{../css/gird.css}">
 </head>
 
 <body>
-    <!-- th:style="background: url(\"../anh/hero-bg.jpg\") -->
-    <div class="main" style="background: linear-gradient(90deg,#ff933f,#f93782 69%,#f93782);">
-    
-        <div class="container" id="hero">
-            <h1>Chào mừng đến với Simple</h1>
-            <h2>Vui lòng điền thông tin bên dưới để nhận thông báo cập nhật mới nhất!</h2>
-            <div class="row no-gutters">
-                <div class="text-center">
-                    <button class="btn" onclick="location.href='/login';">Đăng nhập</button>
-                    
-                </div>
-            </div>
-        </div>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+      <a href="index.html" class="logo d-flex align-items-center">
+        <img alt="" th:src="@{../img/webbook.png}" style="max-width: 90px; max-height: 70px">
+      </a>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a href="home">Home</a></li>
+          <li th:if="${account} == null"><a href="login">Đăng nhập</a></li>
+          <li th:if="${account} == null"><a th:href="'login?login='+ 1">Đăng ký</a></li>
+          <li th:if="${account} != null"><a href="logout">Đăng xuất</a></li>
+        </ul>
+      </nav>
+
+      <div class="position-relative">
+        <a href="#" class="mx-2"><span class="bi-facebook"></span></a>
+        <a href="#" class="mx-2"><span class="bi-instagram"></span></a>
+
+        <a href="#" class="mx-2 js-search-open"><span class="bi-search"></span></a>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+
+        <!-- ======= Search Form ======= -->
+        <div class="search-form-wrap js-search-form-wrap">
+          <form action="search-result.html" class="search-form">
+            <span class="icon bi-search"></span>
+            <input type="text" placeholder="Search" class="form-control">
+            <button class="btn js-search-close"><span class="bi-x"></span></button>
+          </form>
+        </div><!-- End Search Form -->
+
+      </div>
+
     </div>
+
+  </header><!-- End Header -->
+
+  <main id="main">
+
+    <!-- ======= Hero Slider Section ======= -->
+    <section id="hero-slider" class="hero-slider">
+      <div class="container-md" data-aos="fade-in">
+        <div class="row">
+          <div class="col-12">
+            <div class="swiper sliderFeaturedPosts">
+              <div class="swiper-wrapper">
+                
+                <div class="swiper-slide">
+                  <a class="img-bg d-flex align-items-end" style="background-image: url('https://image.nhandan.vn/w800/Uploaded/2023/genaghlrgybna/2022_11_18/10cuonsach-4406.jpg');">
+                    <div class="img-bg-inner">
+                      <h2>Robertson Davies</h2>
+                      <p>Chỉ có sách mới cho ta biết tới sự thật, cái đẹp hoàn mỹ và tình yêu". "Sách là một phép thuật di động độc đáo".Một cuốn sách thực sự hay nên đọc trong tuổi trẻ, rồi đọc lại khi đã trưởng thành, và một nửa lúc tuổi già, giống như một tòa nhà đẹp nên được chiêm ngưỡng trong ánh bình minh, nắng trưa và ánh trăng.</p>
+                    </div>
+                  </a>
+                </div>
+
+                <div class="swiper-slide">
+                  <a class="img-bg d-flex align-items-end" style="background-image: url('https://newshop.vn/public/uploads/news/tin8.jpg');">
+                    <div class="img-bg-inner">
+                      <h2>Henry David Thoreau</h2>
+                      <p>Một cuốn sách hay thực sự hay dạy tôi nhiều điều hơn là đọc nó. Tôi phải nhanh chóng đặt nó xuống, bắt đầu sống theo những điều nó chỉ dẫn. Điều tôi bắt đầu bằng cách đọc, tôi phải kết thúc bằng hành động.</p>
+                    </div>
+                  </a>
+                </div>
+
+                <div class="swiper-slide">
+                  <a class="img-bg d-flex align-items-end" style="background-image: url('https://newshop.vn/public/uploads/news/sach-hay-ve-lanh-dao-4-min.jpg');">
+                    <div class="img-bg-inner">
+                      <h2>"Hãy Tìm Tôi Giữa Cánh Đồng" - Đặng Nguyễn Đông Vy</h2>
+                      <p>Có những vẻ đẹp bạn không nhận ra cho đến khi đã đánh mất nó, không phải như người yêu đã chia tay, không phải như nụ hoa đã tàn héo, mà như một phần cuộc đời bạn, không gì thay thế nổi.</p>
+                    </div>
+                  </a>
+                </div>
+                
+                <div class="swiper-slide">
+                  <a class="img-bg d-flex align-items-end" style="background-image: url('https://newshop.vn/public/uploads/news/bi-kip-chup-anh-qua-nhung-cuon-sach-sau-min.jpg');">
+                    <div class="img-bg-inner">
+                      <h2>Louis May Alcott</h2>
+                      <p>Sách hay, cũng như bạn tốt, ít và được lựa chọn; chọn lựa càng nhiều, thưởng thức càng nhiều.</p>
+                    </div>
+                  </a>
+                </div>
+                
+              </div>
+              <div class="custom-swiper-button-next">
+                <span class="bi-chevron-right"></span>
+              </div>
+              <div class="custom-swiper-button-prev">
+                <span class="bi-chevron-left"></span>
+              </div>
+
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- End Hero Slider Section -->
+
+    <!-- ======= Post Grid Section ======= -->
+    <section id="posts" class="posts">
+      <div class="container" data-aos="fade-up">
+        <div class="row g-5">
+          <div class="col-lg-4">
+            <div class="post-entry-1 lg">
+              <a><img th:src="'uploads/'+${productDetail.imageB}" alt="" class="img-fluid"></a>
+              <div class="post-meta"><span class="date" th:text="${productDetail.author}">...</span> <span class="mx-1">&bullet;</span> <span th:text="${productDetail.releaseDate}">...</span></div>
+              <h2><a th:text="${productDetail.nameB}">...</a></h2>
+            </div>
+
+          </div>
+
+          <div class="col-lg-8">
+            <div class="row g-5">
+              <div class="col-lg-4 border-start custom-border">
+                <div class="post-entry-1" th:each=" o : ${randomSelection1}">
+                   <a><img th:src="'uploads/'+${o.imageB}" alt="" class="img-fluid"></a>
+	              <div class="post-meta"><span class="date" th:text="${o.author}">...</span> <span class="mx-1">&bullet;</span> <span th:text="${o.releaseDate}">...</span></div>
+	              <h2><a th:text="${o.nameB}">...</a></h2>
+                </div>
+                    
+              </div>
+              <div class="col-lg-4 border-start custom-border">
+                 <div class="post-entry-1" th:each=" o : ${randomSelection2}">
+                   <a><img th:src="'uploads/'+${o.imageB}" alt="" class="img-fluid"></a>
+	              <div class="post-meta"><span class="date" th:text="${o.author}">...</span> <span class="mx-1">&bullet;</span> <span th:text="${o.releaseDate}">...</span></div>
+	              <h2><a th:text="${o.nameB}">...</a></h2>
+                </div>
+              </div>
+
+              <!-- Trending Section -->
+              <div class="col-lg-4">
+
+                <div class="trending">
+                  <h3>Trending</h3>
+                  <ul class="trending-post">
+                    <li>
+                      <a>
+                        <span class="number">1</span>
+                        <h3>Nếu chinh phục được chính mình bạn có thể chinh phục được cả thế giới.</h3>
+                        <span class="author">Nhà Giả Kim</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a>
+                        <span class="number">2</span>
+                        <h3>Chúng ta càng ham muốn lại càng sợ hãi và càng sợ hãi lại càng đau khổ.</h3>
+                        <span class="author">Hành trình về phương đông</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a>
+                        <span class="number">3</span>
+                        <h3>Nếu bạn không thể ngẩng cao đầu và thừa nhận lỗi lầm của mình thì lỗi lầm ấy sẽ khống chế bạn.</h3>
+                        <span class="author">Đắc nhân tâm</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+
+              </div> <!-- End Trending Section -->
+            </div>
+          </div>
+
+        </div> <!-- End .row -->
+      </div>
+    </section> <!-- End Post Grid Section -->
+	<footer class ="footer"></footer>
+  </main><!-- End #main -->
+
+  <!-- Vendor JS Files -->
+  <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+  <script th:src="@{/vendor/swiper/swiper-bundle.min.js}"></script>
+  <script th:src="@{/vendor/glightbox/js/glightbox.min.js}"></script>
+  <script th:src="@{/vendor/aos/aos.js}"></script>
+  <script th:src="@{/vendor/php-email-form/validate.js}"></script>
+
+  <!-- Template Main JS File -->
+  <script th:src="@{../javascript/variables.js}"></script>
 
 </body>
 

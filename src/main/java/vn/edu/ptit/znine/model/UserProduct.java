@@ -2,7 +2,7 @@ package vn.edu.ptit.znine.model;
 
 import java.sql.Date;
 
-public class UserProduct {
+public class UserProduct implements Comparable<UserProduct>{
 	private int idB;
 	private int idO;
 	private String nameB;
@@ -81,5 +81,8 @@ public class UserProduct {
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
-	
+	@Override
+	public int compareTo(UserProduct o) {
+		return Integer.compare(o.idO, this.idO);
+	}
 }

@@ -23,7 +23,11 @@ public class OrderServiceImpl implements OrderService{
 		return daoOrder.addOrderBook(o);
 	}
 	@Override
-	public void addOrderDetailsBook(OrderDetails o) {
-		daoOrder.addOrderDetailsBook(o);
+	public int addOrderDetailsBook(OrderDetails o) {
+		return daoOrder.addOrderDetailsBook(o);
+	}
+	@Override
+	public int removeOrderBook(int idO, int idB) {
+		return daoOrder.removeOrderBook(idO, idB);	
 	}
 }

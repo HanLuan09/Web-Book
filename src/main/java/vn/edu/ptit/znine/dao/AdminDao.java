@@ -88,37 +88,39 @@ public class AdminDao {
         return list;
     }
 //	xóa sản phẩm
-	public void deleteProduct(String idB) {
+	public int deleteProduct(String idB) {
+		int result = 0;
 		String query = "Delete from Book where idB = ?";
         try {
         	conn = new DbContext().getConnection();//mo ket noi voi sql
 	        ps = conn.prepareStatement(query);
 	        ps.setString(1, idB);
-	        ps.executeUpdate();
+	        result = ps.executeUpdate();
 	        ps.close();
     		conn.close();
     		rs.close();
         } catch (Exception e) {
         }
-   
+        return result;
 	}
-	public void removeProduct(String idB) {
+	public int removeProduct(String idB) {
+		int result = 0;
 		String query = "UPDATE Book set [status] = 0 where idB = ?";
         try {
         	conn = new DbContext().getConnection();//mo ket noi voi sql
 	        ps = conn.prepareStatement(query);
 	        ps.setString(1, idB);
-	        ps.executeUpdate();
+	        result = ps.executeUpdate();
 	        ps.close();
     		conn.close();
     		rs.close();
         } catch (Exception e) {
         }
-   
+        return result;
 	}
 //	 thêm 1 sản phẩm
-	public void addProduct(Product p) {
-		
+	public int addProduct(Product p) {
+		int result = 0;
   		String query = "INSERT INTO DBO.Book([NameB], [ImageB], [title], [author], [releaseDate], [pages], [CateID], [status]) \r\n"
   				+ "VALUES(?, ?, ?, ?, ?, ?, ?, 1)";
 	      try {
@@ -131,18 +133,18 @@ public class AdminDao {
 	          ps.setDate(5, p.getReleaseDate());
 	          ps.setInt(6, p.getPages());
 	          ps.setInt(7, p.getCateId());
-	          ps.executeUpdate();
+	          result = ps.executeUpdate();
 	          
 	          conn.close();
 	          ps.close();
 	          rs.close();
 	      } catch (Exception e) {
 	      }
-	      
+	      return result;
   	}
 //	 Cập nhật
-	public void updateProduct(Product p) {
-		
+	public int updateProduct(Product p) {
+		int result =0;
   		String query = " UPDATE DBO.Book SET [NameB] =? , [ImageB] = ?, [title] = ?, [author] = ?, [releaseDate]= ?, [pages] = ?, [CateID] = ?\r\n"
   				+ "where idB= ?";
 	      try {
@@ -156,13 +158,14 @@ public class AdminDao {
 	          ps.setInt(6, p.getPages());
 	          ps.setInt(7, p.getCateId());
 	          ps.setInt(8, p.getIdB());
-	          ps.executeUpdate();
+	          result = ps.executeUpdate();
 	          
 	          conn.close();
 	          ps.close();
 	          rs.close();
 	      } catch (Exception e) {
 	      }
+	      return result;
   	}
 	public Product checkProductName(String name, String author, String idB) {
     	String query = "select * from Book where nameB = ? and author = ? and idB <> ?";

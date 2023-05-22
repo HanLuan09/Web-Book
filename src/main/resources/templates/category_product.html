@@ -96,9 +96,9 @@
 		                                                        <i class="fa-solid fa-star"></i>
 		                                                    </div>
 		                                                </div>
-	                                                	<div class="product-rating-value home-product-item__rating" style="color: #999;">(40)</div>
+	                                                	<div class="product-rating-value home-product-item__rating" style="color: #999;" th:text="'('+ ${p.sLgRating} +')'"></div>
 		                                                <span class="home-product-item__rating-separate"></span>
-		                                                <span class="home-product-item__action-sold" >Đã bán ${50}</span>
+		                                                <span class="home-product-item__action-sold" th:text="'Đã bán '+ ${p.sLgSold}"></span>
 		                                            </div>
 		                                            <div class="home-product-item__origin">
 		                                                <span class="home-product-item__origin-title" th:text="${p.author}">...</span>

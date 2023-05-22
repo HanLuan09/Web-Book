@@ -32,11 +32,15 @@ public class RatingServiceImpl implements RatingService {
 		return daoRating.getRatingOneProductBook(ida, idB, idO);
 	}
 	@Override
-	public void addRatingProduct(RatingProduct rP) {
-		daoRating.addRatingProduct(rP);
+	public int addRatingProduct(RatingProduct rP) {
+		return daoRating.addRatingProduct(rP);
 	}
 	@Override
-	public void saveRatingProduct(RatingProduct rP) {
-		daoRating.saveRatingProduct(rP);
+	public int saveRatingProduct(RatingProduct rP) {
+		return daoRating.saveRatingProduct(rP);
+	}
+	@Override
+	public int timeRating(int IdA, int IdO, int IdB) {
+		return daoRating.timeRating(IdA, IdO, IdB);
 	}
 }

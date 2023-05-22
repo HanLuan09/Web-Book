@@ -6,7 +6,7 @@ public interface AccountService {
 	public Account findById(String username, String pass);
 	public Account checkAccountName(String name);
 	public Account checkAccountEmail(String email);
-	public void addAccount(Account account);
-	public void saveImageAccount(String imageA, int idA);
+	public int addAccount(Account account);
+	public int saveImageAccount(String imageA, int idA);
 	
 }

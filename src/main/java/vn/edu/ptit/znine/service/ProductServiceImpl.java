@@ -1,6 +1,5 @@
 package vn.edu.ptit.znine.service;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +17,6 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> getAllProduct() {
 		List<Product> p = daoP.getAllProduct();
-		return p;
-	}
-	@Override
-	public List<Product> getTop10Product() {
-		List<Product> p = daoP.getTop10Product();
 		return p;
 	}
 	@Override

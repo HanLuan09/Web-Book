@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Details</title>
+    <title>Web Book</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" th:href="@{../css/base.css}">
     <link rel="stylesheet" th:href="@{../css/main.css}">
@@ -190,7 +190,7 @@
                                         </div>
                                         <div class="col l-10 c-10 m-11">
                                             <div>
-                                                <button class="container__header-btn--selecter container__header-btn container__header-btn-1">Tất cả</button>
+                                                <button class="container__header-btn--selecter container__header-btn container__header-btn-1 container__header-btn--all">Tất cả</button>
                                                 <button th:each="o : ${listRatingCounts}"  class="container__header-btn container__header-btn-1" th:text="${o.rating}+' Sao ('+${o.count}+')'"></button>
                                             </div>
                                             <div class="content__left-count" th:text="${countRating}+' Đánh giá'"></div>
@@ -203,6 +203,7 @@
                         <div class="shopee-product-rating-list">
                             <div class="shopee-product-rating-comment-list">
                                 <div th:each="c:${listRatingAccounts}" class="shopee-product-rating">
+                                	<input class ="rating-input" type="hidden" th:value="${c.rating}">
                                     <div class="shopee-product-rating__avatar">
                                         <div class="shopee-avatar">
                                             <div class="shopee-avatar__placeholder">
@@ -218,6 +219,7 @@
                                                 <i th:if="${c.rating < 5}" th:each="star : ${#numbers.sequence(c.rating + 1, 5)}" class="fa-solid fa-star"></i> 
                                             </div>
                                         </div>
+                                        <div class="petShop-product-rating__time" th:text="${c.dateRating}"></div>
                                         <div class="shopee-product-rating__name" th:text="${c.comment}"></div>
                                     </div>
                                 </div>             
@@ -226,8 +228,37 @@
                     </div>
                 </div>
             </div>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+            <script type="text/javascript">
+            $(document).ready(function() {
+            	  $('.container__header-btn').click(function() {
+            	    var selectedRating = $(this).text().charAt(0); // Lấy số sao từ nút được click
+            	    
+            	    if ($(this).hasClass('container__header-btn--all')) {           	     
+            	      $('.shopee-product-rating').show();  // Nếu nút được click là nút "Tất cả", hiển thị tất cả đánh giá 
+            	      $('.container__header-btn').not(this).removeClass('container__header-btn--selecter'); // Loại bỏ class "" khỏi tất cả các nút khác
+            	    } else {           	     
+            	      $('.container__header-btn').not(this).removeClass('container__header-btn--selecter');// Loại bỏ class "" khỏi tất cả các nút khác           	      
+            	      $(this).addClass('container__header-btn--selecter'); // Thêm class "" vào nút được click           	      
+            	      // Loại bỏ class "container__header-btn-1" khỏi nút "Tất cả" (nếu có)
+            	      $('.container__header-btn--all').removeClass('container__header-btn--selecter');
+            	      
+            	      // Ẩn tất cả các đánh giá
+            	      $('.shopee-product-rating').hide();
+            	      
+            	      // Hiển thị các đánh giá có số sao phù hợp
+            	      $('.shopee-product-rating input.rating-input').each(function() {
+            	        if ($(this).val() == selectedRating) {
+            	          $(this).closest('.shopee-product-rating').show();
+            	        }
+            	      });
+            	    }
+            	  });
+            	});
+
+            </script>
                <!-- sản phẩm -->
-            <!-- đồ thú cưng -->
+           
             <div class="container__details-product">
                 <div class="container__details-product-text">Các sản phẩm khác của shop</div>
                         

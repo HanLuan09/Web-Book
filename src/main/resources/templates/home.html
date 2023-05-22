@@ -39,12 +39,12 @@
                                 </ul>
                             </nav> 
                         </div>
-                        <div class="col l-10 m-12 c-12">
+                        <div class="col l-10 m-12 c-12 hide-on-mobile-tablet">
                             <!-- sản phảm -->
                             <div class="card-fs-content-header" style="background-color: #fff;">
                                 <div>
                                     <span class="stardust-tabs-header__text" style="color: #ee4d2d; font-size: 1.5rem; font-weight: 500; margin-left: 10px;">Sản phẩm bán chạy</span>
-                                    <a href="" class="card-fs-content-button">Mua sắm toàn bộ sản phẩm</a>
+                                    <a th:href="@{/books/{id}(id = 0)}" class="card-fs-content-button">Mua sắm toàn bộ sản phẩm</a>
                                 </div>
                             </div>
                             <div class="home-product home-product--position" style="background-color: #fff;">
@@ -142,13 +142,40 @@
                         </div>
                     </div>
                 </div>
-                <!-- đồ thú cưng -->
+                <!-- test danh mục-->
+                <div class="grid wide hide-on-mobile-tablet">
+                    <div class="row sm-gutter">
+                        <div class="col l-12 m-12" style="margin-bottom: 10px;">
+                            <div class="card-fs-content-header stardust-tabs-header" style="border-bottom: #d5d5d5 1px solid;">
+                                <div class="stardust-tabs-header__text">
+                                    <span style="font-size: 1.5rem">Có thể bạn quan tâm</span>
+                                </div>
+                                
+                            </div>
+                            <div>
+                                <div class ="card-categories-ul">                               
+                                    <div th:each="o: ${randomSelection}" class="card-categories-li align-left">
+                                        <a th:href="@{/book/{id}(id = ${o.idB})}" class="card-categories-li-content">
+                                            <div class="card-categories-image-container">
+                                                <img th:src="'uploads/'+ ${o.imageB}" alt="" class="image">
+                                            </div>
+                                            <div class="card-categories-name">
+                                                <spam class="card-categories-name__text" th:text="${o.nameB}"></spam>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- -->
                 <div class="grid wide">
                     <div class="row sm-gutter">
                         <div class="col l-12 m-12">
                         	<div class="card-fs-content-header stardust-tabs-header">
                                 <div class="stardust-tabs-header__text ">
-                                    <span>Gợi ý hôm nay</span>
+                                    <span style="font-size: 1.5rem;">Gợi ý hôm nay</span>
                                 </div>
                             </div>
                             <div class="home-product">
@@ -208,6 +235,7 @@
                 <script type="text/javascript" th:src="@{../javascript/base.js}"></script>
             </div>
             <div th:replace="~{footer.html}"></div>
+            </div>
     </div>
 </body>
 </html>

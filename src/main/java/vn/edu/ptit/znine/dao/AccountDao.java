@@ -80,7 +80,8 @@ public class AccountDao {
     	return null;
     }
 //    Post Account
-    public void postAccount(Account a) {
+    public int postAccount(Account a) {
+    	int result = 0;
     	String query = "INSERT INTO Account([imageA], [Username], [email], [Password], [isAdmin]) VALUES('anhuserwebbook.png', ? , ?, ?, ?)";
 	      try {
 	          conn = new DbContext().getConnection();//mo ket noi voi sql
@@ -89,26 +90,29 @@ public class AccountDao {
 	          ps.setString(2, a.getEmail());
 	          ps.setString(3, a.getPassword());
 	          ps.setInt(4, 0);
-	          ps.executeUpdate();
+	          result = ps.executeUpdate();
 	          ps.close();
 	          conn.close();
 	      } catch (Exception e) {
 	      }
+	      return result;
     }
 //  Post Account
-  public void saveImageAccount(String imageA, int idA) {
-  	String query = "UPDATE Account SET [imageA] = ? where idA = ?";
+  public int saveImageAccount(String imageA, int idA) {
+	  int result = 0;
+  		String query = "UPDATE Account SET [imageA] = ? where idA = ?";
 	      try {
 	          conn = new DbContext().getConnection();//mo ket noi voi sql
 	          ps = conn.prepareStatement(query);
 	          ps.setString(1, imageA);
 	          ps.setInt(2, idA);
-	          ps.executeUpdate();
+	          result = ps.executeUpdate();
 	          ps.close();
 	          conn.close();
 	          
 	      } catch (Exception e) {
 	      }
+	      return result;
   }
 //    end account
 

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăngký/Đăngnhập</title>
+    <title>Web Book</title>
     <!-- icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- css -->
@@ -17,7 +17,7 @@
     <div >
     
         <div class="modal hide-on-mobile-tablet" id="modal">
-            
+            <input id="inputCheck" type="hidden" th:value= "${checkLogin}">
             <div class="modal__body">
                     <!-- Register form -->
                 <form action="register" method="post" class="form-regster" id="form-regster">
@@ -122,23 +122,33 @@
 	            const buttonClicked = localStorage.getItem('buttonClicked');
 	            var register= document.querySelector("#auth-form-register");
 	            var login= document.querySelector("#auth-form-login");
-	            register.style.display= "none";
-	            login.style.display= "block";
+	            const inputCheck = document.querySelector("#inputCheck").value;
+	            if(inputCheck ==1){
+		            register.style.display= "block";
+		            login.style.display= "none";
+	            }
+	            else{
+		            register.style.display= "none";
+		            login.style.display= "block";
+	            }
 	            
 	         // chưa có tài khoản
 	            const loginR = document.querySelector("#login_register");
+	            const loginL = document.querySelector("#register_login");
 	            loginR.addEventListener("click", function(e) {
 	            	e.preventDefault();
 	                document.querySelector("#auth-form-register").style.display= "block";
 	                document.querySelector("#auth-form-login").style.display= "none";
+	                document.querySelector("#inputCheck").value = "1";
 	            });
 
 	            // đã có tài khoản
-	            const loginL = document.querySelector("#register_login");
+	            
 	            loginL.addEventListener("click", function(e) {
 	            	e.preventDefault();
 	                document.querySelector("#auth-form-register").style.display= "none";
 	                document.querySelector("#auth-form-login").style.display= "block";
+	                document.querySelector("#inputCheck").value = "0";
 	            });
 	           	
 	    	</script>

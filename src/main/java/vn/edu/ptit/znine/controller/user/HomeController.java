@@ -1,7 +1,9 @@
 package vn.edu.ptit.znine.controller.user;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,11 +29,6 @@ public class HomeController {
 	 CategoryService cateService;
 	 @Autowired
 	 RatingService ratingService;
-	 
-	 @GetMapping({"/", "/webbook"})
-	 public String webBook() {
-		 return "index";
-	 }
 	 public boolean checkSecurity() {
 		 String name = sesion.get("usernameS");
 		 if(name!= null) {
@@ -39,14 +36,38 @@ public class HomeController {
 		 }
 		 return false;
 	 }
+	 @GetMapping({"/", "/webbook"})
+	 public String webBook(Model model) {
+		 List<ProductDetail> listP = proService.getAllProductDetail();
+		 List<ProductDetail> randomProducts = new ArrayList<>(listP); 
+        	// Sử dụng đối tượng Random để lấy ngẫu nhiên các phần tử trong danh sách
+		 Collections.shuffle(randomProducts, new Random());
+		 ProductDetail productDetail = randomProducts.get(0);
+		 List<ProductDetail> randomSelection1 = randomProducts.subList(1, 3);
+		 List<ProductDetail> randomSelection2 = randomProducts.subList(3, 5);
+		 Account account = sesion.get("account");
+		 model.addAttribute("account", account);
+		 model.addAttribute("productDetail", productDetail);
+		 model.addAttribute("randomSelection1", randomSelection1);
+		 model.addAttribute("randomSelection2", randomSelection2);
+		 return "index";
+	 }
+	 
 	 @GetMapping({"/", "/home"})
 	 public String getAllProduct(Model model){
 		 try {
 			 if(checkSecurity()) { 
 				 List<ProductDetail> listP = proService.getAllProductDetail();
 				 Collections.sort(listP);
-				 List<Product> listTopP = proService.getTop10Product();
+				 List<Product> listTopP = new ArrayList<>(listP);
 				 List<Category> listC = cateService.getAllCategory();
+				 List<ProductDetail> randomProducts = new ArrayList<>(listP); 
+		        	// Sử dụng đối tượng Random để lấy ngẫu nhiên các phần tử trong danh sách
+				 Collections.shuffle(randomProducts, new Random());
+		        	// Lấy 16 sản phẩm đầu tiên trong danh sách đã được xáo trộn
+				 List<ProductDetail> randomSelection = randomProducts.subList(0, 16);
+				 
+				 model.addAttribute("randomSelection", randomSelection);
 				 model.addAttribute("listProduct", listP);
 				 model.addAttribute("listTopProduct", listTopP);
 				 model.addAttribute("listCategory", listC);
@@ -56,6 +77,10 @@ public class HomeController {
 		} catch (Exception e) {
 			return "error";
 		}
+	 } //index
+	 @GetMapping("account")
+	 public String getAccount(){
+		 return "myusers";
 	 } //index
 	 
 	 //lấy 1 book
@@ -85,7 +110,11 @@ public class HomeController {
 	 public String getAllProductByCateId(Model model, @PathVariable String cateId){
 		 try {
 			 List<Category> listC = cateService.getAllCategory();
-		     List<ProductDetail> listP = proService.getAllProductDetailByCateId(cateId);
+			 
+		     List<ProductDetail> listP = new ArrayList<>();
+		     if(Integer.parseInt(cateId)>0) listP = proService.getAllProductDetailByCateId(cateId);
+		     else listP = proService.getAllProductDetail();
+		     Collections.sort(listP);
 		     model.addAttribute("listProduct", listP);
 		     model.addAttribute("listCategory", listC);
 		     model.addAttribute("active", cateId);
@@ -100,6 +129,8 @@ public class HomeController {
 		 try {
 			 List<Category> listC = cateService.getAllCategory();
 			 List<ProductDetail> listP = proService.getAllProductSearch(search);
+			 Collections.sort(listP);
+			 model.addAttribute("valuesearch", search);
 			 model.addAttribute("listProduct", listP);
 			 model.addAttribute("listCategory", listC);
 			 return "category_product";
@@ -117,9 +148,9 @@ public class HomeController {
 			 if(id == 1) {
 				 Collections.sort(listP, new SortByPopularity());
 			 }else if(id==2) {
-				 Collections.sort(listP, new SortByPopularity());
+				 Collections.sort(listP, new SortBySelling());
 			 }else if(id==3) {
-				 Collections.sort(listP, new SortByPopularity());
+				 Collections.sort(listP, new SortByNew());
 			 }
 			 model.addAttribute("listProduct", listP);
 			 model.addAttribute("listCategory", listC);
