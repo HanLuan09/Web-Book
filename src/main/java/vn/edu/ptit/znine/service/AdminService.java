@@ -1,9 +1,6 @@
 package vn.edu.ptit.znine.service;
 
 import java.util.List;
-
-import org.springframework.stereotype.Service;
-
 import vn.edu.ptit.znine.model.Product;
 import vn.edu.ptit.znine.model.ProductAdmin;
 

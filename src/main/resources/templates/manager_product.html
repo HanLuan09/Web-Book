@@ -57,7 +57,7 @@
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <a th:if="${session.accountAdmin != null}" th:href="@{/admin/{id}(id=-1)}"  class="btn btn-success" style="background: linear-gradient(90deg,#1a9545,#ea7221);" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Thêm Sách Mới</span></a>
+                            <a th:if="${session.accountAdmin != null}" th:href="@{/admin/{id}(id=-1)}"  class="btn btn-success" style="background: linear-gradient(90deg,#951a89,#ea7e21);" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Thêm Sách Mới</span></a>
                             
                             <a th:if="${session.accountAdmin== null}" href="#loginEmployeeModal" class="btn btn-danger" id="btn-login" style="background: linear-gradient(90deg,#183545,#1a9cb7);" data-toggle="modal"><span>Đăng Nhập</span></a>     
                             <a th:if="${session.accountAdmin != null}" href="/admin/logout" class="btn btn-danger" id="btn-login" style="background: linear-gradient(90deg,#183545,#1a9cb7);" data-toggle="modal"><span>Đăng Xuất</span></a>                          				                     				

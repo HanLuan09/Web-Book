@@ -146,6 +146,14 @@ Validator.isRequired = function (selector, message) {
         }
     };
 }
+Validator.isImage = function (selector, message) {
+    return {
+        selector: selector,
+        test: function (value) {
+            return value ? null :  message || 'Vui lòng chọn ảnh'
+        }
+    };
+}
 Validator.isNumber = function (selector, message) {
     return {
         selector: selector,

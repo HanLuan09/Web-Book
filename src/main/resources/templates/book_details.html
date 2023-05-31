@@ -24,6 +24,7 @@
         	margin: 0 40px;
         	margin-bottom: 20px;
         }
+        
          .auth-form__group.invalid .form-control {
 		    border-color: #f33a58;
 		}
@@ -48,12 +49,12 @@
                         <div class="flex container-list">
                             <div class="auth-form__group">
                                 <label class="container-label" for="">Tiêu đề</label>
-                                <input id ="nameB" name="nameB" class="container-text form-control" type="text" placeholder="Nhập tiêu đề" th:value = "${book.nameB}">
+                                <div><input id ="nameB" name="nameB" class="container-text form-control" type="text" placeholder="Nhập tiêu đề" th:value = "${book.nameB}"></div>                         
                                 <span class="form-message" th:text="${messError}"></span>
                             </div>
                             <div class="auth-form__group">
                                 <label class="container-label" for="">Tác giả</label>
-                                <input id="author" name="author" class="container-text form-control" type="text" placeholder="Nhập tên tác giả" th:value="${book.author}">
+                                <div><input id="author" name="author" class="container-text form-control" type="text" placeholder="Nhập tên tác giả" th:value="${book.author}"></div>                             
                                 <span class="form-message"></span>
                             </div>
                             
@@ -69,12 +70,12 @@
                         <div class="flex container-list">
                             <div class="auth-form__group">
                                 <label class="container-label" for="">Ngày phát hành</label>
-                                <input id="date" class="container-text form-control" name="date" type="date" th:value = "${book.releaseDate}">
+                                <div><input id="date" class="container-text form-control" name="date" type="date" th:value = "${book.releaseDate}"></div>                                
                                 <span class="form-message"></span>
                             </div>
                             <div class="auth-form__group">
                                 <label class="container-label" for="">Số trang</label>
-                                <input id="pages" class="container-text form-control" name="pages" type="number" th:value = "${book.pages}">
+                                <div><input id="pages" class="container-text form-control" name="pages" type="number" th:value = "${book.pages}"></div>                               
                                 <span class="form-message"></span>
                             </div>  
                         </div>
@@ -95,9 +96,11 @@
                                     Chọn ảnh
                                   </label>
                                   <!-- accept=".jpg,.jpeg,.png" -->
-                                  <input name="image" type="file" id="file-input" style="display:none;" accept=".jpg,.jpeg,.png" th:value="${book.imageB}">
-                                  <span id="file-input-span" class="form-message"></span>
-                                
+                                  <div style="position: relative;">
+	                                  <input name="image" type="file" id="file-input" style="display:none;" accept=".jpg,.jpeg,.png" th:value="${book.imageB}">
+	                                  <input type="hidden" id="input-file" th:value="${book.imageB}">
+	                                  <span id="file-input-span" class="form-message" style="position: absolute; top: 30px; left: -9rem; width: 200px;"></span>
+                                  </div>                    
                             </div>
                             <div class="container-img">
                                 <img id="preview-image" th:src="'/uploads/'+${book.imageB}" alt="" style=" max-width: 100%; max-height: 100%; background-size: contain; background-repeat: no-repeat;">
@@ -113,7 +116,7 @@
                       
                               reader.addEventListener("load", () => {
                                 previewImage.src = reader.result;
-                                // previewImage.style.backgroundImage= reader.result;
+                                document.getElementById("input-file").value = "input-file";
                                 previewImage.style.display = "block";
                               });
                       
@@ -126,7 +129,8 @@
        </div>
        <footer class="footer">
        		
-            <div class="footer_button">
+            <div class="footer_button" style="display: flex;">
+            	<button class="btn" type="button" onclick="location.href='/admin';" style="margin-right: 10px">Trở về</button>
             	<button class="btn btn--primary1" id="btn_add" type="submit">Add</button>
             	<button class="btn btn--primary" id="btn_save" type="submit">Save</button>
             	<button class="btn btn--primary2" id="btn_edit">Edit</button>
@@ -177,19 +181,44 @@
 	</form>
 	<script type="text/javascript" th:src="@{../javascript/validate.js}"></script>
 	<script>
-        Validator({
-            form: "#form",
-            formGroupSelector: ".auth-form__group",
-            errorSelector: ".form-message",
-            rules: [
-                Validator.isRequired('#title'),
-                Validator.isRequired('#nameB'),
-                Validator.isRequired('#author'),
-                Validator.isRequired('#date'),
-                Validator.isNumber('#pages'), 
-            ]
-            
-        });
-    </script>
+	    // Validate dữ liệu
+	    var isValid = false;
+	
+	    Validator({
+	        form: "#form",
+	        formGroupSelector: ".auth-form__group",
+	        errorSelector: ".form-message",
+	        rules: [
+	            Validator.isRequired('#title'),
+	            Validator.isRequired('#nameB'),
+	            Validator.isRequired('#author'),
+	            Validator.isRequired('#date'),
+	            Validator.isNumber('#pages'), 
+	            Validator.isImage('#input-file'),
+	        ],
+	        onSubmit: function() {
+	            isValid = true;
+	        }
+	    });
+	
+	    // Xác nhận trước khi gửi biểu mẫu
+	    document.getElementById("form").addEventListener("submit", function(event) {
+	        event.preventDefault();
+	        if (isValid) {
+	            
+	            if (confirm("Bạn có chắc chắn muốn gửi biểu mẫu không?")) {
+	                
+	                this.submit();
+	            } else {
+	                
+	                return false;
+	            }
+	        } else {
+	            
+	            return false;
+	        }
+	    });
+	</script>
+	
 </body>
 </html>

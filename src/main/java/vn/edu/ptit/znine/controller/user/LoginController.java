@@ -96,7 +96,9 @@ public class LoginController {
 				account.setPassword(password);
 				int result = accService.addAccount(account);
 				if(result == 0) return "error";
-				return "redirect:/webbook"; 
+				cookie.removeCookie("nameP");
+				cookie.removeCookie("passP");
+				return "redirect:/login"; 
 			}
 		} catch (Exception e) {
 			model.addAttribute("mess", "Không thể đăng ký tài khoản!");

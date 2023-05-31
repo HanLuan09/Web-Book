@@ -114,12 +114,4 @@ public class AccountDao {
 	      }
 	      return result;
   }
-//    end account
-
-    public static void main(String[] args) {
-//    	Account a = new Account(1, "anhuserwebbook.png", "luan","luan@gmail.com", "123456", 0);
-		AccountDao dao = new AccountDao();
-		Account a = dao.getAccount("Tiến Anh", "123456");
-		System.out.println(a);
-	}
 }

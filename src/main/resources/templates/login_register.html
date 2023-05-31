@@ -14,8 +14,7 @@
     <link rel="stylesheet" th:href="@{../css/responsive.css}">
 </head>
 <body>
-    <div >
-    
+    <div>
         <div class="modal hide-on-mobile-tablet" id="modal">
             <input id="inputCheck" type="hidden" th:value= "${checkLogin}">
             <div class="modal__body">
@@ -53,7 +52,7 @@
                             </div>
         
                             <div class="auth-form__controls">
-                                <button class="btn auth-form__controls-back btn--normal">Trở lại</button>
+                                <button class="btn auth-form__controls-back btn--normal" onclick="location.href='/webbook';">Trở lại</button>
                                 <button class="btn btn--primary" type="submit">Đăng ký</button>
                             </div>
                         </div>
@@ -99,7 +98,7 @@
 	                        </div>
 	    					
 	                        <div class="auth-form__controls">
-	                            <button class="btn auth-form__controls-back btn--normal">Trở lại</button>
+	                            <button class="btn auth-form__controls-back btn--normal" onclick="location.href='/webbook';">Trở lại</button>
 	                            <button class="btn btn--primary" type="submit">Đăng nhập</button>
 	                        </div>
 	    

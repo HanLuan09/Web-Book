@@ -133,6 +133,10 @@ public class AdminController {
 //	Get 1 book// xử lý chuyển trang 
 	@GetMapping("/admin/{id}")
 	public String getBook(Model model, @PathVariable String id){
+		Account account = sesion.get("accountAdmin");
+		if(account == null) {
+			return "redirect:/admin";
+		}
 		model.addAttribute("idBook", id);// xét xem dùng POST hay PUT truyen lên menthod
 		Product pBook = proService.getProductById(id);
 		int cateId;
