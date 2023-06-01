@@ -8,5 +8,6 @@ public interface AccountService {
 	public Account checkAccountEmail(String email);
 	public int addAccount(Account account);
 	public int saveImageAccount(String imageA, int idA);
-	
+	public Account checkPassAccount(String pass, int idA );
+	public int savePassAccount(String pass, int idA);
 }

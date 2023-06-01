@@ -75,6 +75,7 @@ public class OrderController {
 	    	}
 	    	model.addAttribute("account", account);
 	    	model.addAttribute("checkB", listUserProducts.size());
+	    	model.addAttribute("checkDisplay", 1);
 			model.addAttribute("listUserProducts", map);
 			model.addAttribute("listUserProduct", listUserProducts);
 			return "user_product";
@@ -175,7 +176,7 @@ public class OrderController {
 	}
 	
 	@PostMapping("/save-imageA")
-	public String saveImageAccount(@RequestParam("imageAccount") MultipartFile file) {
+	public String saveImageAccount(@RequestParam("imageAccount") MultipartFile file, RedirectAttributes redirectAttributes) {
 		Account account = sesion.get("account");
 		if(account == null) {
 			return "login_register";
@@ -186,17 +187,46 @@ public class OrderController {
 			if(fileName == null || fileName.equals("")) {
 			}
 			else {
+				account.setImageA(fileName);
 				String upLoadDir = "uploads/";
 				FileUploadUtil.saveFile(upLoadDir, fileName, file);
 			}
-			int idA = account.getIdA();
-			account.setImageA(fileName);
+			int idA = account.getIdA();		
 			sesion.set("account", account);
-			int result = accountService.saveImageAccount(fileName, idA);
+			int result = accountService.saveImageAccount(account.getImageA(), idA);
 			if(result == 0) return "error";
 		} catch (Exception e) {
 			return "error";
 		}
+		redirectAttributes.addFlashAttribute("check", 2);
+		return "redirect:/order";
+	}
+	@PostMapping("/save-pass")
+	public String savePassAccount(RedirectAttributes redirectAttributes, @RequestParam("pass_ord") String passOld, 
+			@RequestParam("pass_new") String passNew, @RequestParam("comfim_pass") String comfimPass) {
+		Account account = sesion.get("account");
+		if(account == null) {
+			return "login_register";
+		}
+		
+		try {
+			if(!passNew.equals(comfimPass)) {
+				redirectAttributes.addFlashAttribute("success", "Mật khẩu nhập lại không chính xác");
+				redirectAttributes.addFlashAttribute("check", 2);
+				return "redirect:/order";
+			}
+			if(accountService.checkPassAccount(passOld, account.getIdA()) == null) {
+				redirectAttributes.addFlashAttribute("success", "Mật khẩu không chính xác");
+				redirectAttributes.addFlashAttribute("check", 2);
+				return "redirect:/order";
+			}		
+			int result = accountService.savePassAccount(passNew, account.getIdA());
+			if(result == 0) return "error";
+		} catch (Exception e) {
+			return "error";
+		}
+		redirectAttributes.addFlashAttribute("success", "Thay đổi mật khẩu thành công!");
+		redirectAttributes.addFlashAttribute("check", 2);
 		return "redirect:/order";
 	}
 	@PostMapping("buy-book")

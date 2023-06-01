@@ -79,6 +79,26 @@ public class AccountDao {
 	      }
     	return null;
     }
+    public Account checkPassAccount(String pass, int idA ) {
+    	String query = "select * from Account where Password= ? and idA = ?";
+	      try {
+	          conn = new DbContext().getConnection();//mo ket noi voi sql
+	          ps = conn.prepareStatement(query);
+	          ps.setString(1, pass);
+	          ps.setInt(2, idA);
+	          rs = ps.executeQuery();
+	          while (rs.next()) {
+	              return new Account(rs.getInt(1),
+	            		  rs.getString(2),
+	            		  rs.getString(3),
+	            		  rs.getString(4),
+	            		  rs.getString(5),
+	            		  rs.getInt(6));
+	          }
+	      } catch (Exception e) {
+	      }
+    	return null;
+    }
 //    Post Account
     public int postAccount(Account a) {
     	int result = 0;
@@ -98,7 +118,7 @@ public class AccountDao {
 	      return result;
     }
 //  Post Account
-  public int saveImageAccount(String imageA, int idA) {
+    public int saveImageAccount(String imageA, int idA) {
 	  int result = 0;
   		String query = "UPDATE Account SET [imageA] = ? where idA = ?";
 	      try {
@@ -113,5 +133,21 @@ public class AccountDao {
 	      } catch (Exception e) {
 	      }
 	      return result;
-  }
+    }
+    public int savePassAccount(String pass, int idA) {
+  	  int result = 0;
+    		String query = "UPDATE Account SET [Password] = ? where idA = ?";
+  	      try {
+  	          conn = new DbContext().getConnection();//mo ket noi voi sql
+  	          ps = conn.prepareStatement(query);
+  	          ps.setString(1, pass);
+  	          ps.setInt(2, idA);
+  	          result = ps.executeUpdate();
+  	          ps.close();
+  	          conn.close();
+  	          
+  	      } catch (Exception e) {
+  	      }
+  	      return result;
+    }
 }

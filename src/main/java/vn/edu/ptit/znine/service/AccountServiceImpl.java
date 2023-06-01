@@ -37,4 +37,12 @@ public class AccountServiceImpl implements AccountService{
 	public int saveImageAccount(String imageA, int idA) {
 		return dao.saveImageAccount(imageA, idA);
 	}
+	@Override
+	public Account checkPassAccount(String pass, int idA) {
+		return dao.checkPassAccount(pass, idA);
+	}
+	@Override
+	public int savePassAccount(String pass, int idA) {
+		return dao.savePassAccount(pass, idA);
+	}
 }

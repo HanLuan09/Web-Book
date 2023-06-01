@@ -1,35 +1,53 @@
 /* chuyển content  */
+
+
 const account = document.getElementById('container__menu-account');
 const product = document.getElementById('container__menu-product');
+const check = document.getElementById('check-input');
 if(account!=undefined && product!=undefined){
 	var x = document.querySelector('.content-account');
 	var y = document.querySelector('.content-phetshop');
-	account.addEventListener('click', function(){
+	if(check.value == 1) {
+		account.classList.remove("active--right");
+		product.classList.add("active--right")   
+		x.style.display="none";
+		y.style.display="block";
+	}else {
 		account.classList.add("active--right");
 		product.classList.remove("active--right")   
+		x.style.display="block";
+		y.style.display="none";
+	}
+
+	account.addEventListener('click', function(){
+		account.classList.add("active--right");
+		product.classList.remove("active--right")
+		check.value = "2";   
 		x.style.display="block";
 		y.style.display="none";
 	});
 	product.addEventListener('click', function(){
 		account.classList.remove("active--right");
 		product.classList.add("active--right")
+		check.value = "1"; 
 		x.style.display="none";
 		y.style.display="block";
 	});
 }
-
-
-// chọn đánh giá
-function SelectOne(options) {
-    const buttons = document.querySelectorAll(options.id);
-    const inputRating = document.querySelector(options.rating);
-    buttons.forEach((button, index) => {
-        button.addEventListener("click", function() {
-            if (!button.classList.contains(options.action)) {
-                buttons.forEach(btn => btn.classList.remove(options.action));
-                button.classList.add(options.action);
-                inputRating.value = index;
-            }
-        });
-    });
+//đổi mật khẩu
+const btnPass = document.getElementById('btn-pass');
+const tablePass = document.getElementById('table-pass');
+console.log(btnPass)
+btnPass.addEventListener('click', function(){
+	tablePass.style.display="inline-table";
+});
+// thông báo đạt hàng thành công
+const addToCartPopup = document.getElementById('add-to-cart-popup');
+// Kiểm tra xem div thông báo có tồn tại không
+if (addToCartPopup !== null) {      
+	addToCartPopup.classList.add('show');
+	// Tự động ẩn div thông báo sau
+	setTimeout(function() {
+		addToCartPopup.classList.remove('show');	                
+	}, 1000);
 }

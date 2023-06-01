@@ -27,6 +27,9 @@
 		.none {
 			display: none;
 		}
+		.form-message {
+			color: #ff0000;
+		}
     </style>
 </head>
 <body>
@@ -71,9 +74,10 @@
                             </div>
                         </div> -->
                     </div>
-                    
+                    <input th:if="${check} == 2" id="check-input" type="hidden" value="2">
+                    <input th:if="${check} == null" id="check-input" type="hidden" th:value="${checkDisplay}">
                     <div class="col l-10 m-12 c-12">
-                        <div class="content-account" style="display: none;">
+                        <div class="content-account">
                             <div class="container_cart BjIo5w">
                                 <div class="container_cart-wrap">
                                     <div class="row sm-gutter">
@@ -104,9 +108,53 @@
                                                     </div>
                                                    
                                                 </td>
-                                                
+                                                <td class="espR83">
+                                                    <div style="margin-left: 5px; margin-bottom: 10px;">
+                                                        <div id="btn-pass" class="uk7Wpm" style="cursor: pointer; display: inline-block;">Đổi mật khẩu</div>
+                                                    </div>                                             
+                                                </td>
                                             </tr>
                                         </table>
+                                        <form action="save-pass" method="post" id ="form-pass">
+                                         <table style="width: 90%; display: none;" id="table-pass">
+                                            <tr>
+                                                <td class="espR83">
+                                                    <div style="padding-left: 20px; padding-bottom: 5px;"><label for="">Mật khẩu cũ</label></div>
+                                                    <div class="Tmj5Z6 auth-form__group">
+                                                        <div class="W50dp5">
+                                                            <input type="password" id="pass_ord" name="pass_ord" class="CMyrTJ" placeholder="Mật khẩu của bạn">
+                                                        </div>
+                                                        <span class="form-message"></span> 
+                                                    </div>
+                                                   
+                                                </td>
+                                                <td class="espR83">
+                                                    <div style="padding-left: 20px; padding-bottom: 5px;"><label for="">Mật khẩu mới</label></div>
+                                                    <div class="Tmj5Z6 auth-form__group">
+                                                        <div class="W50dp5">
+                                                            <input type="password" name="pass_new" class="CMyrTJ" id="pass_new" placeholder="Nhập mật khẩu mới">
+                                                        </div>
+                                                        <span class="form-message"></span> 
+                                                    </div>
+                                                   
+                                                </td>
+                                                <td class="espR83">
+                                                    <div style="padding-left: 20px; padding-bottom: 5px;"><label for="">Nhập lại mật khẩu</label></div>
+                                                    <div class="Tmj5Z6 auth-form__group">
+                                                        <div class="W50dp5">
+                                                            <input type="password" id="comfim_pass" name="comfim_pass" class="CMyrTJ" placeholder="Nhập lại mật khẩu">
+                                                        </div>
+                                                        <span class="form-message"></span> 
+                                                    </div>
+                                                   
+                                                </td>
+                                                <td class="espR83" style="margin-left: 20px;">
+                                                    <button class="CMyrTJ btn btn--primary" type="submit">Xác nhận</button>                             
+                                                </td>
+                                            </tr>							
+                                        </table>
+                                        </form>
+                                        
                                     </div>
                                     <div class="col l-3" style="border-left: 0.0625rem solid #efefef;">
                                     	<form action="save-imageA" method="post" enctype="multipart/form-data">
@@ -231,6 +279,7 @@
                 </div>
             	</div>
             </div>
+            
 	        <div th:if="${success} !=null" id="add-to-cart-popup" class="hidden">
 	            <div class="add-to-cart-icon">
 	                <i class="fa-regular fa-circle-check"></i>
@@ -241,21 +290,25 @@
 	        </div>
         </div>
        <script type="text/javascript" th:src="@{../javascript/user_product.js}"></script>
-       
-        <script>
-	        const addToCartPopup = document.getElementById('add-to-cart-popup');
-	        
-	        // Kiểm tra xem div thông báo có tồn tại không
-	        if (addToCartPopup !== null) {
-	            // Hiển thị div thông báo
-	            addToCartPopup.classList.add('show');
-	            // Tự động ẩn div thông báo sau
-	            setTimeout(function() {
-	            	addToCartPopup.classList.remove('show');
-	                
-	            }, 1000);
-	        }
-        </script>
+       <script th:src="@{../javascript/validate.js}"></script>
+       <script type="text/javascript">
+	   	 Validator({
+	    	form: "#form-pass",
+			formGroupSelector: ".auth-form__group",
+			errorSelector: ".form-message",
+	       	rules: [
+	        	Validator.isRequired('#comfim_pass'),
+	            Validator.isRequired('#pass_new'),
+	            Validator.isRequired('#pass_ord'),
+	            Validator.isRequired('#comfim_pass'),	                                             
+	            Validator.minLength('#pass_new', 6),
+	            Validator.isConfirmed('#comfim_pass', function() {
+	                return document.querySelector("#form-pass #pass_new").value;
+	            }, 'Mật khẩu nhập lại không chính xác'),
+	    	]
+	                                            
+		});
+    </script>
 	</div>
 </body>
 </html>
